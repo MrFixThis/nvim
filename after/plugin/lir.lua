@@ -1,0 +1,34 @@
+-- local lir = require("lir")
+--
+-- local actions = require "lir.actions"
+-- local has_mmv, mmv_actions = pcall(require, "lir.mmv.actions")
+--
+-- lir.setup {
+--   show_hidden_files = false,
+--   devicons_enable = true,
+--
+--   float = { winblend = 15 },
+--
+--   mappings = {
+--     ["t"] = actions.edit,
+--     ["<CR>"] = actions.edit,
+--     ["h"] = actions.up,
+--
+--     ["K"] = actions.mkdir,
+--     ["N"] = actions.newfile,
+--     ["R"] = actions.rename,
+--     ["Y"] = actions.yank_path,
+--     ["D"] = actions.delete,
+--     ["."] = actions.toggle_show_hidden,
+--
+--     -- mmv
+--     ["M"] = (has_mmv and mmv_actions.mmv) or nil,
+--   },
+-- }
+--
+-- require("lir.git_status").setup {
+--   show_ignored = false,
+-- }
+--
+-- vim.api.nvim_set_keymap("n", "-", ":edit %:h<CR>", { noremap = true })
+-- vim.api.nvim_set_keymap("n", "<c-n>", ":lua require'lir.float'.toggle()<CR>", { noremap = true })
