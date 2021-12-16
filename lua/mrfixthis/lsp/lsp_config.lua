@@ -24,26 +24,24 @@ custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabil
 
 --keymaps
 local key_maps = {
-  {"n","gD","<cmd>lua vim.lsp.buf.declaration()"},
-  {"n","<leader>du","<cmd>lua vim.lsp.buf.definition()"},
-  {"n","<leader>re","<cmd>lua vim.lsp.buf.references()"},
-  {"n","<leader>vi","<cmd>lua vim.lsp.buf.implementation()"},
-  {"n","<leader>sh","<cmd>lua vim.lsp.buf.signature_help()"},
-  {"n","<leader>gt","<cmd>lua vim.lsp.buf.type_definition()"},
-  {"n","<leader>gw","<cmd>lua vim.lsp.buf.document_symbol()"},
-  {"n","<leader>gW","<cmd>lua vim.lsp.buf.workspace_symbol()"},
+  {"n", "gD", "<cmd>lua vim.lsp.buf.declaration()"},
+  {"n", "<leader>du", "<cmd>lua vim.lsp.buf.definition()"},
+  {"n", "<leader>re", "<cmd>lua vim.lsp.buf.references()"},
+  {"n", "<leader>vi", "<cmd>lua vim.lsp.buf.implementation()"},
+  {"n", "<leader>sh", "<cmd>lua vim.lsp.buf.signature_help()"},
+  {"n", "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()"},
+  {"n", "<leader>gw", "<cmd>lua vim.lsp.buf.document_symbol()"},
+  {"n", "<leader>gW", "<cmd>lua vim.lsp.buf.workspace_symbol()"},
   -- ACTION mappings
-  {"n","<leader>ah",  "<cmd>lua vim.lsp.buf.hover()"},
-  {"n","<leader>ca", "<cmd>lua vim.lsp.buf.code_action()"},
-  {"n","<leader>rn",  "<cmd>lua vim.lsp.buf.rename()"},
+  {"n", "<leader>ah", "<cmd>lua vim.lsp.buf.hover()"},
+  {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()"},
+  {"n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()"},
   -- Few language severs support these three
-  {"n","<leader>=",  "<cmd>lua vim.lsp.buf.formatting()"},
-  {"n","<leader>ai",  "<cmd>lua vim.lsp.buf.incoming_calls()"},
-  {"n","<leader>ao",  "<cmd>lua vim.lsp.buf.outgoing_calls()"},
+  {"n", "<leader>=",  "<cmd>lua vim.lsp.buf.formatting()"},
+  {"n", "<leader>ai", "<cmd>lua vim.lsp.buf.incoming_calls()"},
+  {"n", "<leader>ao", "<cmd>lua vim.lsp.buf.outgoing_calls()"},
   -- Diagnostics mapping
-  {"n","<leader>ee", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()"},
-  {"n","<leader>en", "<cmd>lua vim.lsp.diagnostic.goto_next()"},
-  {"n","<leader>es", "<cmd>lua vim.lsp.diagnostic.goto_prev()"},
+  {"n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()"},
 }
 
 --set keymaps
@@ -112,7 +110,6 @@ local function jdtls_on_attach(_)
     {"n", "<leader>am", "<Cmd>lua require('jdtls').extract_variable()"},
     {"n", "<leader>om", "<Cmd>lua require('jdtls').extract_constant()"},
     {"v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)"},
-    {"n","<leader>ca", "<cmd>lua require('jdtls').code_action()"},
   }
 
   local extended_keymaps = vim.fn.extend(key_maps, jdtls_keymaps)
@@ -142,16 +139,20 @@ M.setup_jdtls = function()
         runtimes = {
           {
             name = "JavaSE-1.8",
-            path = "/opt/Java/jdk1.8.0_111/",
+            path = "/opt/jdks/jdk1.8.0_202/",
           },
           {
             name = "JavaSE-11",
-            path = "/opt/Java/jdk-11.0.12/",
+            path = "/opt/jdks/jdk-11.0.12/",
           },
           {
             name = "JavaSE-14",
-            path = "/opt/Java/jdk-14.0.2/"
+            path = "/opt/jdks/jdk-14.0.2/"
           },
+          -- {
+          --   name = "JavaSE-17",
+          --   path = "/opt/jdks/jdk-17.0.1/"
+          -- },
         }
       }
     }
@@ -159,7 +160,7 @@ M.setup_jdtls = function()
 
   -- CMD
   config.cmd = {
-    "/opt/Java/jdk-14.0.2/bin/java",
+    "/opt/jdks/jdk-14.0.2/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -197,7 +198,7 @@ end
 
 --# Lua
 local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
-local sumneko_binary = string.format("%s/bin/Linux/lua-language-server", sumneko_root_path)
+local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 lsp.sumneko_lua.setup{
   cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
     settings = {

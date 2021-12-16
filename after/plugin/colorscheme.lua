@@ -1,6 +1,6 @@
 --Colorscheme Settings
 local nebulous = require("nebulous")
-local scheme = require("nebulous.functions").get_colors("midnight")
+local scheme = require("nebulous.functions").get_colors("fullmoon")
 
 nebulous.setup {
   variant = "midnight",
