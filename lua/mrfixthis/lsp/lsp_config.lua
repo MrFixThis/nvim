@@ -167,7 +167,6 @@ M.setup_jdtls = function()
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
     "-Xms1g",
-    "-javaagent:" .. HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar", --lombok support
     "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
     "-data", workspace_folder,
@@ -175,6 +174,12 @@ M.setup_jdtls = function()
     "--add-opens", "java.base/java.util=ALL-UNNAMED",
     "--add-opens", "java.base/java.lang=ALL-UNNAMED",
   }
+
+  --lombok support
+  local lombok_path = HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
+  if vim.fn.filereadable(lombok_path) > 0 then
+    table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
+  end
 
   config.on_attach = jdtls_on_attach
   config.capabilities = custom_capabilities
