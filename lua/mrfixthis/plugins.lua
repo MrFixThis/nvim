@@ -19,7 +19,7 @@ return require('packer').startup(function(use)
   end
 
   -- Local plugins
-  local_use 'nvimdb'
+  local_use 'nebulous.nvim'
 
   -- Plugin manager
   use 'wbthomason/packer.nvim'
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
   use 'alvan/vim-closetag'
 
   -- Themes
-  use 'Yagua/nebulous.nvim'
+  -- use 'Yagua/nebulous.nvim'
   use 'eddyekofo94/gruvbox-flat.nvim'
   use 'gruvbox-community/gruvbox'
 
