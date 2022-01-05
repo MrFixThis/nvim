@@ -17,6 +17,7 @@ nnoremap <Leader>= <C-W>=
 
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ma :MaximizerToggle!<CR>
+nnoremap <leader>ne :lua vim.diagnostic.setqflist()<CR>
 
 " Terminal keymaps
 tnoremap <C-h> <C-\><C-n><C-w>h

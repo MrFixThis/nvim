@@ -189,11 +189,6 @@ _G.packer_plugins = {
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
-  nvimdb = {
-    loaded = true,
-    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/nvimdb",
-    url = "/home/mrfixthis/Plugins/nvimdb"
-  },
   ["one-small-step-for-vimkind"] = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/one-small-step-for-vimkind",

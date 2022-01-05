@@ -27,4 +27,4 @@ keymap("n", "<leader>th", [[:lua require('telescope.builtin').help_tags()<CR>]],
 keymap("n", "<leader>gr", [[:lua require('telescope.builtin').live_grep()<CR>]], opts )
 keymap("n", "<leader>te", [[:Telescope<CR>]], opts )
 keymap("n", "<leader>do", [[:lua require("mrfixthis.telescope.custom").search_nvm_dotfiles()<CR>]], opts )
-keymap("n", "<leader>da", [[:lua require("mrfixthis.telescope.custom").search_dotfiles()<CR>]], opts )
+keymap("n", "<leader>dO", [[:lua require("mrfixthis.telescope.custom").search_dotfiles()<CR>]], opts )

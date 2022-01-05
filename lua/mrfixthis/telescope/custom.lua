@@ -15,7 +15,7 @@ end
 
  M.search_dotfiles = function()
   local setts = themes.get_dropdown {
-    prompt_title = "~ conf dotfiles ~",
+    prompt_title = "~ config dotfiles ~",
     cwd = "~/.dotfiles/",
     hidden = true,
     previewer = false
