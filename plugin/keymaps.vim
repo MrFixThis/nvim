@@ -1,20 +1,29 @@
+" Windows and tabs navigation
 nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-l> :wincmd l<CR>
 nnoremap <C-j> :wincmd j<CR>
 nnoremap <C-k> :wincmd k<CR>
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>Y gg"+yG
 
 nnoremap <Right> gt
 nnoremap <Left> gT
 
-nnoremap <A-,> <C-W>5<
+" Coping
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+" Buffer utils
+nnoremap <localleader>w :w<CR>
+nnoremap <localleader>v :q<CR>
+nnoremap <localleader>W :w!<CR>
+nnoremap <localleader>V :q!<CR>
+nnoremap <localleader>= <C-W>=
+nnoremap <A-,> <C-W>5V
 nnoremap <A-.> <C-W>5>
 nnoremap <C-,> <C-W><
 nnoremap <C-.> <C-W>>
-nnoremap <Leader>= <C-W>=
 
+" Plugin keymaps
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ma :MaximizerToggle!<CR>
 nnoremap <leader>ne :lua vim.diagnostic.setqflist()<CR>

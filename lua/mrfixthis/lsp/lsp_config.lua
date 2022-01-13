@@ -230,8 +230,8 @@ lsp.sumneko_lua.setup{
   on_attach = on_attach,
   capabilities = custom_capabilities
 }
---# JS/TS
-lsp.tsserver.setup{
+--# Js/Ts
+lsp.tsserver.setup {
   cmd = {"typescript-language-server", "--stdio"},
     filetypes = {
       "javascript",
@@ -245,8 +245,8 @@ lsp.tsserver.setup{
   capabilities = custom_capabilities,
 }
 
---# PYTHON
-lsp.pylsp.setup{
+--# Python
+lsp.pylsp.setup {
   plugins = {
     pyls_mypy = {
       enabled = true,
@@ -256,41 +256,57 @@ lsp.pylsp.setup{
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
---# VIM
-lsp.vimls.setup{
+--# Vim
+lsp.vimls.setup {
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
 --# C++/C
-lsp.clangd.setup{
+lsp.clangd.setup {
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
 --# HTML
-lsp.html.setup{
+lsp.html.setup {
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
---# CSS
-lsp.cssls.setup{
+--# Css
+lsp.cssls.setup {
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
---# GO
-lsp.gopls.setup{
+--# Go
+lsp.gopls.setup {
   cmd = { "gopls", "serve" },
   filetypes = { "go", "gomod" },
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
 
---TEMPORARY / latex
-lsp.texlab.setup{
-  cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
-  filetypes = { "tex", "bib" },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
+--# Rust
+lsp.rust_analyzer.setup {
+    cmd = { "rustup", "run", "nightly", "rust-analyzer"},
+    on_attach = on_attach,
+    capabilities = custom_capabilities,
+    --[[
+    settings = {
+        rust = {
+            unstable_features = true,
+            build_on_save = false,
+            all_features = true,
+        },
+    } --rust-analyzer options
+    --]]
 }
+
+--TEMPORARY / Latex
+-- lsp.texlab.setup {
+--   cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
+--   filetypes = { "tex", "bib" },
+--   on_attach = on_attach,
+--   capabilities = custom_capabilities,
+-- }
 
 --# PHP
 --lsp.intelephense.setup{

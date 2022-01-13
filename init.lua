@@ -9,8 +9,9 @@
 
 --]]
 
---Mapleader
+--Leader and local leader keys
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 -- General Modules
 require('mrfixthis.plugins')

@@ -46,6 +46,9 @@ require'nvim-tree'.setup {
     hide_root_folder = false,
     side = 'left',
     auto_resize = false,
+    number = true,
+    relativenumber = true,
+    signcolumn = "no",
     mappings = {
       custom_only = false,
       list = {
@@ -66,7 +69,7 @@ require'nvim-tree'.setup {
         { key = "<S-CR>",         cb = tree_cb("close_node") },
         { key = "<Tab>",          cb = tree_cb("preview") },
         { key = "I",              cb = tree_cb("toggle_ignored") },
-        { key = "H",              cb = tree_cb("toggle_dotfiles") },
+        { key = ".",              cb = tree_cb("toggle_dotfiles") },
         { key = "R",              cb = tree_cb("refresh") },
         { key = "a",              cb = tree_cb("create") },
         { key = "d",              cb = tree_cb("remove") },

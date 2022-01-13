@@ -99,6 +99,9 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-vsnip'
   -- use 'saadparwaiz1/cmp_luasnip'
 
+  --Lang tools
+  -- use 'simrat39/rust-tools.nvim'
+
   -- Status line
   use 'tjdevries/express_line.nvim'
 
