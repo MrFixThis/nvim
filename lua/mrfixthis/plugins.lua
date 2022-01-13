@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
     end
   end
 
-  -- Local plugins
+  --- Local plugins
   -- local_use 'nebulous.nvim'
 
   -- Plugin manager
@@ -70,9 +70,10 @@ return require('packer').startup(function(use)
   -- use "rcarriga/nvim-dap-ui"
   -- use "theHamsta/nvim-dap-virtual-text"
 
+  ---Lua debugger adapter
   use 'jbyuki/one-small-step-for-vimkind'
 
-  -- Utils
+  -- Utils and tools
   use 'mhartington/formatter.nvim'
   use 'mbbill/undotree'
   use 'norcalli/nvim-colorizer.lua'
@@ -80,7 +81,7 @@ return require('packer').startup(function(use)
   use 'szw/vim-maximizer'
   -- use 'mhinz/vim-startify'
 
-  -- Tree
+  -- Navigation tree
   use 'kyazdani42/nvim-tree.lua'
   -- use 'tamago324/lir.nvim'
   -- use "tamago324/lir-git-status.nvim"
@@ -99,7 +100,7 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-vsnip'
   -- use 'saadparwaiz1/cmp_luasnip'
 
-  --Lang tools
+  -- Lang tools
   -- use 'simrat39/rust-tools.nvim'
 
   -- Status line

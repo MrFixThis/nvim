@@ -4,7 +4,7 @@ local M = {}
 local HOME = os.getenv('HOME')
 
 --diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
      underline = true,
      virtual_text = true,
@@ -44,13 +44,13 @@ local key_maps = {
   {"n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()"},
 }
 
---set keymaps
-local set_keymaps = function(key_maps)
-  local km_ops = {noremap = true, silent = true}
-  for _, maps in pairs(key_maps) do
-    local mode, keys, command = unpack(maps)
-    vim.api.nvim_buf_set_keymap(0, mode, keys,
-      string.format("%s<CR>", command), km_ops);
+--keymaps setting
+local set_keymaps = function(key_mps)
+  local km_opt = {noremap = true, silent = true}
+  for _, maps in pairs(key_mps) do
+    local mode, lhs, rhs = unpack(maps)
+    vim.api.nvim_buf_set_keymap(0, mode, lhs,
+      string.format("%s<CR>", rhs), km_opt);
   end
 end
 
@@ -59,6 +59,7 @@ local on_attach = function(_)
   set_keymaps(key_maps)
 end
 
+--custom code action
 local custom_code_action = function(items, prompt, label_fn, cb)
   local finders = require'telescope.finders'
   local actions = require'telescope.actions'
@@ -67,12 +68,12 @@ local custom_code_action = function(items, prompt, label_fn, cb)
   local action_state = require'telescope.actions.state'
   local conf = require("telescope.config").values
 
-  local opts = themes.get_cursor{}
+  local opts = themes.get_cursor {}
   pickers.new(opts, {
     prompt_title = prompt,
     finder = finders.new_table {
       results = items,
-      entry_maker = function (entry)
+      entry_maker = function(entry)
         return {
           value = entry,
           display = label_fn(entry),
@@ -82,7 +83,7 @@ local custom_code_action = function(items, prompt, label_fn, cb)
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function (prompt_bufnr)
-      actions.select_default:replace(function ()
+      actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry(prompt_bufnr)
         cb(selection.value)
