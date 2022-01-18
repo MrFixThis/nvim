@@ -1,3 +1,6 @@
+" Global use
+nnoremap <CR> :
+
 " Windows and tabs navigation
 nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-l> :wincmd l<CR>
