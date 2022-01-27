@@ -1,7 +1,7 @@
 local setmap = vim.api.nvim_set_keymap
 local opts = {expr = true, silent = false, noremap = false }
 
-vim.g.vsnip_snippet_dir = vim.fn.expand("~/.config/nvim/snips/vsnip")
+vim.g.vsnip_snippet_dir = vim.fn.expand("~/.config/nvim/snippet/vsnip")
 
 setmap("i", "<C-q>", "vsnip#expandable() ? \'<Plug>(vsnip-expand)\'    : \'<C-k>\'", opts)
 setmap("s", "<C-q>", "vsnip#expandable() ? \'<Plug>(vsnip-expand)\'    : \'<C-k>\'", opts)
