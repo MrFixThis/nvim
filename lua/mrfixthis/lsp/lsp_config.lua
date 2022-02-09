@@ -3,20 +3,6 @@ local jdtls = require("jdtls")
 local M = {}
 local HOME = os.getenv('HOME')
 
---diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-     underline = true,
-     virtual_text = true,
-     signs = true,
-     update_in_insert = false,
-     --virtual_text = {
-       ----spacing = 4,
-       ----prefix = '',
-     --},
-    }
-)
-
 --capabilities
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -42,12 +28,16 @@ local key_maps = {
   {"n", "<leader>ao", "<cmd>lua vim.lsp.buf.outgoing_calls()"},
   -- Diagnostics mapping
   {"n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()"},
+  {"n", "<leader>gp", "<cmd>lua vim.diagnostic.goto_prev()"},
+  {"n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()"},
+  --custom functions
+  {"n", "<leader>ne", "<cmd>lua require('mrfixthis.lsp.util').diagnostics_qfixlist()"},
 }
 
 --keymaps setting
-local set_keymaps = function(key_mps)
+local set_keymaps = function(key_maps)
   local km_opt = {noremap = true, silent = true}
-  for _, maps in pairs(key_mps) do
+  for _, maps in pairs(key_maps) do
     local mode, lhs, rhs = unpack(maps)
     vim.api.nvim_buf_set_keymap(0, mode, lhs,
       string.format("%s<CR>", rhs), km_opt);
@@ -55,53 +45,17 @@ local set_keymaps = function(key_mps)
 end
 
 --on attach
-local on_attach = function(_)
+local custom_attach = function(_)
   set_keymaps(key_maps)
 end
 
---custom code action
-local custom_code_action = function(items, prompt, label_fn, cb)
-  local finders = require'telescope.finders'
-  local actions = require'telescope.actions'
-  local pickers = require'telescope.pickers'
-  local themes = require("telescope.themes")
-  local action_state = require'telescope.actions.state'
-  local conf = require("telescope.config").values
-
-  local opts = themes.get_cursor {}
-  pickers.new(opts, {
-    prompt_title = prompt,
-    finder = finders.new_table {
-      results = items,
-      entry_maker = function(entry)
-        return {
-          value = entry,
-          display = label_fn(entry),
-          ordinal = label_fn(entry)
-        }
-      end,
-    },
-    sorter = conf.generic_sorter(opts),
-    attach_mappings = function (prompt_bufnr)
-      actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
-        local selection = action_state.get_selected_entry(prompt_bufnr)
-        cb(selection.value)
-      end)
-      return true
-    end
-  }):find()
-end
-
+--Language servers
 --# Java
 --custom jdtls_on_attach
 local function jdtls_on_attach(_)
   jdtls.setup_dap({hotcodereplace = 'auto'})
   jdtls.setup.add_commands()
   require('jdtls.dap').setup_dap_main_class_configs() --temporary
-
-  --UI
-  require('jdtls.ui').pick_one_async = custom_code_action
 
   local jdtls_keymaps = {
     {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},
@@ -150,10 +104,6 @@ M.setup_jdtls = function()
             name = "JavaSE-14",
             path = "/opt/jdks/jdk-14.0.2/"
           },
-          -- {
-          --   name = "JavaSE-17",
-          --   path = "/opt/jdks/jdk-17.0.1/"
-          -- },
         }
       }
     }
@@ -202,11 +152,19 @@ M.setup_jdtls = function()
   jdtls.start_or_attach(config)
 end
 
---# Lua
 local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
-lsp.sumneko_lua.setup{
-  cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+
+local servers = {
+  --# Varioous
+  html = true,
+  cssls = true,
+  yamlls = true,
+  vimls = true,
+  rust_analyzer = true,
+  --# Lua
+  sumneko_lua = {
+    cmd = { sumneko_binary },
     settings = {
       Lua = {
         runtime = {
@@ -228,12 +186,10 @@ lsp.sumneko_lua.setup{
         }
       }
     },
-  on_attach = on_attach,
-  capabilities = custom_capabilities
-}
---# Js/Ts
-lsp.tsserver.setup {
-  cmd = {"typescript-language-server", "--stdio"},
+  },
+  --# Js/Ts
+  tsserver = {
+    cmd = {"typescript-language-server", "--stdio"},
     filetypes = {
       "javascript",
       "javascriptreact",
@@ -242,91 +198,42 @@ lsp.tsserver.setup {
       "typescriptreact",
       "typescript.tsx"
     },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
-
---# Python
-lsp.pylsp.setup {
-  plugins = {
-    pyls_mypy = {
-      enabled = true,
-      live_mode = false,
+  },
+  --# Python
+  pylsp = {
+    plugins = {
+      pyls_mypy = {
+        enabled = true,
+        live_mode = false,
+      },
     },
   },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Vim
-lsp.vimls.setup {
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# C++/C
-lsp.clangd.setup {
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# HTML
-lsp.html.setup {
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Css
-lsp.cssls.setup {
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Go
-lsp.gopls.setup {
-  cmd = { "gopls", "serve" },
-  filetypes = { "go", "gomod" },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
+  --# Go
+  gopls = {
+    cmd = { "gopls", "serve" },
+    filetypes = { "go", "gomod" },
+  },
 }
 
---# Rust
-lsp.rust_analyzer.setup {
-    cmd = { "rustup", "run", "nightly", "rust-analyzer"},
-    on_attach = on_attach,
+local setup_server = function(server, config)
+  if not config then
+    return
+  end
+
+  if type(config) ~= "table" then
+    config = {}
+  end
+
+  config = vim.tbl_deep_extend("force", {
+    on_attach = custom_attach,
     capabilities = custom_capabilities,
-    --[[
-    settings = {
-        rust = {
-            unstable_features = true,
-            build_on_save = false,
-            all_features = true,
-        },
-    } --rust-analyzer options
-    --]]
-}
+  }, config)
 
---TEMPORARY / Latex
--- lsp.texlab.setup {
---   cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
---   filetypes = { "tex", "bib" },
---   on_attach = on_attach,
---   capabilities = custom_capabilities,
--- }
+  lsp[server].setup(config)
+end
 
---# PHP
---lsp.intelephense.setup{
-  --cmd = { "intelephense", "--stdio" },
-  --filetypes = { "php" },
-  --on_attach = on_attach,
---}
---# JSON
---lsp.jsonls.setup{ on_attach = on_attach }
---# DOCKER
---lsp.dockerls.setup{
-  --on_attach = on_attach,
---}
-----# YAML
---lsp.yamlls.setup{ on_attach = on_attach }
---lsp.sqlls.setup{
-  --cmd = {"sql-language-server", "up", "--method", "stdio"},
-  --on_attach = on_attach,
-  --capabilities = custom_capabilities,
---}
+for server, configs in pairs(servers) do
+  setup_server(server, configs)
+end
 
 return M
