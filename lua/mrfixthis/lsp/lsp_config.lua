@@ -35,9 +35,9 @@ local key_maps = {
 }
 
 --keymaps setting
-local set_keymaps = function(key_maps)
+local set_keymaps = function(key_map)
   local km_opt = {noremap = true, silent = true}
-  for _, maps in pairs(key_maps) do
+  for _, maps in pairs(key_map) do
     local mode, lhs, rhs = unpack(maps)
     vim.api.nvim_buf_set_keymap(0, mode, lhs,
       string.format("%s<CR>", rhs), km_opt);
@@ -56,6 +56,7 @@ local function jdtls_on_attach(_)
   jdtls.setup_dap({hotcodereplace = 'auto'})
   jdtls.setup.add_commands()
   require('jdtls.dap').setup_dap_main_class_configs() --temporary
+
 
   local jdtls_keymaps = {
     {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},
@@ -156,7 +157,7 @@ local sumneko_root_path = string.format('%s/.local/servers/lua-language-server',
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
 local servers = {
-  --# Varioous
+  --# Various
   html = true,
   cssls = true,
   yamlls = true,
