@@ -19,11 +19,11 @@ nnoremap <localleader>V :q!<CR>
 nnoremap <localleader>= <C-W>=
 
 " Split rezise
-nnoremap <A-,> <C-W>5V
+nnoremap <A-'> <C-W>5V
 nnoremap <A-.> <C-W>5>
-nnoremap <C-,> <C-W><
+nnoremap <C-'> <C-W><
 nnoremap <C-.> <C-W>>
-"Need a remaping -- Waiting for Moonlander
+"Need a remaping for moonlander
 
 " Plugin keymaps
 nnoremap <leader>u :UndotreeShow<CR>
