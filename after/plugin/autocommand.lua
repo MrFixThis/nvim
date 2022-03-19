@@ -1,13 +1,44 @@
-vim.api.nvim_exec([[
-  " Highlight yank
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * :silent! lua require("vim.highlight").on_yank({timeout = 40})
-  augroup END
+local api = vim.api
 
-  " Java lsp
-  augroup jdtls_lsp
-    autocmd!
-    autocmd FileType java :lua require('mrfixthis.lsp.lsp_config').setup_jdtls()
-  augroup end
-]], true)
+local auto_groups = {
+  jdtls_lsp = {
+    autocmd = {
+      {
+        event = { "FileType", },
+        pattern = { "java", },
+        callback = require("mrfixthis.lsp.lsp_config").setup_jdtls
+      },
+    },
+    opts = {
+        clear = true,
+    }
+  },
+  higy = {
+    autocmd = {
+      {
+        event = { "TextYankPost", },
+        pattern = { "*", },
+        command = "silent! lua vim.highlight.on_yank({timeout = 40})",
+      },
+    },
+    opts = {
+      clear = true,
+    }
+  },
+}
+
+--auto_cammads group creation
+for gp, configs in pairs(auto_groups) do
+  --group
+  local group = api.nvim_create_augroup(gp, configs.opts)
+
+  --autocmd group creation
+  for _, autocmd in pairs(configs.autocmd) do
+    api.nvim_create_autocmd(autocmd.event, {
+      pattern = autocmd.pattern,
+      command = autocmd.command,
+      callback = autocmd.callback,
+      group = group
+    })
+  end
+end

@@ -24,6 +24,7 @@ load_opts {
   cmdheight      = 2,            -- Height of the command bar
   scrolloff      = 10,           -- Limit number of the scroll action
   updatetime     = 50,           -- Make updates happen faster
+  laststatus     = 3,            -- Set globlal split bar
   colorcolumn    = "80",         -- Set a column for 80 characters
   signcolumn     = 'yes',        -- Always show the signcolumn
   clipboard      = '',           -- Copy paste between Vim and everything else
