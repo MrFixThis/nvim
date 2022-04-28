@@ -12,7 +12,7 @@ cmp.setup {
       -- require("luasnip").lsp_expand(args.body)
     end
   },
-  mapping = {
+  mapping = cmp.mapping.preset.insert {
       ['<C-f>'] = cmp.mapping.scroll_docs(-2),
       ['<C-d>'] = cmp.mapping.scroll_docs(2),
       ['<C-Space>'] = cmp.mapping.complete(),
@@ -22,7 +22,7 @@ cmp.setup {
         select = false
       },
     },
-    sources = {
+    sources = cmp.config.sources {
       { name = "nvim_lsp"},
       { name = "vsnip"},
       { name = "nvim_lua"},
