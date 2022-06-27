@@ -27,6 +27,7 @@ M.setup = function()
     },
   }
 
+  --lua
   dap.configurations.lua = {
     {
       type = 'nlua',

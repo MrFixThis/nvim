@@ -139,7 +139,7 @@ M.setup_jdtls = function()
   local bundles = {
     vim.fn.glob(HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
   }
-  vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/java/vscode-java-test/server/*.jar"), "\n"))
+  vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/vscode-java-test/server/*.jar"), "\n"))
 
   local extendedClientCapabilities = jdtls.extendedClientCapabilities
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -212,7 +212,17 @@ local servers = {
   --# Go
   gopls = {
     cmd = { "gopls", "serve" },
-    filetypes = { "go", "gomod" },
+    filetypes = { "go", "gomod", "gotmpl" },
+    root_dir = lsp.util.root_pattern("go.work", "go.mod", ".git"),
+    single_file_support = true,
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
   },
 }
 
