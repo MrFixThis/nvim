@@ -1,1 +1,1 @@
-# MrFixthis Neovim Cofiguration
+# MrFixthis Neovim Configuration
