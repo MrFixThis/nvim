@@ -24,7 +24,7 @@ dap.adapters.go = function(callback, _)
     assert(not err, err)
     if chunk then
       vim.schedule(function()
-        -- require('dap.repl').append(chunk)
+        dap.repl.append(chunk)
       end)
     end
   end)
@@ -43,24 +43,13 @@ dap.configurations.go = {
     name = "Debug",
     request = "launch",
     program = "${file}",
-    -- console = "integratedTerminal",
   },
-  -- configuration for debugging test files
+  --debugging test files
   {
     type = "go",
     name = "Debug test",
     request = "launch",
     mode = "test",
     program = "${file}",
-    -- console = "integratedTerminal",
   },
-  -- works with go.mod packages and sub packages
-  {
-    type = "go",
-    name = "Debug test (go.mod)",
-    request = "launch",
-    mode = "test",
-    program = "./${relativeFileDirname}",
-    -- console = "integratedTerminal",
-  }
 }

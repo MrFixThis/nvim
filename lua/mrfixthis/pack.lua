@@ -14,7 +14,7 @@ return require("packer").startup(function(use)
     if vim.fn.isdirectory(vim.fn.expand("~/Plugins/" .. plug_path)) == 1 then
       use("~/Plugins/" .. plug_path)
     else
-      use(string.format('%s/%s', os.getenv("HOME"), plug_path))
+      use(string.format("%s/%s", os.getenv("HOME"), plug_path))
     end
   end
 

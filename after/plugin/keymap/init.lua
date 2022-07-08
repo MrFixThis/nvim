@@ -25,10 +25,11 @@ nnoremap("<leader>Y", "gg\"+yG")
 nnoremap("<silent><leader>ws", ":%s/\\s\\+$//e<CR>")
 
 --Split
-nnoremap("<A-'>", "<C-W>5V")
-nnoremap("<A-.>", "<C-W>5>") --TODO: make keymaps for open splits
-nnoremap("<C-'>", "<C-W><")  --remap!
-nnoremap("<C-.>", "<C-W>>")
+nnoremap("<A-.>", "<C-W>5>")
+nnoremap("<A-,>", "<C-W>5<")
+nnoremap("<A-'>", "<C-W>-")
+nnoremap("<A-;>", "<C-W>+")
+nnoremap("<localLeader>=", "<C-W>=")
 
 --Terminal keymaps
 tnoremap("<A-h>", "<C-\\><C-n><C-w>h")

@@ -1,7 +1,7 @@
-local load_opts = require("mrfixthis.globals").opts
+local load_settings = require("mrfixthis.global").opts
 
 --SETTINGS
-load_opts {
+load_settings({
   cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers
@@ -26,9 +26,9 @@ load_opts {
   updatetime     = 50,           -- Make updates happen faster
   laststatus     = 3,            -- Set globlal split bar
   colorcolumn    = "80",         -- Set a column for 80 characters
-  signcolumn     = 'yes',        -- Always show the signcolumn
-  clipboard      = '',           -- Copy paste between Vim and everything else
-  guicursor      = { 'n-v-c:block-Cursor/lCursor', 'i-ci-ve:ver25-Cursor2' }, --Cursor settigs
+  signcolumn     = "yes",        -- Always show the signcolumn
+  clipboard      = "",           -- Copy paste between Vim and everything else
+  guicursor      = {"n-v-c:block-Cursor/lCursor", "i-ci-ve:ver25-Cursor2"}, --Cursor settigs
   formatoptions = vim.opt.formatoptions
     - "a" -- Auto formatting text
     - "t" -- Auto-wrap text using textwidth
@@ -39,4 +39,4 @@ load_opts {
     + "n" -- Indent past the formatlistpat, not underneath it.
     + "j" -- Auto-remove comments if possible.
     - "2" -- Format text based on second line
-}
+})

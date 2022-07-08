@@ -1,6 +1,6 @@
 local globals = {}
 
---option setting
+--Options setting
 function globals.opts(opts_table)
   if next(opts_table) == nil then return end
   for k, v in pairs(opts_table) do
@@ -8,13 +8,13 @@ function globals.opts(opts_table)
   end
 end
 
---Table inspect
+--Table inspection
 P = function(v)
   print(vim.inspect(v))
   return v
 end
 
---Reloading
+--Module reload
 RELOAD = function(...)
   return require("plenary.reload").reload_module(...)
 end

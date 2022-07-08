@@ -2,16 +2,16 @@ local dap = require("dap")
 
 dap.configurations.java = {
   {
-    type = 'java',
+    type = "java",
     name = "Debug (Attach) - Remote",
-    request = 'attach',
+    request = "attach",
     hostName = "127.0.0.1",
     port = 5005,
   },
   {
-    type = 'java',
+    type = "java",
     name = "Debug Non-Project class",
-    request = 'launch',
+    request = "launch",
     program = "${file}",
   },
 }

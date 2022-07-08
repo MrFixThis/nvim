@@ -27,12 +27,12 @@ local auto_groups = {
   },
 }
 
---auto_cammads group creation
+--Auto_cammads group creation
 for gp, configs in pairs(auto_groups) do
-  --group
+  --Group
   local group = api.nvim_create_augroup(gp, configs.opts)
 
-  --autocmd group creation
+  --Autocmd group creation
   for _, autocmd in pairs(configs.autocmd) do
     api.nvim_create_autocmd(autocmd.event, {
       pattern = autocmd.pattern,

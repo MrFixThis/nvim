@@ -1,6 +1,6 @@
 --General
-require('mrfixthis.packer')
-require("mrfixthis.options")
+require("mrfixthis.pack")
+require("mrfixthis.setting")
 
 --General
 require("mrfixthis.autocommand")
@@ -9,7 +9,7 @@ require("mrfixthis.autocommand")
 require("mrfixthis.lsp")
 
 --Debugger
-require("mrfixthis.debugger")
+require("mrfixthis.dap")
 
 --Telescope
 require("mrfixthis.telescope")

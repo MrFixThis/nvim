@@ -6,28 +6,39 @@ local daptext = require("nvim-dap-virtual-text")
 --Dap ui and dap virtual_text setup
 daptext.setup()
 dapui.setup({
+    mappings = {
+      -- Use a table to apply multiple mappings
+      expand = { "x",},
+      open = "o",
+      remove = "d",
+      edit = "e",
+      repl = "r",
+      toggle = "t",
+    },
     layouts = {
-        {
-          elements = {
-              "console",
-          },
-          size = 7,
-          position = "bottom",
-        },
         {
           elements = {
             -- Elements can be strings or table with id and size keys.
             { id = "scopes", size = 0.25 },
+            { id = "breakpoints", size = 0.18 },
             "watches",
           },
           size = 40,
           position = "left",
-        }
+        },
+        {
+          elements = {
+              "repl",
+              "console",
+          },
+          size = 8,
+          position = "bottom",
+        },
     },
 })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open(1)
+    dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
     dapui.close()
@@ -37,8 +48,8 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 --Adapters setup
-require("mrfixthis.debugger.go")
-require("mrfixthis.debugger.java")
-require("mrfixthis.debugger.lua")
+require("mrfixthis.dap.go")
+require("mrfixthis.dap.java")
+require("mrfixthis.dap.lua")
 
 return M
