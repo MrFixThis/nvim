@@ -6,7 +6,7 @@ vim.g.maplocalleader = ","
 
 --Keymap setter function
 local function keymap_setter(mode, extra_opts)
-    extra_opts = extra_opts or { noremap = true }
+    extra_opts = extra_opts or { noremap = true, silent = true }
 
     return function(lhs, rhs, opts)
         opts = vim.tbl_extend("force",

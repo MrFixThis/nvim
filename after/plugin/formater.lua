@@ -1,3 +1,5 @@
+local nnoremap = require("mrfixthis.keymap").nnoremap
+
 require('formatter').setup({
   logging = false,
   filetype = {
@@ -23,4 +25,4 @@ require('formatter').setup({
 --]], true)
 
 local options = {expr = false, silent = true, noremap = true}
-vim.api.nvim_set_keymap("n", "<leader>fo", ":Format<CR>", options)
+nnoremap("<leader>fo", ":Format<CR>", options)

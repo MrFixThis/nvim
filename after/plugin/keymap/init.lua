@@ -2,14 +2,13 @@ local remap = require('mrfixthis.keymap')
 local nnoremap = remap.nnoremap
 local vnoremap = remap.vnoremap
 local tnoremap = remap.tnoremap
-local opts = {silent = true}
 
 --Windows and tabs navigation
-nnoremap("<C-h>", ":wincmd h<CR>", opts)
-nnoremap("<C-l>", ":wincmd l<CR>", opts)
-nnoremap("<C-j>", ":wincmd j<CR>", opts)
-nnoremap("<C-k>", ":wincmd k<CR>", opts)
-nnoremap("<C-h>", ":wincmd h<CR>", opts)
+nnoremap("<C-h>", ":wincmd h<CR>")
+nnoremap("<C-l>", ":wincmd l<CR>")
+nnoremap("<C-j>", ":wincmd j<CR>")
+nnoremap("<C-k>", ":wincmd k<CR>")
+nnoremap("<C-h>", ":wincmd h<CR>")
 nnoremap("<Right>", "gt")
 nnoremap("<Left>", "gT")
 
@@ -38,5 +37,5 @@ tnoremap("<A-j>", "<C-\\><C-n><C-w>k")
 tnoremap("<A-k>", "<C-\\><C-n><C-w>l")
 
 --Plugin keymaps
-nnoremap("<leader>u", ":UndotreeShow<CR>", opts)
-nnoremap("<leader>ma", ":MaximizerToggle!<CR>", opts)
+nnoremap("<leader>u", ":UndotreeShow<CR>")
+nnoremap("<leader>ma", ":MaximizerToggle!<CR>")

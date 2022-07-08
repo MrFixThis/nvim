@@ -1,9 +1,8 @@
 local remap = require("mrfixthis.keymap")
 local nnoremap = remap.nnoremap
-local opts = {silent = true}
 
 nnoremap("<leader>te", ":Telescope<CR>")
-nnoremap("<C-p>", function() require("telescope.builtin").git_files() end, opts)
+nnoremap("<C-p>", function() require("telescope.builtin").git_files() end)
 nnoremap("<leader>th", function() require("telescope.builtin").help_tags() end)
 nnoremap("<leader>gs", function() require("telescope.builtin").find_files() end)
 nnoremap("<leader>bx", function() require("telescope.builtin").buffers() end)
