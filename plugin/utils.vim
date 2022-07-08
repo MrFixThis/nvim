@@ -11,6 +11,3 @@ function! s:save_and_exec() abort
 endfunction
 
 nnoremap <leader>x :call <SID>save_and_exec()<CR>
-
-" Remove whitespace
-nnoremap <silent><leader>ws :%s/\s\+$//e<CR>

@@ -67,10 +67,9 @@ return require('packer').startup(function(use)
 
   -- Debugging
   use 'mfussenegger/nvim-dap'
-  -- use "rcarriga/nvim-dap-ui"
-  -- use "theHamsta/nvim-dap-virtual-text"
-
-  ---Lua debugger adapter
+  use "rcarriga/nvim-dap-ui"
+  use "theHamsta/nvim-dap-virtual-text"
+    ---Lua debugger adapter
   use 'jbyuki/one-small-step-for-vimkind'
 
   -- Utils and tools
@@ -79,7 +78,6 @@ return require('packer').startup(function(use)
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
   use 'szw/vim-maximizer'
-  -- use 'mhinz/vim-startify'
 
   -- Navigation tree
   use 'kyazdani42/nvim-tree.lua'

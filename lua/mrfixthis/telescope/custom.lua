@@ -2,7 +2,6 @@ local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")
 local M = {}
 
--- our picker function: dotfiles
 --nvim config files
 M.search_nvm_dotfiles = function ()
   local setts = themes.get_dropdown {
@@ -14,7 +13,7 @@ M.search_nvm_dotfiles = function ()
   builtin.find_files(setts)
 end
 
---mrfixthis .dotfiles
+--.dotfiles
 M.search_dotfiles = function()
   local setts = themes.get_dropdown {
     prompt_title = "< Config dotfiles >",
