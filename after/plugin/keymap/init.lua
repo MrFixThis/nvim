@@ -30,10 +30,7 @@ nnoremap("<silent><leader>ws", ":%s/\\s\\+$//e<CR>")
 
 --Split
 nnoremap("<A-'>", "<C-W>5V")
-nnoremap("<A-'>", "<C-W>5V")
-
-nnoremap("<A-'>", "<C-W>5V")
-nnoremap("<A-.>", "<C-W>5>")
+nnoremap("<A-.>", "<C-W>5>") --TODO: make keymaps for open splits
 nnoremap("<C-'>", "<C-W><")  --remap!
 nnoremap("<C-.>", "<C-W>>")
 

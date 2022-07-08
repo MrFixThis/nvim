@@ -8,8 +8,8 @@ require("mrfixthis.autocommand")
 --Lsp
 require("mrfixthis.lsp")
 
+--Debugger
+require("mrfixthis.debugger")
+
 --Telescope
 require("mrfixthis.telescope")
-
---debugger
-require("mrfixthis.debugger")
