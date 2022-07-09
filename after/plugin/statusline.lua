@@ -1,16 +1,16 @@
-local builtin = require('el.builtin')
-local extensions = require('el.extensions')
-local sections = require('el.sections')
-local subscribe = require('el.subscribe')
-local diagnostics = require('el.diagnostic')
+local builtin = require("el.builtin")
+local extensions = require("el.extensions")
+local sections = require("el.sections")
+local subscribe = require("el.subscribe")
+local diagnostics = require("el.diagnostic")
 
 local get_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
   local icon = extensions.file_icon(_, bufnr)
   if icon then
-    return icon .. ' '
+    return icon .. " "
   end
 
-  return ''
+  return ""
 end)
 
 local git_branch = subscribe.buf_autocmd(
@@ -19,7 +19,7 @@ local git_branch = subscribe.buf_autocmd(
   function(window, buffer)
     local branch = extensions.git_branch(window, buffer)
     if branch then
-      return ' ' .. extensions.git_icon() .. ' ' .. branch
+      return " " .. extensions.git_icon() .. " " .. branch
     end
   end
 )
@@ -64,23 +64,23 @@ end)
 require('el').setup {
   generator = function(_, _)
     return {
-      extensions.gen_mode { format_string = '[ %s ]' },
+      extensions.gen_mode { format_string = "[ %s ]" },
       git_branch,
-      ' ',
+      " ",
       sections.split,
       get_icon,
       sections.maximum_width(builtin.make_responsive_file(140, 90), 0.30),
       sections.collapse_builtin {
-        ' ',
+        " ",
         builtin.modified_flag
       },
       sections.split,
       lsp_diagnostics,
       git_changes,
-      '[', os.getenv('USER') , ']',
-      '[', builtin.line_with_width(3), ':',  builtin.column_with_width(2), ']',
+      "[", os.getenv('USER') , "]",
+      "[", builtin.line_with_width(3), ":",  builtin.column_with_width(2), "]",
       sections.collapse_builtin {
-        '[', builtin.help_list, builtin.readonly_list, ']',
+        "[", builtin.help_list, builtin.readonly_list, "]",
       },
       builtin.filetype,
     }

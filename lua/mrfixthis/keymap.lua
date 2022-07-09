@@ -4,26 +4,17 @@ local M = {}
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
---Keymap setter function
-local function bind_opts(mode, extra_opts)
-    extra_opts = extra_opts or {noremap = true, silent = true}
+--Default options
+local default_opt = {noremap = true, silent = true}
+function M.set_keymap(keymap_set)
+  for _, keymap in ipairs(keymap_set) do
+    local mode, lhs, rhs, opt = unpack(keymap)
+    opt = opt or {}
+    --Opt merging
+    opt = vim.tbl_extend("force", default_opt, opt)
 
-    return function(lhs, rhs, opts)
-        opts = vim.tbl_extend("force",
-            extra_opts,
-            opts or {}
-        )
-        vim.keymap.set(mode, lhs, rhs, opts)
-    end
+    vim.keymap.set(mode, lhs, rhs, opt)
+  end
 end
-
---All modes keymap setters
-M.nmap = bind_opts("n", {noremap = false})
-M.nnoremap = bind_opts("n")
-M.inoremap = bind_opts("i")
-M.vnoremap = bind_opts("v")
-M.xnoremap = bind_opts("x")
-M.snoremap = bind_opts("s")
-M.tnoremap = bind_opts("t")
 
 return M

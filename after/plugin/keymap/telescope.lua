@@ -1,33 +1,23 @@
-local remap = require("mrfixthis.keymap")
-local nnoremap = remap.nnoremap
+local set_keymap = require("mrfixthis.keymap").set_keymap
 local telescope = require("telescope.builtin")
+local tl_custom = require("mrfixthis.telescope.custom")
 
-local key_maps = {
-  {"<leader>te", ":Telescope<CR>"},
-  {"<C-p>", function() telescope.git_files() end},
-  {"<leader>th", function() telescope.help_tags() end},
-  {"<leader>gs", function() telescope.find_files() end},
-  {"<leader>mk", function() telescope.buffers() end},
-  {"<leader>gr", function() telescope.live_grep() end},
-  {
-    "<leader>pw",
+local telescope_maps = {
+  {"n", "<leader>te", ":Telescope<CR>"},
+  {"n", "<C-p>", function() telescope.git_files() end},
+  {"n", "<leader>th", function() telescope.help_tags() end},
+  {"n", "<leader>gs", function() telescope.find_files() end},
+  {"n", "<leader>mk", function() telescope.buffers() end},
+  {"n", "<leader>gr", function() telescope.live_grep() end},
+  {"n", "<leader>pw",
     function() telescope.grep_string({search = vim.fn.expand("<cword>")}) end
   },
-  {
-    "<leader>ps",
+  {"n", "<leader>ps",
     function() telescope .grep_string({search = vim.fn.input("Grep For > ")}) end
   },
-  {
-    "<leader>do", function() require("mrfixthis.telescope.custom")
-      .search_nvm_dotfiles() end
-  },
-  {
-    "<leader>dO", function() require("mrfixthis.telescope.custom")
-      .search_dotfiles() end
-  },
+  --Custom telescope functions
+  {"n", "<leader>do", function() tl_custom.search_nvm_dotfiles() end},
+  {"n", "<leader>dO", function() tl_custom.search_dotfiles() end},
 }
 
-for _, keymap in ipairs(key_maps) do
-  local lhs, rhs, opts = unpack(keymap)
-  nnoremap(lhs, rhs, opts)
-end
+set_keymap(telescope_maps)

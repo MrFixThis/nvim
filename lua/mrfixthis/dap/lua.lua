@@ -7,7 +7,7 @@ dap.adapters.nlua = function(callback, config)
       "new-window",
       "-n", "[Lua Debugger]",
       vim.v.progpath,
-      "-c", string.format("lua require(\"osv\").launch({port = %d})", port),
+      "-c", string.format("lua require('osv').launch({port = %d})", port),
     },
     cwd = vim.fn.getcwd(),
     detached = true
@@ -15,7 +15,7 @@ dap.adapters.nlua = function(callback, config)
 
   local handle
   local pid_or_err
-  handle, pid_or_err = vim.loop.spawn('tmux', opts, function(code)
+  handle, pid_or_err = vim.loop.spawn("tmux", opts, function(code)
     handle:close()
     if code ~= 0 then
       print('nvim exited', code)

@@ -1,4 +1,4 @@
-local nnoremap = require("mrfixthis.keymap").nnoremap
+local set_keymap = require("mrfixthis.keymap").set_keymap
 
 require('formatter').setup({
   logging = false,
@@ -24,5 +24,9 @@ require('formatter').setup({
 --augroup END
 --]], true)
 
-local options = {expr = false, silent = true, noremap = true}
-nnoremap("<leader>fo", ":Format<CR>", options)
+local opt = {expr = false, silent = true, noremap = true}
+local formater_maps = {
+  {"n", "<leader>fo", ":Format<CR>", opt},
+}
+
+set_keymap(formater_maps)

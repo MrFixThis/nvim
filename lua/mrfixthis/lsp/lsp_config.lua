@@ -3,7 +3,7 @@ local jdtls = require("jdtls")
 local M = {}
 local HOME = os.getenv('HOME')
 
---capabilities
+--Capabilities
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
 custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabilities)
@@ -56,7 +56,6 @@ local function jdtls_on_attach(_)
   jdtls.setup_dap({hotcodereplace = 'auto'})
   jdtls.setup.add_commands()
   require('jdtls.dap').setup_dap_main_class_configs() --temporary
-
 
   local jdtls_keymaps = {
     {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},
