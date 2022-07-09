@@ -1,2 +1,2 @@
-require('mrfixthis.lsp.lsp_config')
-require('mrfixthis.lsp.completion')
+require('mrfixthis.lsp.lsp')
+require('mrfixthis.lsp.cmp')

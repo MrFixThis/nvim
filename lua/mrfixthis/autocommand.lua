@@ -6,7 +6,7 @@ local auto_groups = {
       {
         event = { "FileType", },
         pattern = { "java", },
-        callback = require("mrfixthis.lsp.lsp_config").setup_jdtls
+        callback = require("mrfixthis.lsp.lsp").setup_jdtls
       },
     },
     opts = {
