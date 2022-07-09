@@ -21,7 +21,7 @@ load_settings({
   tabstop        = 4,            -- Number of spaces that a <Tab> in the file counts for
   softtabstop    = 4,            -- Number of spaces that a <Tab> counts in <Tab> or <BS>.
   shiftwidth     = 4,            -- Number of spaces to use for each step of (auto)indent.
-  cmdheight      = 2,            -- Height of the command bar
+  cmdheight      = 1,            -- Height of the command bar
   scrolloff      = 10,           -- Limit number of the scroll action
   updatetime     = 50,           -- Make updates happen faster
   laststatus     = 3,            -- Set globlal split bar

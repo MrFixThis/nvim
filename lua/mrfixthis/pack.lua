@@ -32,11 +32,11 @@ return require("packer").startup(function(use)
 
   --Interface
   use("mkitt/tabline.vim")
-  use("tjdevries/express_line.nvim")
+  use("nvim-lualine/lualine.nvim")
     --Themes
   use("Yagua/nebulous.nvim")
-  use("eddyekofo94/gruvbox-flat.nvim")
-  use("gruvbox-community/gruvbox")
+  -- use("eddyekofo94/gruvbox-flat.nvim")
+  -- use("gruvbox-community/gruvbox")
     -- Icons
   use("ryanoasis/vim-devicons")
   use("kyazdani42/nvim-web-devicons")
@@ -49,6 +49,8 @@ return require("packer").startup(function(use)
   use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install"})
   use("tpope/vim-fugitive")
   use("lewis6991/gitsigns.nvim")
+  -- use("ThePrimeagen/harpoon")
+  -- use("imUntersberger/neogit")
 
   --Navigation
   use("kyazdani42/nvim-tree.lua")
