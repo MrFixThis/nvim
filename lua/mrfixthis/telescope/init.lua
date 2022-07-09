@@ -8,6 +8,7 @@ telescope.setup {
       height = 0.85,
       prompt_position = "top",
     },
+    sorting_strategy = "ascending",
     pickers = {
       find_files = {
         theme = "ivy"
