@@ -69,7 +69,7 @@ M.setup_jdtls = function()
     "--add-opens", "java.base/java.lang=ALL-UNNAMED",
   }
 
-  --lombok support
+  --Lombok support
   local lombok_path = HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
   if vim.fn.filereadable(lombok_path) > 0 then
     table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
@@ -97,7 +97,7 @@ M.setup_jdtls = function()
 
   --Setup client
   jdtls.start_or_attach(config)
-end --TODO: Ipmrove this language server setting
+end --TODO: Improve this language server setting
 
 --Other language servers
 local servers = {
@@ -114,7 +114,8 @@ local servers = {
     settings = {
       Lua = {
         runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
           -- Setup your lua path
           path = vim.split(package.path, ';')

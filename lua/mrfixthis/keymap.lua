@@ -6,6 +6,7 @@ vim.g.maplocalleader = ","
 
 --Default options
 local default_opt = {noremap = true, silent = true}
+
 function M.set_keymap(keymap_set)
   for _, keymap in ipairs(keymap_set) do
     local mode, lhs, rhs, opt = unpack(keymap)
