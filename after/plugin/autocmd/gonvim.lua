@@ -17,19 +17,21 @@ local buff_go_nvim_maps = {
   {"n", "<localleader>g", ":GoImpl", opt},
 
   --Tools
-  {"n", "<localleder><leader>c", ":GoCodeActions<CR>", opt},
-  {"n", "<localleder><leader>s", ":GoFmt -", opt},
-  {"n", "<localleder><leader>f", ":GoImport<CR>", opt},
-  {"n", "<localleder><leader>b", ":GoCheat<CR>", opt},
-  {"n", "<localleder><leader>d", ":GoDoc", opt},
-  {"n", "<localleder><leader>i", ":GoModInit<CR>", opt},
-  {"n", "<localleder><leader>t", ":GoModTidy<CR>", opt},
-  {"n", "<localleder><leader>v", ":GoVet<CR>", opt},
-  {"n", "<localleder><leader>m", ":GoModVendor<CR>", opt},
-  {"n", "<localleder><leader>a", ":GoAlt", opt},
+  {"n", "<CR>c", ":GoCodeActions<CR>", opt},
+  {"n", "<CR>k", ":GoRun ", opt},
+  {"n", "<CR>j", ":GoStop ", opt},
+  {"n", "<CR>d", ":GoDoc", opt}, --<C-w>w
+  {"n", "<CR>f", ":GoFmt -", opt},
+  {"n", "<CR>b", ":GoImport<CR>", opt},
+  {"n", "<CR>l", ":GoLint<CR>", opt},
+  {"n", "<CR>t", ":GoModTidy<CR>", opt},
+  {"n", "<CR>v", ":GoVet<CR>", opt},
+  {"n", "<CR>m", ":GoModVendor<CR>", opt},
+  {"n", "<CR>g", ":GoMockGen<CR>", opt},
+  {"n", "<CR>a", ":GoAlt", opt},
 
   --Testing
-  {"n", "<localleader><leader>t", ":GoTest ", opt}, --gotests and testify
+  {"n", "<CR>z", ":GoTest ", opt}, --gotests and testify
   {"n", "<localleader>q", ":GoTermClose<CR>", opt},
 }
 

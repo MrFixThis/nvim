@@ -8,7 +8,7 @@ daptext.setup()
 dapui.setup({
     mappings = {
       -- Use a table to apply multiple mappings
-      expand = { "x",},
+      expand = {"x",},
       open = "o",
       remove = "d",
       edit = "e",
@@ -19,7 +19,7 @@ dapui.setup({
         {
           elements = {
             -- Elements can be strings or table with id and size keys.
-            { id = "scopes", size = 0.18 },
+            {id = "scopes", size = 0.18},
             "stacks",
             "watches",
           },
@@ -28,8 +28,8 @@ dapui.setup({
         },
         {
           elements = {
-              "repl",
-              "console",
+            "console",
+            "repl",
           },
           size = 8,
           position = "bottom",
