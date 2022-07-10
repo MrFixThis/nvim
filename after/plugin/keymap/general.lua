@@ -26,7 +26,7 @@ local general_maps = {
   {"n", "<leader>y", "\"+y"},
   {"v", "<leader>y" ,"\"+y"},
   {"n", "<leader>Y", "gg\"+yG"},
-  {"n", "<silent><leader>ws", ":%s/\\s\\+$//e<CR>"},
+  {"n", "<leader>ws", ":%s/\\s\\+$//e<CR>"},
 
   --Terminal keymaps
   {"t", "<A-h>", "<C-\\><C-n><C-w>h"},

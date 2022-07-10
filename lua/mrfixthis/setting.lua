@@ -1,6 +1,6 @@
 local load_settings = require("mrfixthis.global").opts
 
---SETTINGS
+--Settings
 load_settings({
   cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them

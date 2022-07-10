@@ -16,7 +16,7 @@ local telescope_maps = {
     function() telescope .grep_string({search = vim.fn.input("Grep For > ")}) end
   },
   --Custom telescope functions
-  {"n", "<leader>do", tl_custom.search_nvm_dotfiles},
+  {"n", "<leader>do", tl_custom.search_nvim_conffiles},
   {"n", "<leader>dO", tl_custom.search_dotfiles},
 }
 

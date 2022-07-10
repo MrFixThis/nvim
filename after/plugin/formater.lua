@@ -4,7 +4,7 @@ require('formatter').setup({
   logging = false,
   filetype = {
     javascript = {
-        -- prettier
+      -- prettier
       function()
         return {
           exe = "prettier",
@@ -16,14 +16,7 @@ require('formatter').setup({
   }
 })
 
---Format on save
---vim.api.nvim_exec([[
---augroup FormatAutogroup
-  --autocmd!
-  --autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
---augroup END
---]], true)
-
+--Maps
 local opt = {expr = false, silent = true, noremap = true}
 local formater_maps = {
   {"n", "<leader>fo", ":Format<CR>", opt},

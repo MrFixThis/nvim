@@ -4,8 +4,8 @@ local auto_groups = {
   jdtls_lsp = {
     autocmd = {
       {
-        event = { "FileType", },
-        pattern = { "java", },
+        event = {"FileType",},
+        pattern = {"java",},
         callback = require("mrfixthis.lsp.lsp").setup_jdtls
       },
     },
@@ -13,7 +13,19 @@ local auto_groups = {
         clear = true,
     }
   },
-  higy = {
+  -- go_nvim = {
+  --   autocmd = {
+  --     {
+  --       event = {"FileType",},
+  --       pattern = {"go", "gomod", "gotmpl",},    --TODO: implement this [go.nvim]
+  --       callback =
+  --     }
+  --   },
+  --   opts = {
+  --     clear = true,
+  --   }
+  -- },
+  highlight_yank = {
     autocmd = {
       {
         event = { "TextYankPost", },

@@ -14,7 +14,6 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 ---Language servers setup
 --Jdtls
 M.setup_jdtls = function()
-
   -- Root dir config
   local root_markers = {
     "gradlew",
@@ -110,7 +109,7 @@ local servers = {
 
   --Lua
   sumneko_lua = {
-    cmd = { sumneko_binary },
+    cmd = {sumneko_binary},
     settings = {
       Lua = {
         runtime = {
@@ -137,8 +136,8 @@ local servers = {
 
   --Go
   gopls = {
-    cmd = { "gopls", "serve" },
-    filetypes = { "go", "gomod", "gotmpl" },
+    cmd = {"gopls", "serve"},
+    filetypes = {"go", "gomod", "gotmpl"},
     root_dir = lsp.util.root_pattern("go.work", "go.mod", ".git"),
     single_file_support = true,
     settings = {

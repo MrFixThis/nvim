@@ -1,5 +1,5 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
-local custom_func = require("mrfixthis.lsp.util")
+local custom_func = require("mrfixthis.lsp.tools")
 local jdtls = require("jdtls")
 
 local lsp_maps = {

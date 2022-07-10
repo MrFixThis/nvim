@@ -1,15 +1,14 @@
 require("gitsigns").setup {
   signs = {
-    add =          { hl = "GitSignsAdd",    text = "│", numhl = "GitSignsAddNr" },
-    change =       { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr" },
-    delete =       { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr" },
-    topdelete =    { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr" },
-    changedelete = { hl = "GitSignsDelete", text = "~", numhl = "GitSignsChangeNr" },
+    add =          {hl = "GitSignsAdd",    text = "│", numhl = "GitSignsAddNr"},
+    change =       {hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr"},
+    delete =       {hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr"},
+    topdelete =    {hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr"},
+    changedelete = {hl = "GitSignsDelete", text = "~", numhl = "GitSignsChangeNr"},
     keymaps = {
       noremap = true,
-      ["n ]c"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
-      ["n [c"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
-
+      ["n ]c"] = {expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+      ["n [c"] = {expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
       ["n <leader>fs"] = "<cmd>lua require'gitsigns'.stage_hunk()<CR>",
       ["v <leader>fs"] = "<cmd>lua require'gitsigns'.stage_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>",
       ["n <leader>fu"] = "<cmd>lua require'gitsigns'.undo_stage_hunk()<CR>",

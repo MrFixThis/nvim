@@ -1,6 +1,6 @@
-local commenter = require('Comment')
+local commenter = require("Comment")
 
-commenter.setup {
+commenter.setup({
   ---Add a space b/w comment and the line
     padding = true,
 
@@ -14,18 +14,18 @@ commenter.setup {
     ---@type table
     toggler = {
         ---line-comment keymap
-        line = 'gcc',
+        line = "gcc",
         ---block-comment keymap
-        block = 'ghc',
+        block = "ghc",
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
     ---@type table
     opleader = {
         ---line-comment keymap
-        line = 'gc',
+        line = "gc",
         ---block-comment keymap
-        block = 'gh',
+        block = "gh",
     },
 
     ---Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
@@ -42,4 +42,4 @@ commenter.setup {
 
     ---Post-hook, called after commenting is done
     post_hook = nil,
-}
+})
