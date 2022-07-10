@@ -88,7 +88,12 @@ return require("packer").startup(function(use)
   use("theHamsta/nvim-dap-virtual-text")
     --Lua debugger adapter
   use("jbyuki/one-small-step-for-vimkind")
-    --Lang tools
+
+  --Lang tools
+    --Go
+  use("ray-x/go.nvim")
+  use("ray-x/guihua.lua") --!floating
+    --Rust
   -- use("simrat39/rust-tools.nvim")
 
   -- Treesitter

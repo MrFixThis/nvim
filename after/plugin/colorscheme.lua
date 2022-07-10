@@ -18,4 +18,4 @@ nebulous.setup {
     LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
     CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
   }
-}
+} --"I love your work, Yagua"

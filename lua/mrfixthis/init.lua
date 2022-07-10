@@ -1,7 +1,6 @@
 --General
 require("mrfixthis.pack")
 require("mrfixthis.setting")
-require("mrfixthis.autocommand")
 
 --Telescope
 require("mrfixthis.telescope")
