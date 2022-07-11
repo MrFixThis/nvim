@@ -4,7 +4,7 @@ local tl_custom = require("mrfixthis.telescope.custom")
 
 local telescope_maps = {
   {"n", "<leader>te", ":Telescope<CR>"},
-  {"n", "<C-p>", telescope.git_files},
+  {"n", "<C-n>", telescope.git_files},
   {"n", "<leader>th", telescope.help_tags},
   {"n", "<leader>gs", telescope.find_files},
   {"n", "<leader>mk", telescope.buffers},

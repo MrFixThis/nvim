@@ -1,6 +1,7 @@
 -- following options are the default
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-require'nvim-tree'.setup {
+local tree_cb = require("nvim-tree.config").nvim_tree_callback
+
+require("nvim-tree").setup({
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
@@ -49,7 +50,7 @@ require'nvim-tree'.setup {
     width = 30,
     height = 30,
     hide_root_folder = false,
-    side = 'left',
+    side = "left",
     number = true,
     relativenumber = true,
     signcolumn = "no",
@@ -80,10 +81,10 @@ require'nvim-tree'.setup {
         { key = "[c",             cb = tree_cb("prev_git_item") },
         { key = "]c",             cb = tree_cb("next_git_item") },
         { key = "-",              cb = tree_cb("dir_up") },
-        { key = "q",              cb = tree_cb("close") }
-      }
-    }
-  }
-}
+        { key = "q",              cb = tree_cb("close") },
+      },
+    },
+  },
+})
 
-vim.api.nvim_set_keymap("n", "<c-n>", ":NvimTreeToggle<CR>", { noremap = true })
+require("mrfixthis.keymap").set_keymap({{"n", "<c-p>", ":NvimTreeToggle<CR>"}})
