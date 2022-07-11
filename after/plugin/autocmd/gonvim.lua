@@ -3,7 +3,8 @@ local set_keymap = require("mrfixthis.keymap").set_keymap
 local opt = {buffer = true}
 
 --GoInstallBinaries to install all the necesary dependencies
---GoInstallBinaries to update the binaries to its lastest version
+  --{list,} to only install the desired ones
+--GoUpdateBinaries to update the binaries to its lastest version
 
 local buff_go_nvim_maps = {
   --General

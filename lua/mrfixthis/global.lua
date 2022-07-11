@@ -1,6 +1,6 @@
 local globals = {}
 
---Options setting
+--Option setting
 function globals.opts(opts_table)
   if next(opts_table) == nil then return end
   for k, v in pairs(opts_table) do

@@ -1,6 +1,6 @@
 --General
+require("mrfixthis.core.setting")
 require("mrfixthis.pack")
-require("mrfixthis.setting")
 
 --Telescope
 require("mrfixthis.telescope")
