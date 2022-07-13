@@ -3,17 +3,17 @@ local telescope = require("telescope.builtin")
 local tl_custom = require("mrfixthis.telescope.custom")
 
 local telescope_maps = {
-  {"n", "<leader>te", ":Telescope<CR>"},
-  {"n", "<C-n>", telescope.git_files},
+  {"n", "<leader>tt", ":Telescope<CR>"},
+  {"n", "<leader>mk", telescope.git_files},
   {"n", "<leader>th", telescope.help_tags},
   {"n", "<leader>gs", telescope.find_files},
-  {"n", "<leader>mk", telescope.buffers},
+  {"n", "<C-n>", telescope.buffers},
   {"n", "<leader>gr", telescope.live_grep},
   {"n", "<leader>pw",
     function() telescope.grep_string({search = vim.fn.expand("<cword>")}) end
   },
   {"n", "<leader>ps",
-    function() telescope .grep_string({search = vim.fn.input("Grep For > ")}) end
+    function() telescope.grep_string({search = vim.fn.input("Grep For > ")}) end
   },
   --Custom telescope functions
   {"n", "<leader>do", tl_custom.search_nvim_conffiles},

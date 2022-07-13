@@ -18,11 +18,11 @@ local buff_go_nvim_maps = {
   {"n", "<localleader>g", ":GoImpl", opt},
 
   --Tools
-  {"n", "<CR>c", ":GoCodeActions<CR>", opt},
-  {"n", "<CR>k", ":GoRun ", opt},
+  {"n", "<CR>c", ":GoCodeAction<CR>", opt},
+  {"n", "<CR>k", ":GoRun<CR>", opt},
   {"n", "<CR>j", ":GoStop ", opt},
-  {"n", "<CR>d", ":GoDoc", opt}, --<C-w>w
-  {"n", "<CR>f", ":GoFmt -", opt},
+  {"n", "<CR>d", ":GoDoc ", opt},
+  {"n", "<CR>f", ":GoFmt -a<CR>", opt},
   {"n", "<CR>b", ":GoImport<CR>", opt},
   {"n", "<CR>l", ":GoLint<CR>", opt},
   {"n", "<CR>t", ":GoModTidy<CR>", opt},

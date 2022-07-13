@@ -1,8 +1,8 @@
 require("go").setup({
-  go = "go",
-  goimport = "gopls", -- goimport command, can be gopls[default] or goimport
+  go = "go", --"go"
+  goimport = "gopls", --goimport + gofmt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
-  gofmt = "gofump", --gofmt cmd,
+  gofmt = "gofump", --can be gofmt
   max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
   tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
   gotests_template = "",
@@ -24,7 +24,7 @@ require("go").setup({
   lsp_diag_hdlr = true, -- hook lsp diag handler
 
   --Virtual text setup
-  lsp_diag_virtual_text = {space = 0, prefix = "$"},
+  lsp_diag_virtual_text = {}, --empty table for default
   lsp_diag_signs = true,
   lsp_diag_update_in_insert = false,
   lsp_document_formatting = true, -- set to true: use gopls to format
@@ -46,4 +46,4 @@ require("go").setup({
                            -- float term recommand if you use richgo/ginkgo with terminal color
 
   test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
-}) --TODO: configure text objects
+})

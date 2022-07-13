@@ -1,9 +1,9 @@
-local lsp = require('lspconfig')
+local lsp = require("lspconfig")
 local jdtls = require("jdtls")
 local M = {}
-local HOME = os.getenv('HOME')
+local HOME = os.getenv("HOME")
 
-local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
+local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", HOME)
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
 --Capabilities
@@ -19,8 +19,8 @@ M.setup_jdtls = function()
     "gradlew",
     "mvnw",
     ".git",
-    --'pom.xml',
-    --'build.gradle'
+    --"pom.xml",
+    --"build.gradle"
   }
 
   local root_dir = jdtls.setup.find_root(root_markers)
@@ -75,9 +75,9 @@ M.setup_jdtls = function()
   end
 
   config.on_attach = function()
-    jdtls.setup_dap({hotcodereplace = 'auto'})
+    jdtls.setup_dap({hotcodereplace = "auto"})
     jdtls.setup.add_commands()
-    require('jdtls.dap').setup_dap_main_class_configs() --temporary
+    require("jdtls.dap").setup_dap_main_class_configs() --temporary
   end
   config.capabilities = capabilities
 
@@ -115,19 +115,19 @@ local servers = {
         runtime = {
           -- Tell the language server which version of Lua you're using
             -- (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
+          version = "LuaJIT",
           -- Setup your lua path
-          path = vim.split(package.path, ';')
+          path = vim.split(package.path, ";")
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = {'vim'}
+          globals = {"vim"}
         },
         workspace = {
         -- Make the server aware of Neovim runtime files
           library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           }
         }
       }
