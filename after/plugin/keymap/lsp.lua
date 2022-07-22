@@ -1,5 +1,4 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
-local custom_func = require("mrfixthis.lsp.tools")
 local jdtls = require("jdtls")
 
 local lsp_maps = {
@@ -26,9 +25,6 @@ local lsp_maps = {
   {"n", "<leader>ee", vim.diagnostic.open_float},
   {"n", "<leader>gp", vim.diagnostic.goto_prev},
   {"n", "<leader>gn", vim.diagnostic.goto_next},
-
-  --Cstom function mappings
-  {"n", "<leader>ne", custom_func.diagnostics_qfixlist},
 
   --Languague servers keymaps
   --Jdtls

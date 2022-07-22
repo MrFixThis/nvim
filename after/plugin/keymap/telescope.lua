@@ -4,11 +4,11 @@ local tl_custom = require("mrfixthis.telescope.custom")
 
 local telescope_maps = {
   {"n", "<leader>tt", ":Telescope<CR>"},
-  {"n", "<C-n>", telescope.buffers},
+  {"n", "<leader>mw", telescope.buffers},
   {"n", "<leader>mk", telescope.git_files},
   {"n", "<leader>th", telescope.help_tags},
   {"n", "<leader>gs", telescope.find_files},
-  {"n", "<leader>mw", telescope.diagnostics},
+  {"n", "<C-n>", telescope.diagnostics},
   {"n", "<leader>gr", telescope.live_grep},
   {"n", "<leader>pw",
     function() telescope.grep_string({search = vim.fn.expand("<cword>")}) end

@@ -12,8 +12,8 @@ local general_maps = {
     --Split
   {"n", "<A-.>", "<C-W>5>"},
   {"n", "<A-,>", "<C-W>5<"},
-  {"n", "<A-'>", "<C-W>-"},
-  {"n", "<A-;>", "<C-W>+"},
+  {"n", "<A-'>", "<C-W>+"},
+  {"n", "<A-;>", "<C-W>-"},
   {"n", "<localLeader>=", "<C-W>="},
 
   --Buffer utils
@@ -33,10 +33,6 @@ local general_maps = {
   {"t", "<A-l>", "<C-\\><C-n><C-w>j"},
   {"t", "<A-j>", "<C-\\><C-n><C-w>k"},
   {"t", "<A-k>", "<C-\\><C-n><C-w>l"},
-
-  --Other keymaps
-  {"n", "<leader>u", ":UndotreeShow<CR>"},
-  {"n", "<leader>ma", ":MaximizerToggle!<CR>"},
 }
 
 set_keymap(general_maps)

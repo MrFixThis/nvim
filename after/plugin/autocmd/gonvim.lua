@@ -15,13 +15,12 @@ local buff_go_nvim_maps = {
   {"n", "<localleader>s", ":GoFillStruct<CR>", opt},
   {"n", "<localleader>l", ":GoFillSwitch<CR>", opt},
   {"n", "<localleader>f", ":GoFixPlurals<CR>", opt},
-  {"n", "<localleader>g", ":GoImpl", opt},
+  {"n", "<localleader>g", ":GoImpl ", opt},
 
   --Tools
   {"n", "<CR>c", ":GoCodeAction<CR>", opt},
   {"n", "<CR>k", ":GoRun<CR>", opt},
   {"n", "<CR>j", ":GoStop ", opt},
-  {"n", "<CR>d", ":GoDoc ", opt},
   {"n", "<CR>f", ":GoFmt -a<CR>", opt},
   {"n", "<CR>b", ":GoImport<CR>", opt},
   {"n", "<CR>l", ":GoLint<CR>", opt},
@@ -29,15 +28,22 @@ local buff_go_nvim_maps = {
   {"n", "<CR>v", ":GoVet<CR>", opt},
   {"n", "<CR>m", ":GoModVendor<CR>", opt},
   {"n", "<CR>g", ":GoMockGen<CR>", opt},
-  {"n", "<CR>a", ":GoAlt", opt},
+  {"n", "<CR>a", ":GoAlt ", opt},
+  {"n", "<CR>d", function()
+      vim.api.nvim_cmd({cmd = "GoDoc", args = {vim.fn.expand("<cexpr>")}}, {})
+    end, opt
+  },
 
-  --Testing
-  {"n", "<CR>z", ":GoTest ", opt}, --gotests and testify
-  {"n", "<localleader>q", ":GoTermClose<CR>", opt},
+  --Testing (common and gotests and testify)
+    -- it can be GoTestFunc, GoTestFile or GoTestPkg
+  {"n", "<CR>s", ":GoTest", opt},
+    -- it can be GoAddTest, GoAddExpTest or GoAddAllTest
+  {"n", "<CR>z", ":GoAdd", opt},
+  {"n", "<CR>q", ":GoTermClose<CR>", opt},
 }
 
 --Autocommand creation
-local go_nvim_aucmd = {
+local gonvim_aucmd = {
   go_nvim = {
     autocmd = {
       {
@@ -52,4 +58,4 @@ local go_nvim_aucmd = {
   }
 }
 
-create_autocmd(go_nvim_aucmd)
+create_autocmd(gonvim_aucmd)
