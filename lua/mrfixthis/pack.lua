@@ -32,7 +32,10 @@ return require("packer").startup(function(use)
 
   --Interface
   use("mkitt/tabline.vim")
-  use("nvim-lualine/lualine.nvim")
+  use({
+    "nvim-lualine/lualine.nvim",
+    commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23" --tmp commit
+  })
     --Themes
   use("Yagua/nebulous.nvim")
   -- use("eddyekofo94/gruvbox-flat.nvim")
@@ -49,12 +52,12 @@ return require("packer").startup(function(use)
   use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install"})
   use("tpope/vim-fugitive")
   use("lewis6991/gitsigns.nvim")
-  -- use("ThePrimeagen/harpoon")
   -- use("imUntersberger/neogit")
 
   --Navigation
   use("kyazdani42/nvim-tree.lua")
   use("szw/vim-maximizer")
+  -- use("ThePrimeagen/harpoon")
 
   --Telescope
   use({

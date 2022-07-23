@@ -2,10 +2,19 @@ require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = "auto", --To abstract the nebulous colors
-    component_separators = { left = "|", right = "|"},
-    section_separators = { left = " ", right = " "},
-    -- disabled_filetypes = {}, --Disable when x filetype is detected
+    component_separators = {left = "|", right = "|"},
+    section_separators = {left = " ", right = " "},
+    -- disabled_filetypes = {
+    --   statusline = {},
+    --   winbar = {},
+    -- },
     always_divide_middle = true,
+    -- globalstatus = true,
+    -- refresh = {
+    --   statusline = 1000,
+    --   tabline = 1000,
+    --   winbar = 1000,
+    -- },
   },
   sections = {
     lualine_a = {"mode"},

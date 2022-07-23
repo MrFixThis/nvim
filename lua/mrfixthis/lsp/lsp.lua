@@ -1,8 +1,7 @@
-local lsp = require("lspconfig")
-local jdtls = require("jdtls")
 local M = {}
 local HOME = os.getenv("HOME")
-
+local lsp = require("lspconfig")
+local jdtls = require("jdtls")
 local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", HOME)
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
@@ -22,14 +21,13 @@ M.setup_jdtls = function()
     --"pom.xml",
     --"build.gradle"
   }
-
   local root_dir = jdtls.setup.find_root(root_markers)
   local workspace_folder = string.format(
     "%s/.local/share/eclipse/%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
   )
+
   -- Jdtls configs
   local config = {}
-
   config.settings = {
     java = {
       configuration = {
