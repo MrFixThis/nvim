@@ -21,24 +21,25 @@ local buff_go_nvim_maps = {
   {"n", "<CR>c", ":GoCodeAction<CR>", opt},
   {"n", "<CR>k", ":GoRun<CR>", opt},
   {"n", "<CR>j", ":GoStop ", opt},
-  {"n", "<CR>f", ":GoFmt -a<CR>", opt},
+  {"n", "<CR>f", ":GoFmt -", opt},
   {"n", "<CR>b", ":GoImport<CR>", opt},
   {"n", "<CR>l", ":GoLint<CR>", opt},
+  {"n", "<CR>v", ":GoVet ", opt},
   {"n", "<CR>t", ":GoModTidy<CR>", opt},
-  {"n", "<CR>v", ":GoVet<CR>", opt},
   {"n", "<CR>m", ":GoModVendor<CR>", opt},
-  {"n", "<CR>g", ":GoMockGen<CR>", opt},
-  {"n", "<CR>a", ":GoAlt ", opt},
+  {"n", "<CR>a", ":GoAlt<CR>", opt},
   {"n", "<CR>d", function()
       vim.api.nvim_cmd({cmd = "GoDoc", args = {vim.fn.expand("<cexpr>")}}, {})
     end, opt
   },
 
-  --Testing (common and gotests and testify)
+  --Testing (common and [gotests + testify])
     -- it can be GoTestFunc, GoTestFile or GoTestPkg
-  {"n", "<CR>s", ":GoTest", opt},
+  {"n", "<CR>h", ":GoTest", opt},
     -- it can be GoAddTest, GoAddExpTest or GoAddAllTest
+  {"n", "<CR>s", ":GoCoverage ", opt},
   {"n", "<CR>z", ":GoAdd", opt},
+  {"n", "<CR>g", ":GoMockGen<CR>", opt},
   {"n", "<CR>q", ":GoTermClose<CR>", opt},
 }
 
