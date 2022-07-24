@@ -1,8 +1,8 @@
---Colorscheme Settings
+--Nebulous setup
 local nebulous = require("nebulous")
 local scheme = require("nebulous.functions").get_colors("fullmoon")
 
-nebulous.setup {
+nebulous.setup({
   variant = "midnight",
   disable = {
     background = false,
@@ -18,4 +18,4 @@ nebulous.setup {
     LineNr =       {fg = scheme.Blue,   bg = scheme.none, style = scheme.none},
     CursorLineNr = {fg = scheme.Yellow, bg = scheme.none, style = scheme.none},
   }
-} --"I love your work, Yagua"
+}) --"I love your work, Yagua"

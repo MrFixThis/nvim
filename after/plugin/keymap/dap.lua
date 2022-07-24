@@ -2,6 +2,7 @@ local set_keymap = require("mrfixthis.keymap").set_keymap
 local dap = require("dap")
 local dapui = require("dapui")
 
+--Dap keymaps
 local dap_maps = {
   {"n", "<leader>B",
     function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end

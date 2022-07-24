@@ -2,6 +2,7 @@ local set_keymap = require("mrfixthis.keymap").set_keymap
 local telescope = require("telescope.builtin")
 local tl_custom = require("mrfixthis.telescope.custom")
 
+--Telescope keymaps
 local telescope_maps = {
   {"n", "<leader>tt", ":Telescope<CR>"},
   {"n", "<leader>mw", telescope.buffers},

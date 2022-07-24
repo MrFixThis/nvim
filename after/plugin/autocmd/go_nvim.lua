@@ -6,6 +6,7 @@ local opt = {buffer = true}
   --{list,} to only install the desired ones
 --GoUpdateBinaries to update the binaries to its lastest version
 
+--Go.nvim keymaps for autocmd
 local buff_go_nvim_maps = {
   --General
   {"n", "<localleader>c", ":GoCmt<CR>", opt},

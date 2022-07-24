@@ -1,3 +1,4 @@
+--Lualine setup
 require("lualine").setup({
   options = {
     icons_enabled = true,
@@ -9,12 +10,12 @@ require("lualine").setup({
     --   winbar = {},
     -- },
     always_divide_middle = true,
-    -- globalstatus = true,
-    -- refresh = {
-    --   statusline = 1000,
-    --   tabline = 1000,
-    --   winbar = 1000,
-    -- },
+    globalstatus = true,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    },
   },
   sections = {
     lualine_a = {"mode"},

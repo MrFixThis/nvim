@@ -1,5 +1,6 @@
 local dap = require("dap")
 
+--Lua debugger adapter settings
 dap.adapters.nlua = function(callback, config)
   local port = config.port
   local opts = {

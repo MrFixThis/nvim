@@ -1,3 +1,4 @@
+--Formatter setup
 require("formatter").setup({
   logging = false,
   filetype = {
@@ -6,7 +7,9 @@ require("formatter").setup({
       function()
         return {
           exe = "prettier",
-          args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+          args = {
+            "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"
+          },
           stdin = true
         }
       end

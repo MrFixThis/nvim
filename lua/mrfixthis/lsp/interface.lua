@@ -1,4 +1,4 @@
---UI configurations
+--Lsp UI configurations
   -- floating preview window
 local border = {
   { "╭", "FloatBorder" },

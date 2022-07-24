@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/cyclist.vim",
     url = "https://github.com/tjdevries/cyclist.vim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/formatter.nvim",
@@ -148,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/nebulous.nvim",
     url = "https://github.com/Yagua/nebulous.nvim"
+  },
+  neogit = {
+    loaded = true,
+    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/TimUntersberger/neogit"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -253,11 +263,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
-  },
-  ["vim-fugitive"] = {
-    loaded = true,
-    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-maximizer"] = {
     loaded = true,

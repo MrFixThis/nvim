@@ -1,3 +1,4 @@
+--Vsnip setup
 vim.g.vsnip_snippet_dir = vim.fn.expand("~/.config/nvim/snippet/vsnip")
 local set_keymap = require("mrfixthis.keymap").set_keymap
 

@@ -1,4 +1,4 @@
---COLORIZER_SETUP
+--Colorizer setup
 require("colorizer").setup(
   {"*",},
   {

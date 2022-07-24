@@ -1,5 +1,6 @@
 local dap = require("dap")
 
+--Java debugger adapter settings
 dap.configurations.java = {
   {
     type = "java",

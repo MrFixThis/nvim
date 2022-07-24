@@ -1,3 +1,4 @@
+--Go.nvim setup
 require("go").setup({
   go = "go", --"go"
   goimport = "gopls", --goimport + gofmt

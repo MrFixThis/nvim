@@ -1,6 +1,7 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
 local jdtls = require("jdtls")
 
+--Lsp keymaps
 local lsp_maps = {
   {"n", "gD", vim.lsp.buf.declaration},
   {"n", "<leader>du", vim.lsp.buf.definition},

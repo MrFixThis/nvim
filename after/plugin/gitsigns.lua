@@ -1,4 +1,5 @@
-require("gitsigns").setup {
+--Gitsigns setup
+require("gitsigns").setup({
   signs = {
     add =          {hl = "GitSignsAdd",    text = "│", numhl = "GitSignsAddNr"},
     change =       {hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr"},
@@ -23,4 +24,4 @@ require("gitsigns").setup {
       ["x ih"] = ":<C-U>lua require'gitsigns'.select_hunk()<CR>",
     }
   },
-}
+})

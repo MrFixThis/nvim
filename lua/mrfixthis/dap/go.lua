@@ -1,5 +1,6 @@
 local dap = require("dap")
 
+--Go debugger adapter settings
 dap.adapters.go = function(callback, _)
   local stdout = vim.loop.new_pipe(false)
   local handle

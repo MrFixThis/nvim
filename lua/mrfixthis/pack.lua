@@ -32,10 +32,7 @@ return require("packer").startup(function(use)
 
   --Interface
   use("mkitt/tabline.vim")
-  use({
-    "nvim-lualine/lualine.nvim",
-    commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23" --tmp commit
-  })
+  use("nvim-lualine/lualine.nvim")
     --Themes
   use("Yagua/nebulous.nvim")
   -- use("eddyekofo94/gruvbox-flat.nvim")
@@ -49,10 +46,12 @@ return require("packer").startup(function(use)
   --Tools
   use("mbbill/undotree")
   use("norcalli/nvim-colorizer.lua")
-  use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install"})
-  use("tpope/vim-fugitive")
+  use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install",})
   use("lewis6991/gitsigns.nvim")
-  -- use("imUntersberger/neogit")
+  use({
+    "TimUntersberger/neogit",
+    requires = "sindrets/diffview.nvim",
+  })
 
   --Navigation
   use("kyazdani42/nvim-tree.lua")
@@ -62,10 +61,10 @@ return require("packer").startup(function(use)
   --Telescope
   use({
     "nvim-telescope/telescope.nvim",
-    requires = {{
+    requires = {
       "nvim-lua/popup.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim"
-    }}
+      "nvim-telescope/telescope-fzy-native.nvim",
+    },
   })
 
   --Lsp
@@ -102,7 +101,7 @@ return require("packer").startup(function(use)
   -- Treesitter
   use({
     ("nvim-treesitter/nvim-treesitter"),
-    run = function() vim.cmd[[TSUpdate]] end
+    run = function() vim.cmd[[TSUpdate]] end,
   })
   use("nvim-treesitter/playground")
 
