@@ -13,7 +13,6 @@ local single_plug_maps = {
   --Neogit
   {"n", "<leader>gg", ":Neogit<CR>"},
   --DiffView
-  {"n", "<leader>gg", ":Neogit<CR>"},
   {"n", "<leader>go", ":DiffviewOpen<CR>"},
   {"n", "<leader>gh", ":DiffviewFileHistory<CR>"},
   {"n", "<leader>gd", ":DiffviewClose<CR>"},
