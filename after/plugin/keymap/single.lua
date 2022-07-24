@@ -11,8 +11,8 @@ local single_plug_maps = {
   --Maximizer
   {"n", "<leader>ma", ":MaximizerToggle!<CR>"},
   --Neogit
-  {"n", "<leader>gg", ":Neogit<CR>"},
-  --DiffView
+  {"n", "<leader>gg", ":lc %:h | Neogit<CR>"},
+    --DiffView
   {"n", "<leader>go", ":DiffviewOpen<CR>"},
   {"n", "<leader>gh", ":DiffviewFileHistory<CR>"},
   {"n", "<leader>gd", ":DiffviewClose<CR>"},
