@@ -3,7 +3,7 @@ require("go").setup({
   go = "go", --"go"
   goimport = "gopls", --goimport + gofmt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
-  gofmt = "gofump", --can be gofmt
+  gofmt = "gofumpt", --can be gofmt
   max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
   tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
   gotests_template = "",

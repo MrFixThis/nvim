@@ -6,7 +6,7 @@ local single_plug_maps = {
   {"n", "<c-p>", ":NvimTreeToggle<CR>"},
   --Formatter
   {"n", "<leader>fo", ":Format<CR>"},
-  --Undo tree
+  --Undotree
   {"n", "<leader>u", ":UndotreeShow<CR>"},
   --Maximizer
   {"n", "<leader>ma", ":MaximizerToggle!<CR>"},

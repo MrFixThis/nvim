@@ -3,9 +3,16 @@ local diffview = require("diffview")
 
 --Neogit setup
 neogit.setup({
+  disable_hint = true,
+  disable_commit_confirmation = true,
   integrations = {
     diffview = true,
   },
+  mappings = {
+    status = {
+      ["h"] = "HelpPopup",
+    }
+  }
 })
 
 --DiffView setup

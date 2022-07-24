@@ -22,7 +22,6 @@ local buff_go_nvim_maps = {
   {"n", "<CR>c", ":GoCodeAction<CR>", opt},
   {"n", "<CR>k", ":GoRun<CR>", opt},
   {"n", "<CR>j", ":GoStop ", opt},
-  {"n", "<CR>f", ":GoFmt -", opt},
   {"n", "<CR>b", ":GoImport<CR>", opt},
   {"n", "<CR>l", ":GoLint<CR>", opt},
   {"n", "<CR>v", ":GoVet ", opt},
@@ -57,7 +56,7 @@ local gonvim_aucmd = {
     opts = {
       clear = true,
     }
-  }
+  },
 }
 
 create_autocmd(gonvim_aucmd)

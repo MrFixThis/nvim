@@ -19,7 +19,7 @@ local auto_groups = {
   highlight_yank = {
     autocmd = {
       {
-        event = { "TextYankPost", },
+        event = {"TextYankPost",},
         pattern = { "*", },
         command = "silent! lua vim.highlight.on_yank({timeout = 40})",
       },
