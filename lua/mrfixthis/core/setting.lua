@@ -1,7 +1,7 @@
-local load_settings = require("mrfixthis.global").opts
+local settings = require("mrfixthis.global").opt
 
---Editor global settings
-load_settings({
+--Editor's global settings
+settings({
   cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers

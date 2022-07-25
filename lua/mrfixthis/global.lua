@@ -1,7 +1,7 @@
-local Globals = {}
+local Global = {}
 
---Editar option setter
-function Globals.opts(opts_table)
+--Editor options setter
+function Global.opt(opts_table)
   if next(opts_table) == nil then return end
   for k, v in pairs(opts_table) do
    vim.opt[k] = v
@@ -24,4 +24,4 @@ R = function(name)
   return require(name)
 end
 
-return Globals
+return Global
