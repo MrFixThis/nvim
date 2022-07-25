@@ -15,8 +15,8 @@ local dap_maps = {
   {"n", "<leader>sq", dap.step_over},
   {"n", "<leader>rc", dap.run_to_cursor},
   {"n", "<leader>rl", dap.run_last},
-  {"n", "<leader>.", dap.terminate},
-  {"n", "<leader><localleader>", dap.close},
+  {"n", "<leader><localleader>", dap.terminate},
+  {"n", "<leader>.", dap.close},
   {"n", "<Home>", function() dapui.toggle(1) end},
   {"n", "<End>", function() dapui.toggle(2) end},
 }

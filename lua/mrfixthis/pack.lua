@@ -31,7 +31,6 @@ return require("packer").startup(function(use)
   use("mhartington/formatter.nvim")
 
   --Interface
-  use("mkitt/tabline.vim")
   use("nvim-lualine/lualine.nvim")
     --Themes
   use("Yagua/nebulous.nvim")

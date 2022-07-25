@@ -13,8 +13,7 @@ require("lualine").setup({
     globalstatus = true,
     refresh = {
       statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
+      tabline = 100,
     },
   },
   sections = {
@@ -23,6 +22,7 @@ require("lualine").setup({
     lualine_c = {
       {
         "filename",
+        path = 1,
         symbols = {
           modified = " [+]",
           readonly = " [-]",
@@ -30,11 +30,18 @@ require("lualine").setup({
         }
       }
     },
-    lualine_x = {
-      "require('dap').status()",
-      "encoding", "fileformat", "filetype",
-    },
+    lualine_x = {"encoding", "fileformat", "filetype",},
     lualine_y = {"progress"},
     lualine_z = {"location"}
+  },
+  tabline = {
+    lualine_a = {
+      {
+        'tabs',
+        max_length = vim.o.columns / 2,
+        mode = 1,
+      }
+    },
+    lualine_z = {"require('dap').status()",},
   },
 })
