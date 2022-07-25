@@ -1,7 +1,7 @@
 local create_autocmd = require("mrfixthis.autocmd").create_autocmd
 
 --General autocmds
-local auto_groups = {
+local general_aucmd = {
   --Java files. Language server attachment
   jdtls_lsp = {
     autocmd = {
@@ -30,4 +30,4 @@ local auto_groups = {
   },
 }
 
-create_autocmd(auto_groups)
+create_autocmd(general_aucmd)

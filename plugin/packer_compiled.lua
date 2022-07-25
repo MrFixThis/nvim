@@ -234,11 +234,6 @@ _G.packer_plugins = {
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
   },
-  ["tabline.vim"] = {
-    loaded = true,
-    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/tabline.vim",
-    url = "https://github.com/mkitt/tabline.vim"
-  },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim",

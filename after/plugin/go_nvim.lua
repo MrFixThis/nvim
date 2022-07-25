@@ -1,5 +1,6 @@
 --Go.nvim setup
 require("go").setup({
+  disable_defaults = false,
   go = "go", --"go"
   goimport = "gopls", --goimport + gofmt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
