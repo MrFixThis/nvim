@@ -1,7 +1,7 @@
-local globals = {}
+local Globals = {}
 
---Option setting
-function globals.opts(opts_table)
+--Editar option setter
+function Globals.opts(opts_table)
   if next(opts_table) == nil then return end
   for k, v in pairs(opts_table) do
    vim.opt[k] = v
@@ -9,7 +9,7 @@ function globals.opts(opts_table)
 end
 
 --Table inspection
-P = function(v)
+T = function(v)
   print(vim.inspect(v))
   return v
 end
@@ -24,4 +24,4 @@ R = function(name)
   return require(name)
 end
 
-return globals
+return Globals
