@@ -9,9 +9,13 @@ function Global.opt(opts_table)
 end
 
 --Table inspection
-T = function(v)
-  print(vim.inspect(v))
-  return v
+T = function(...)
+  local args = {...}
+  for _, arg in ipairs(args) do
+    print(vim.inspect(arg))
+  end
+  if #args == 1 then return args[1] end
+  return args
 end
 
 --Module reload
