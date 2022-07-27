@@ -23,6 +23,7 @@ settings({
   shiftwidth     = 4,            -- Number of spaces to use for each step of (auto)indent.
   cmdheight      = 1,            -- Height of the command bar
   scrolloff      = 10,           -- Limit number of the scroll action
+  mouse          = "",           -- Disable all the mouse support
   updatetime     = 50,           -- Make updates happen faster
   laststatus     = 3,            -- Set globlal split bar
   colorcolumn    = "80",         -- Set a column for 80 characters
