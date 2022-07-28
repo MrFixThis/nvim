@@ -139,7 +139,6 @@ local servers = {
     filetypes = {"go", "gomod", "gotmpl"},
     root_dir = lsp.util.root_pattern("go.work", "go.mod", ".git"),
     single_file_support = true,
-    capabilities = capabilities,
     settings = {
       gopls = {
         gofumpt = true,
@@ -184,6 +183,9 @@ local setup_server = function(server, config)
   if type(config) ~= "table" then
     config = {}
   end
+  config = vim.tbl_deep_extend("force", {
+    capabilities = capabilities,
+  }, config)
 
   lsp[server].setup(config)
 end

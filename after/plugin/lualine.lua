@@ -5,16 +5,22 @@ require("lualine").setup({
     theme = "auto", --To abstract the nebulous colors
     component_separators = {left = "", right = ""},
     section_separators = {left = "", right = ""},
-    -- disabled_filetypes = {
-    --   statusline = {},
-    --   winbar = {},
-    -- },
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {
+        "NvimTree",
+        "NeogitStatus",
+        "NeogitPopup",
+        "DiffviewFiles",
+        "DiffviewFileHistory",
+      },
+    },
     always_divide_middle = true,
     globalstatus = true,
     refresh = {
       statusline = 100,
       tabline = 100,
-      winbar = 1000,
+      winbar = 10,
     },
   },
   sections = {
