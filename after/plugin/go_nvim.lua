@@ -2,7 +2,7 @@
 require("go").setup({
   disable_defaults = false,
   go = "go", --"go"
-  goimport = "gopls", --goimport + gofmt
+  goimport = "gopls", --goimports: goimport + gofmt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
   gofmt = "gofumpt", --can be gofmt
   max_line_len = 128, -- max line length in golines format, Target maximum line length for golines

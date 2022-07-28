@@ -31,7 +31,10 @@ return require("packer").startup(function(use)
   use("mhartington/formatter.nvim")
 
   --Interface
-  use("nvim-lualine/lualine.nvim")
+  use({
+    "nvim-lualine/lualine.nvim",
+    commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47" --tmp
+  })
     --Themes
   use("Yagua/nebulous.nvim")
   -- use("eddyekofo94/gruvbox-flat.nvim")

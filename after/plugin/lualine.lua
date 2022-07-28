@@ -3,8 +3,8 @@ require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = "auto", --To abstract the nebulous colors
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = {left = "", right = ""},
+    section_separators = {left = "", right = ""},
     -- disabled_filetypes = {
     --   statusline = {},
     --   winbar = {},
@@ -14,6 +14,7 @@ require("lualine").setup({
     refresh = {
       statusline = 100,
       tabline = 100,
+      winbar = 1000,
     },
   },
   sections = {
@@ -43,5 +44,18 @@ require("lualine").setup({
       }
     },
     lualine_z = {"require('dap').status()",},
+  },
+  inactive_winbar = {
+    lualine_a = {
+      {
+        "filename",
+        path = 1,
+        symbols = {
+          modified = " [+]",
+          readonly = " [-]",
+          unnamed = "[No Name]",
+        }
+      }, "diagnostics"
+    },
   },
 })

@@ -8,6 +8,7 @@ local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_
 --Capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- ...
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 ---Language servers setup
@@ -18,8 +19,8 @@ M.setup_jdtls = function()
     "gradlew",
     "mvnw",
     ".git",
-    --"pom.xml",
-    --"build.gradle"
+    "pom.xml",
+    "build.gradle"
   }
   local root_dir = jdtls.setup.find_root(root_markers)
   local workspace_folder = string.format(
@@ -138,8 +139,10 @@ local servers = {
     filetypes = {"go", "gomod", "gotmpl"},
     root_dir = lsp.util.root_pattern("go.work", "go.mod", ".git"),
     single_file_support = true,
+    capabilities = capabilities,
     settings = {
       gopls = {
+        gofumpt = true,
         analyses = {
           unusedparams = true,
         },

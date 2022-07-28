@@ -25,7 +25,7 @@ settings({
   scrolloff      = 10,           -- Limit number of the scroll action
   mouse          = "",           -- Disable all the mouse support
   updatetime     = 50,           -- Make updates happen faster
-  laststatus     = 3,            -- Set globlal split bar
+  laststatus     = 3,            -- Set globlal status bar
   colorcolumn    = "80",         -- Set a column for 80 characters
   signcolumn     = "yes",        -- Always show the signcolumn
   clipboard      = "",           -- Copy paste between Vim and everything else
