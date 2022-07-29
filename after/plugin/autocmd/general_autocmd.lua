@@ -2,19 +2,6 @@ local create_autocmd = require("mrfixthis.autocmd").create_autocmd
 
 --General autocmds
 local general_aucmd = {
-  --Java files. Language server attachment
-  jdtls_lsp = {
-    autocmd = {
-      {
-        event = {"FileType",},
-        pattern = {"java",},
-        callback = require("mrfixthis.lsp.lsp").setup_jdtls
-      },
-    },
-    opts = {
-        clear = true,
-    }
-  },
   --Yanking settings
   highlight_yank = {
     autocmd = {

@@ -32,6 +32,7 @@ require("go").setup({
   lsp_document_formatting = true, -- set to true: use gopls to format
                                   -- false if you want to use other formatter
                                   -- tool(e.g. efm, nulls)
+  lsp_inlay_hints = {enable = false},
   gopls_cmd = nil, -- if you need to specify gopls path and cmd
   gopls_remote_auto = "auto", -- add -remote=auto to gopls
   dap_debug = true, -- set to false to disable dap

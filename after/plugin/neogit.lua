@@ -16,10 +16,6 @@ neogit.setup({
   },
   mappings = {
     status = {
-      ["q"] = function()
-        vim.api.nvim_buf_delete(0, {})
-        vim.api.nvim_cmd({cmd = "lc!"}, {})
-      end,
       ["h"] = "HelpPopup",
     }
   }

@@ -19,7 +19,7 @@ require("lualine").setup({
     globalstatus = true,
     refresh = {
       statusline = 100,
-      tabline = 100,
+      tabline = 50,
       winbar = 10,
     },
   },

@@ -1,5 +1,4 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
-local jdtls = require("jdtls")
 
 --Lsp keymaps
 local lsp_maps = {
@@ -26,16 +25,6 @@ local lsp_maps = {
   {"n", "<leader>ee", vim.diagnostic.open_float},
   {"n", "<leader>gp", vim.diagnostic.goto_prev},
   {"n", "<leader>gn", vim.diagnostic.goto_next},
-
-  --Languague servers keymaps
-  --Jdtls
-  {"n", "<leader>or", jdtls.organize_imports},
-  {"n", "<leader>av", jdtls.test_class},
-  {"n", "<leader>tm", jdtls.test_nearest_method},
-  {"v", "<leader>am", function() jdtls.extract_variable(true) end},
-  {"n", "<leader>am", jdtls.extract_variable},
-  {"n", "<leader>om", jdtls.extract_constant},
-  {"v", "<leader>dm", function() jdtls.extract_method(true) end},
 }
 
 set_keymap(lsp_maps)

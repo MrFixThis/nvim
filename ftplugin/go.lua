@@ -1,4 +1,3 @@
-local create_autocmd = require("mrfixthis.autocmd").create_autocmd
 local set_keymap = require("mrfixthis.keymap").set_keymap
 local opt = {buffer = true}
 
@@ -7,7 +6,7 @@ local opt = {buffer = true}
 --GoUpdateBinaries to update the binaries to its lastest version
 
 --Go.nvim keymaps for autocmd
-local buff_go_nvim_maps = {
+local go_nvim_maps = {
   --General
   {"n", "<localleader>c", ":GoCmt<CR>", opt},
   {"n", "<localleader>t", ":GoAddTag<CR>", opt},
@@ -43,20 +42,4 @@ local buff_go_nvim_maps = {
   {"n", "<CR>q", ":GoTermClose<CR>", opt},
 }
 
---Autocommand creation
-local gonvim_aucmd = {
-  go_nvim = {
-    autocmd = {
-      {
-        event = {"FileType",},
-        pattern = {"go", "gomod", "gotmpl",},
-        callback = function() set_keymap(buff_go_nvim_maps) end,
-      }
-    },
-    opts = {
-      clear = true,
-    }
-  },
-}
-
-create_autocmd(gonvim_aucmd)
+set_keymap(go_nvim_maps)
