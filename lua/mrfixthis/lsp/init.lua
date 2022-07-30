@@ -106,9 +106,9 @@ for server, configs in pairs(lang_servers) do
   setup_server(server, configs)
 end
 
---Interface settings
-require('mrfixthis.lsp.interface')
 --Cmp configurations
-require('mrfixthis.lsp.cmp')
+require("mrfixthis.lsp.cmp")
+--Interface settings
+require("mrfixthis.lsp.interface")
 
 return M

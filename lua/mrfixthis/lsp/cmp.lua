@@ -26,9 +26,9 @@ cmp.setup({
     sources = cmp.config.sources({
       {name = "nvim_lsp"},
       {name = "nvim_lua"},
-      {name = "buffer", keyword_lenght = 5 },
+      {name = "buffer", keyword_lenght = 5},
       {name = "path"},
-      { name = "vsnip"},
+      {name = "vsnip"},
       -- {name = "luasnip"},
     }),
    formatting = {
@@ -43,5 +43,13 @@ cmp.setup({
          -- luasnip = "[Snip]",
        },
      }),
+   },
+   window = {
+     completion = {
+       border = "rounded",
+     },
+     documentation = {
+      border = "rounded",
+    },
    },
 })
