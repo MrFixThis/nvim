@@ -1,7 +1,7 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
 
 --Single keymaps
-local single_plug_maps = {
+local single_plug_mapings = {
   --Nvim tree
   {"n", "<c-p>", ":NvimTreeToggle<CR>"},
   --Formatter
@@ -18,4 +18,4 @@ local single_plug_maps = {
   {"n", "<leader>gd", ":DiffviewClose<CR>"},
 }
 
-set_keymap(single_plug_maps)
+set_keymap(single_plug_mapings)

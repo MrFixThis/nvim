@@ -14,5 +14,5 @@ require("formatter").setup({
         }
       end
     },
-  }
+  },
 })

@@ -8,21 +8,9 @@ for type, icon in pairs(signs) do
 end
 
   -- floating preview window's borders
-local border = {
-  { "╭", "FloatBorder" },
-  { "─", "FloatBorder" },
-  { "╮", "FloatBorder" },
-  { "│", "FloatBorder" },
-  { "╯", "FloatBorder" },
-  { "─", "FloatBorder" },
-  { "╰", "FloatBorder" },
-  { "│", "FloatBorder" },
-}
-
 local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
-  opts.border = opts.border or border
-  opts.focus = false
+  opts.border = opts.border or "single"
   return original_util_open_floating_preview(contents, syntax, opts, ...)
 end

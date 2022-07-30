@@ -1,12 +1,12 @@
 --Jdtls setup
-local HOME = os.getenv("HOME")
+local home = os.getenv("HOME")
 local capabilities = require("mrfixthis.lsp").capabilities
 local jdtls = require("jdtls")
 local root_markers = {"gradlew", "mvnw", ".git",}
 local root_dir = jdtls.setup.find_root(root_markers)
 -- Root dir config
 local workspace_folder = string.format(
-  "%s/.local/share/eclipse/%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
+  "%s/.local/share/eclipse/%s", home, vim.fn.fnamemodify(root_dir, ":p:h:t")
 )
 local config = {}
 
@@ -46,15 +46,15 @@ config.cmd = {
   "-Dlog.protocol=true",
   "-Dlog.level=ALL",
   "-Xms1g",
-  "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-  "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
+  "-jar", vim.fn.glob(home .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+  "-configuration", home .. "/.local/servers/jdtls/config_linux",
   "-data", workspace_folder,
   "--add-modules=ALL-SYSTEM",
   "--add-opens", "java.base/java.util=ALL-UNNAMED",
   "--add-opens", "java.base/java.lang=ALL-UNNAMED",
 }
 --Lombok support
-local lombok_path = HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
+local lombok_path = home .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
 if vim.fn.filereadable(lombok_path) > 0 then
   table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
 end
@@ -67,7 +67,7 @@ config.on_attach = function()
 
   local set_keymap = require("mrfixthis.keymap").set_keymap
   local opt = {buffer = true}
-  local jdtls_maps = {
+  local jdtls_mapings = {
     {"n", "<leader>or", jdtls.organize_imports, opt},
     {"n", "<leader>av", jdtls.test_class, opt},
     {"n", "<leader>tm", jdtls.test_nearest_method, opt},
@@ -77,16 +77,16 @@ config.on_attach = function()
     {"v", "<leader>dm", function() jdtls.extract_method(true) end, opt},
   }
 
-  set_keymap(jdtls_maps)
+  set_keymap(jdtls_mapings)
 end
 
 local bundles = {
   vim.fn.glob(
-    HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
+    home .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
   ),
 }
 vim.list_extend(
-  bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/vscode-java-test/server/*.jar"), "\n")
+  bundles, vim.split(vim.fn.glob(home .. "/.local/dev_tools/vscode-java-test/server/*.jar"), "\n")
 )
 
 config.init_options = {

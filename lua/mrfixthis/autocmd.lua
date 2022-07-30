@@ -13,7 +13,7 @@ function M.create_autocmd(aucmd_content)
           pattern = autocmd.pattern,
           command = autocmd.command,   --Non-nil is taken
           callback = autocmd.callback, --^
-          group = group
+          group = group,
       })
     end
   end

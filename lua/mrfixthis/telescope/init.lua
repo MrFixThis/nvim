@@ -1,7 +1,7 @@
 local telescope = require("telescope")
 local telescope_actions = require("telescope.actions")
 
-telescope.setup {
+telescope.setup({
   defaults = {
     layout_strategy = "horizontal",
     layout_config = {
@@ -13,14 +13,14 @@ telescope.setup {
     pickers = {
       find_files = {
         theme = "ivy"
-      }
+      },
     },
     mappings = {
       i = {
         ["<C-z>"] = function(prompt_bufnr)
           telescope_actions.delete_buffer(prompt_bufnr)
         end,
-      }
-    }
+      },
+    },
   },
-}
+})

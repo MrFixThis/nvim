@@ -22,6 +22,6 @@ require("gitsigns").setup({
       ["n <leader>fU"] = "<cmd>lua require'gitsigns'.reset_buffer_index()<CR>",
       ["o ih"] = ":<C-U>lua require'gitsigns'.select_hunk()<CR>",
       ["x ih"] = ":<C-U>lua require'gitsigns'.select_hunk()<CR>",
-    }
+    },
   },
 })

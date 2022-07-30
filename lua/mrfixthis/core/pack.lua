@@ -33,7 +33,7 @@ return require("packer").startup(function(use)
   --Interface
   use({
     "nvim-lualine/lualine.nvim",
-    commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47" --tmp
+    commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47"
   })
     --Themes
   use("Yagua/nebulous.nvim")

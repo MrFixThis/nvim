@@ -18,7 +18,7 @@ neogit.setup({
     status = {
       ["h"] = "HelpPopup",
     }
-  }
+  },
 })
 
 --DiffView setup

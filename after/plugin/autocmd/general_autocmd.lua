@@ -8,12 +8,12 @@ local general_aucmd = {
       {
         event = {"TextYankPost",},
         pattern = { "*", },
-        command = "silent! lua vim.highlight.on_yank({timeout = 40})",
+        callback = function() vim.highlight.on_yank({timeout = 40}) end,
       },
     },
     opts = {
       clear = true,
-    }
+    },
   },
 }
 

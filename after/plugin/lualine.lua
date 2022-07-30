@@ -15,6 +15,7 @@ require("lualine").setup({
         "DiffviewFileHistory",
       },
     },
+    -- ignore_focus = {},
     always_divide_middle = true,
     globalstatus = true,
     refresh = {
@@ -37,7 +38,7 @@ require("lualine").setup({
         }
       }
     },
-    lualine_x = {"encoding", "fileformat", "filetype",},
+    lualine_x = {"encoding", "fileformat", "filetype"},
     lualine_y = {"progress"},
     lualine_z = {"location"}
   },
@@ -49,7 +50,7 @@ require("lualine").setup({
         mode = 1,
       }
     },
-    lualine_z = {"require('dap').status()",},
+    lualine_z = {"require('dap').status()"},
   },
   inactive_winbar = {
     lualine_a = {

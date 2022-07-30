@@ -45,7 +45,7 @@ dap.configurations.go = {
     request = "launch",
     program = "${file}",
   },
-  --debugging test files
+  --debug test files
   {
     type = "go",
     name = "Debug test",

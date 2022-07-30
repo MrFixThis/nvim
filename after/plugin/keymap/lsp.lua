@@ -1,7 +1,7 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
 
 --Lsp keymaps
-local lsp_maps = {
+local lsp_mapings = {
   {"n", "gD", vim.lsp.buf.declaration},
   {"n", "<leader>du", vim.lsp.buf.definition},
   {"n", "<leader>re", vim.lsp.buf.references},
@@ -27,4 +27,4 @@ local lsp_maps = {
   {"n", "<leader>gn", vim.diagnostic.goto_next},
 }
 
-set_keymap(lsp_maps)
+set_keymap(lsp_mapings)

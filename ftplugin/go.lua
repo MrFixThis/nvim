@@ -6,7 +6,7 @@ local opt = {buffer = true}
 --GoUpdateBinaries to update the binaries to its lastest version
 
 --Go.nvim keymaps for autocmd
-local go_nvim_maps = {
+local go_nvim_mapings = {
   --General
   {"n", "<localleader>c", ":GoCmt<CR>", opt},
   {"n", "<localleader>t", ":GoAddTag<CR>", opt},
@@ -42,4 +42,4 @@ local go_nvim_maps = {
   {"n", "<CR>q", ":GoTermClose<CR>", opt},
 }
 
-set_keymap(go_nvim_maps)
+set_keymap(go_nvim_mapings)

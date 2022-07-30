@@ -3,7 +3,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 
 --Dap keymaps
-local dap_maps = {
+local dap_mapings = {
   {"n", "<leader>B",
     function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end
   },
@@ -21,4 +21,4 @@ local dap_maps = {
   {"n", "<End>", function() dapui.toggle(2) end},
 }
 
-set_keymap(dap_maps)
+set_keymap(dap_mapings)

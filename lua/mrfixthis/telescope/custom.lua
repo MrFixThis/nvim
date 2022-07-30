@@ -8,7 +8,7 @@ M.search_nvim_conffiles = function ()
     prompt_title = "< Nvim dotfiles >",
     cwd = "~/.dotfiles/nvim/.config/nvim/",
     hidden = false,
-    previewer = false
+    previewer = false,
   })
   builtin.find_files(setts)
 end
