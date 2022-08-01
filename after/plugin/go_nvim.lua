@@ -1,8 +1,8 @@
 --Go.nvim setup
 require("go").setup({
   disable_defaults = false,
-  go = "go", --"go"
-  goimport = "gopls", --goimports: goimports + gofumpt
+  go = "go",
+  goimport = "goimports", --goimports: goimports + gofumpt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
   gofmt = "gofumpt", --can be gofmt
   max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
@@ -48,5 +48,6 @@ require("go").setup({
   run_in_floaterm = true, -- set to true to run in float window. :GoTermClose closes the floatterm
                            -- float term recommand if you use richgo/ginkgo with terminal color
 
+  trouble = false, --true: use trouble to open quickfix
   test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
 })
