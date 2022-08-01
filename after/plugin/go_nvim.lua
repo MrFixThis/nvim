@@ -50,4 +50,5 @@ require("go").setup({
 
   trouble = false, --true: use trouble to open quickfix
   test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
+  luasnip = false,
 })
