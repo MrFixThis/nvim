@@ -10,7 +10,7 @@ local telescope_mapings = {
   {"n", "<leader>th", telescope.help_tags},
   {"n", "<leader>gs", telescope.find_files},
   {"n", "<C-n>", telescope.diagnostics},
-  {"n", "<leader>n", telescope.lsp_references},
+  {"n", "<leader>tn", telescope.lsp_references},
   {"n", "<leader>gr", telescope.live_grep},
   {"n", "<leader>pw",
     function() telescope.grep_string({search = vim.fn.expand("<cword>")}) end

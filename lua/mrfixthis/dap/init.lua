@@ -48,8 +48,15 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 --Adapters setup
-require("mrfixthis.dap.go")
-require("mrfixthis.dap.java")
-require("mrfixthis.dap.lua")
+local adapters = {
+  "lua",
+  "go",
+  "lldb",
+  "java",
+}
+
+for _, v in ipairs(adapters) do
+  require(string.format("mrfixthis.dap.%s", v))
+end
 
 return M

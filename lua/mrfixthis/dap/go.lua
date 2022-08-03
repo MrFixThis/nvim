@@ -9,7 +9,7 @@ dap.adapters.go = function(callback, _)
   local opts = {
     stdio = {nil, stdout},
     args = {"dap", "-l", "127.0.0.1:" .. port},
-    detached = true
+    detached = true,
   }
 
   handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)

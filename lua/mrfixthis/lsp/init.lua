@@ -4,12 +4,12 @@ local lsp = require("lspconfig")
 local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", home)
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
---Capabilities
+-- Capabilities
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true --...
 M.capabilities = require("cmp_nvim_lsp").update_capabilities(M.capabilities)
 
---Language server setter
+-- Language server setter
 local setup_server = function(server, config)
   if not config then
     return
@@ -25,16 +25,15 @@ local setup_server = function(server, config)
   lsp[server].setup(config)
 end
 
----Language servers setup
+--- Language servers setup
 local lang_servers = {
-  --Default config language servers
+  -- Default config language servers
   html = true,
   cssls = true,
   yamlls = true,
   vimls = true,
-  rust_analyzer = true,
 
-  --Lua
+  -- Lua
   sumneko_lua = {
     cmd = {sumneko_binary},
     settings = {
@@ -61,7 +60,7 @@ local lang_servers = {
     },
   },
 
-  --Go
+  -- Go
   gopls = {
     cmd = {"gopls", "serve"},
     filetypes = {"go", "gomod", "gotmpl"},
@@ -78,7 +77,12 @@ local lang_servers = {
     },
   },
 
-  --Js/Ts
+  -- Rust
+  rust_analyzer = {
+    cmd = {"rustup", "run", "nightly", "rust-analyzer"},
+  },
+
+  -- Js/Ts
   tsserver = {
     cmd = {"typescript-language-server", "--stdio"},
     filetypes = {
@@ -91,7 +95,7 @@ local lang_servers = {
     },
   },
 
-  --Python
+  -- Python
   pylsp = {
     plugins = {
       pyls_mypy = {
@@ -106,9 +110,9 @@ for server, configs in pairs(lang_servers) do
   setup_server(server, configs)
 end
 
---Cmp configurations
+-- Cmp configurations
 require("mrfixthis.lsp.cmp")
---Interface settings
+-- Interface settings
 require("mrfixthis.lsp.interface")
 
 return M
