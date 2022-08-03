@@ -7,7 +7,7 @@ local daptext = require("nvim-dap-virtual-text")
 daptext.setup()
 dapui.setup({
     mappings = {
-      -- Use a table to apply multiple mappings
+      --Use a table to apply multiple mappings
       expand = {"<Tab>",},
       open = "o",
       remove = "d",
@@ -18,7 +18,7 @@ dapui.setup({
     layouts = {
         {
           elements = {
-            -- Elements can be strings or table with id and size keys.
+            --Elements can be strings or table with id and size keys.
             "watches",
             {id = "scopes", size = 0.34},
             {id = "stacks", size = 0.34},
@@ -37,14 +37,15 @@ dapui.setup({
     },
 })
 
+local ui_opt = {reset = true}
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    dapui.open(ui_opt)
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+    dapui.close(ui_opt)
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+    dapui.close(ui_opt)
 end
 
 --Adapters setup

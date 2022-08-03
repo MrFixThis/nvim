@@ -1,7 +1,7 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 
--- vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
+--vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
 
 --Cmp setup

@@ -18,7 +18,7 @@ return require("packer").startup(function(use)
     end
   end
 
-  ---Local plugins
+  --Local plugins
   -- local_use "nebulous.nvim"
 
   --Plugin manager

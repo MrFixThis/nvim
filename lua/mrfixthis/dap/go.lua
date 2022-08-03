@@ -30,7 +30,7 @@ dap.adapters.go = function(callback, _)
     end
   end)
 
-  -- Wait for delve to start
+  --Wait for delve to start
   vim.defer_fn(
     function()
       callback({type = "server", host = "127.0.0.1", port = port})
@@ -45,7 +45,7 @@ dap.configurations.go = {
     request = "launch",
     program = "${file}",
   },
-  --debug test files
+  --Debug test files
   {
     type = "go",
     name = "Debug test",

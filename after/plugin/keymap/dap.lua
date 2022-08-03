@@ -17,8 +17,8 @@ local dap_mapings = {
   {"n", "<leader>rl", dap.run_last},
   {"n", "<leader><localleader>", dap.terminate},
   {"n", "<leader>.", dap.close},
-  {"n", "<Home>", function() dapui.toggle(1) end},
-  {"n", "<End>", function() dapui.toggle(2) end},
+  {"n", "<Home>", function() dapui.toggle({layout = 1, reset = true}) end},
+  {"n", "<End>", function() dapui.toggle({layout = 2, reset = true}) end},
 }
 
 set_keymap(dap_mapings)

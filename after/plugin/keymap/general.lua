@@ -26,10 +26,13 @@ local general_mapings = {
     --Format
   {"n", "<leader>y", "\"+y"},
   {"v", "<leader>y" ,"\"+y"},
-  {"n", "<leader>Y", "gg\"+yG"},
+  {"n", "<leader>Y", "\"+yg$"},
+  {"v", "<leader>Y", "\"+yg$"},
+  {"n", "<leader>yg", "gg\"+yG"},
   {"n", "<leader>ws", ":%s/\\s\\+$//e<CR>"},
 
   --Terminal keymaps
+  {"n", "<leader>z;", ":sp term://zsh<CR>"},
   {"t", "<A-h>", "<C-\\><C-n><C-w>h"},
   {"t", "<A-l>", "<C-\\><C-n><C-w>j"},
   {"t", "<A-j>", "<C-\\><C-n><C-w>k"},
