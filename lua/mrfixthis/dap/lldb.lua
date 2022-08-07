@@ -1,5 +1,6 @@
 local dap = require("dap")
 
+--Lldb debugger settings
 dap.adapters.lldb = {
   type = "executable",
   command = "/usr/bin/lldb-vscode",  --Adjust as needed, must be absolute path

@@ -28,8 +28,8 @@ dapui.setup({
         },
         {
           elements = {
-            "console",
             "repl",
+            "console",
           },
           size = 8,
           position = "bottom",
@@ -54,6 +54,7 @@ local adapters = {
   "go",
   "lldb",
   "java",
+  "node",
 }
 
 for _, v in ipairs(adapters) do

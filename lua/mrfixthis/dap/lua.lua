@@ -30,9 +30,9 @@ end
 
 dap.configurations.lua = {
   {
+    name = "Attach to running Neovim instance",
     type = "nlua",
     request = "attach",
-    name = "Attach to running Neovim instance",
     port = 44444,
   }
 }

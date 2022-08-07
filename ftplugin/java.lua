@@ -54,7 +54,7 @@ config.cmd = {
   "--add-opens", "java.base/java.lang=ALL-UNNAMED",
 }
 --Lombok support
-local lombok_path = home .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
+local lombok_path = home .. "/.local/dev/java/bundles/lombok/lombok.jar"
 if vim.fn.filereadable(lombok_path) > 0 then
   table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
 end
@@ -82,11 +82,11 @@ end
 
 local bundles = {
   vim.fn.glob(
-    home .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
+    home .. "/.local/dev/microsoft/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
   ),
 }
 vim.list_extend(
-  bundles, vim.split(vim.fn.glob(home .. "/.local/dev_tools/vscode-java-test/server/*.jar"), "\n")
+  bundles, vim.split(vim.fn.glob(home .. "/.local/dev/microsoft/vscode-java-test/server/*.jar"), "\n")
 )
 
 config.init_options = {
