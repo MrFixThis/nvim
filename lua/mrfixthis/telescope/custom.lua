@@ -5,7 +5,7 @@ local themes = require("telescope.themes")
 --Nvim config files
 M.search_nvim_conffiles = function ()
   local set_pick = themes.get_dropdown({
-    prompt_title = "< Nvim dotfiles >",
+    prompt_title = "< Nvim config-files >",
     cwd = "~/.dotfiles/nvim/.config/nvim/",
     hidden = false,
     previewer = false,
@@ -16,7 +16,7 @@ end
 --.dotfiles
 M.search_dotfiles = function()
   local set_pick = themes.get_dropdown {
-    prompt_title = "< Config dotfiles >",
+    prompt_title = "< Dotfiles >",
     cwd = "~/.dotfiles/",
     hidden = true,
     previewer = false
