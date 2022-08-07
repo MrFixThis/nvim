@@ -1,5 +1,6 @@
 local telescope = require("telescope")
 local telescope_actions = require("telescope.actions")
+local telescope_themes = require("telescope.themes")
 
 telescope.setup({
   defaults = {
@@ -23,4 +24,10 @@ telescope.setup({
       },
     },
   },
+  extensions = {
+    ["ui-select"] = telescope_themes.get_cursor({}),
+  },
 })
+
+--Extensions loading
+telescope.load_extension("ui-select")

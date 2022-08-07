@@ -66,6 +66,7 @@ return require("packer").startup(function(use)
     requires = {
       "nvim-lua/popup.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
   })
 
@@ -102,7 +103,7 @@ return require("packer").startup(function(use)
 
   -- Treesitter
   use({
-    ("nvim-treesitter/nvim-treesitter"),
+    "nvim-treesitter/nvim-treesitter",
     run = function() vim.cmd[[TSUpdate]] end,
   })
   use("nvim-treesitter/playground")

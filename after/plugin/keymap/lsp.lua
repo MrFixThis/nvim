@@ -17,7 +17,7 @@ local lsp_mapings = {
   {"n", "<leader>rn", vim.lsp.buf.rename},
 
   -- Few language severs support these three
-  {"n", "<leader>=",  vim.lsp.buf.formatting},
+  {"n", "<leader>=",  function() vim.lsp.buf.format({async = true}) end},
   {"n", "<leader>ai", vim.lsp.buf.incoming_calls},
   {"n", "<leader>ao", vim.lsp.buf.outgoing_calls},
 

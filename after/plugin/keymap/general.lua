@@ -33,6 +33,7 @@ local general_mapings = {
 
   --Terminal keymaps
   {"n", "<leader>z;", ":sp term://zsh<CR>"},
+  {"t", "<A-Esc>", "<C-\\><C-N>"},
   {"t", "<A-h>", "<C-\\><C-n><C-w>h"},
   {"t", "<A-l>", "<C-\\><C-n><C-w>j"},
   {"t", "<A-j>", "<C-\\><C-n><C-w>k"},

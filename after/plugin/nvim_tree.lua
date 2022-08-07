@@ -1,5 +1,6 @@
 --Nvim-tree settings
 require("nvim-tree").setup({
+  auto_reload_on_write = true,
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
@@ -14,12 +15,6 @@ require("nvim-tree").setup({
   },
   diagnostics = {
     enable = false,
-    -- icons = {
-    --   hint = "",
-    --   info = "",
-    --   warning = "",
-    --   error = "",
-    -- }
   },
   update_focused_file = {
     enable      = false,
@@ -35,8 +30,9 @@ require("nvim-tree").setup({
       enable = true,
       icons = {
         corner = "└",
-        edge = "│ ",
-        none = "  ",
+        edge = "│",
+        item = "│",
+        none = " ",
       },
     },
   },
@@ -45,12 +41,12 @@ require("nvim-tree").setup({
     custom = {}
   },
   view = {
-    width = 30,
+    width = 35,
     height = 30,
     hide_root_folder = false,
     side = "left",
     number = true,
-    adaptive_size = false,
+    adaptive_size = true,
     relativenumber = true,
     signcolumn = "no",
     mappings = {
@@ -83,5 +79,19 @@ require("nvim-tree").setup({
         {key = "q",       action = "close"},
       },
     },
+    float = {
+      enable = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 35,
+        height = 29,
+        row = 2,
+        col = 0xF423F, -- -1
+      },
+    },
+  },
+  log = {
+    enable = false
   },
 })

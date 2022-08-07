@@ -18,7 +18,6 @@ local go_nvim_mapings = {
   {"n", "<localleader>g", ":GoImpl ", opt},
 
   --Tools
-  {"n", "<CR>c", ":GoCodeAction<CR>", opt},
   {"n", "<CR>k", ":GoRun<CR>", opt},
   {"n", "<CR>j", ":GoStop ", opt},
   {"n", "<CR>b", ":GoImport<CR>", opt},

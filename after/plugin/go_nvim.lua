@@ -2,7 +2,7 @@
 require("go").setup({
   disable_defaults = false,
   go = "go",
-  goimport = "goimports", --goimports: goimports + gofumpt
+  goimport = "gopls", --goimports: goimports + gofumpt
   fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
   gofmt = "gofumpt", --can be gofmt
   max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
@@ -35,6 +35,8 @@ require("go").setup({
   lsp_inlay_hints = {enable = false},
   gopls_cmd = nil, -- if you need to specify gopls path and cmd
   gopls_remote_auto = "auto", -- add -remote=auto to gopls
+  gocoverage_sign = "",
+  gocoverage_sign_priority = 5, -- change to a higher number to override other signs
   dap_debug = true, -- set to false to disable dap
   dap_debug_keymap = true, -- true: use keymap for debugger defined in go/dap.lua
                            -- false: do not use keymap in go/dap.lua.  you must define your own.
