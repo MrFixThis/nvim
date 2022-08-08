@@ -9,6 +9,16 @@ require("nvim-tree").setup({
   hijack_cursor       = false,
   update_cwd          = true,
   actions = {
+    file_popup = {
+      open_win_config = {
+       col = 1,
+       row = 1,
+       relative = "cursor",
+       border = "rounded",
+       style = "minimal",
+       zindex = 200,
+      },
+    },
     open_file = {
       quit_on_open = true,
     },
