@@ -51,8 +51,8 @@ require("nvim-tree").setup({
     custom = {}
   },
   view = {
-    width = 35,
-    height = 30,
+    width = 32,
+    height = 29,
     hide_root_folder = false,
     side = "left",
     number = true,
@@ -94,7 +94,7 @@ require("nvim-tree").setup({
       open_win_config = {
         relative = "editor",
         border = "rounded",
-        width = 33,
+        width = 32,
         height = 29,
         row = 2,
         col = 0xF423F, -- -1
