@@ -53,13 +53,4 @@ dap.configurations.go = {
     mode = "test",
     program = "${file}",
   },
-  {
-    name = "Test current file",
-    type = "go",
-    request = "launch",
-    showlog = true,
-    mode = "test",
-    program = ".",
-    dlvToolPath = vim.fn.exepath("dlv")
-  },
 }
