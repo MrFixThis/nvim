@@ -102,6 +102,10 @@ require("nvim-tree").setup({
     },
   },
   log = {
-    enable = false
+    enable = false,
+    types = {
+      git = false,
+      profile = false,
+    },
   },
 })

@@ -47,6 +47,7 @@ return require("packer").startup(function(use)
 
   --Tools
   use("mbbill/undotree")
+  use("NTBBloodbath/rest.nvim")
   use("norcalli/nvim-colorizer.lua")
   use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install",})
   use("lewis6991/gitsigns.nvim")
