@@ -97,8 +97,10 @@ return require("packer").startup(function(use)
 
   --Lang tools
     --Go
-  use("ray-x/go.nvim")
-  use("ray-x/guihua.lua") --!floating
+  use({
+    "ray-x/go.nvim",
+    requires = "ray-x/guihua.lua",
+  })
     --Rust
   -- use("simrat39/rust-tools.nvim")
 
