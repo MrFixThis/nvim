@@ -18,9 +18,6 @@ return require("packer").startup(function(use)
     end
   end
 
-  --Local plugins
-  -- local_use "nebulous.nvim"
-
   --Plugin manager
   use("wbthomason/packer.nvim")
 
@@ -45,6 +42,14 @@ return require("packer").startup(function(use)
   use("tjdevries/cyclist.vim")
   use("onsails/lspkind-nvim")
 
+  --Navigation
+  -- use({
+  --   "kyazdani42/nvim-tree.lua",
+  --   commit = "09a51266bca28dd87febd63c66bdbd74f7764a63",
+  -- })
+  use("szw/vim-maximizer")
+  -- use("ThePrimeagen/harpoon")
+
   --Tools
   use("mbbill/undotree")
   use("NTBBloodbath/rest.nvim")
@@ -55,11 +60,6 @@ return require("packer").startup(function(use)
     "TimUntersberger/neogit",
     requires = "sindrets/diffview.nvim",
   })
-
-  --Navigation
-  use("kyazdani42/nvim-tree.lua")
-  use("szw/vim-maximizer")
-  -- use("ThePrimeagen/harpoon")
 
   --Telescope
   use({
@@ -111,4 +111,6 @@ return require("packer").startup(function(use)
   })
   use("nvim-treesitter/playground")
 
+  -- Local plugins
+  local_use("nvim-tree.lua")
 end)
