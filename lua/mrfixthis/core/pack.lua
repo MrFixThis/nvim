@@ -43,10 +43,7 @@ return require("packer").startup(function(use)
   use("onsails/lspkind-nvim")
 
   --Navigation
-  -- use({
-  --   "kyazdani42/nvim-tree.lua",
-  --   commit = "09a51266bca28dd87febd63c66bdbd74f7764a63",
-  -- })
+  use("kyazdani42/nvim-tree.lua")
   use("szw/vim-maximizer")
   -- use("ThePrimeagen/harpoon")
 
@@ -111,6 +108,6 @@ return require("packer").startup(function(use)
   })
   use("nvim-treesitter/playground")
 
-  -- Local plugins
-  local_use("nvim-tree.lua")
+  -- -- Local plugins
+  -- local_use("nvim-tree.lua")
 end)

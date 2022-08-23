@@ -20,7 +20,7 @@ local single_plug_mapings = {
   --Rest_nvim
   {"n", "<leader>rr", rest_nvim.run},
   {"n", "<leader>rR", function() rest_nvim.run(true) end},
-  {"n", "<leader>rr", rest_nvim.last},
+  {"n", "<leader>rf", rest_nvim.last},
 }
 
 set_keymap(single_plug_mapings)
