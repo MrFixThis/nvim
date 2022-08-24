@@ -67,7 +67,7 @@ config.on_attach = function()
 
   local set_keymap = require("mrfixthis.keymap").set_keymap
   local opt = {buffer = true}
-  local jdtls_mapings = {
+  local jdtls_mappings = {
     {"n", "<leader>or", jdtls.organize_imports, opt},
     {"n", "<leader>av", jdtls.test_class, opt},
     {"n", "<leader>tm", jdtls.test_nearest_method, opt},
@@ -77,7 +77,7 @@ config.on_attach = function()
     {"v", "<leader>dm", function() jdtls.extract_method(true) end, opt},
   }
 
-  set_keymap(jdtls_mapings)
+  set_keymap(jdtls_mappings)
 end
 
 local bundles = {

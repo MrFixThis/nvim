@@ -2,7 +2,7 @@ local set_keymap = require("mrfixthis.keymap").set_keymap
 local rest_nvim = require("rest-nvim")
 
 --Single keymaps
-local single_plug_mapings = {
+local various_mappings = {
   --Nvim tree
   {"n", "<c-p>", ":NvimTreeToggle<CR>"},
   --Formatter
@@ -23,4 +23,4 @@ local single_plug_mapings = {
   {"n", "<leader>rf", rest_nvim.last},
 }
 
-set_keymap(single_plug_mapings)
+set_keymap(various_mappings)

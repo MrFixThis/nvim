@@ -1,7 +1,7 @@
 local set_keymap = require("mrfixthis.keymap").set_keymap
 
 --General keymaps
-local general_mapings = {
+local general_mappings = {
   --Windows and tabs navigation
   {"n", "<C-h>", ":wincmd h<CR>"},
   {"n", "<C-l>", ":wincmd l<CR>"},
@@ -32,7 +32,6 @@ local general_mapings = {
   {"n", "<leader>ws", ":%s/\\s\\+$//e<CR>"},
 
   --Terminal keymaps
-  {"n", "<leader>z;", ":sp term://zsh<CR>"},
   {"t", "<A-Esc>", "<C-\\><C-N>"},
   {"t", "<A-h>", "<C-\\><C-n><C-w>h"},
   {"t", "<A-l>", "<C-\\><C-n><C-w>j"},
@@ -40,4 +39,4 @@ local general_mapings = {
   {"t", "<A-k>", "<C-\\><C-n><C-w>l"},
 }
 
-set_keymap(general_mapings)
+set_keymap(general_mappings)

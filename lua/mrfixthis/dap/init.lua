@@ -23,7 +23,7 @@ dapui.setup({
             {id = "scopes", size = 0.34},
             {id = "stacks", size = 0.34},
           },
-          size = 40,
+          size = 38,
           position = "left",
         },
         {
@@ -31,7 +31,7 @@ dapui.setup({
             "repl",
             "console",
           },
-          size = 8,
+          size = 9,
           position = "bottom",
         },
     },

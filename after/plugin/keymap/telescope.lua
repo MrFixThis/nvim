@@ -3,7 +3,7 @@ local telescope = require("telescope.builtin")
 local tl_custom = require("mrfixthis.telescope.custom")
 
 --Telescope keymaps
-local telescope_mapings = {
+local telescope_mappings = {
   {"n", "<leader>tt", ":Telescope<CR>"},
   {"n", "<leader>mw", telescope.buffers},
   {"n", "<leader>mk", telescope.git_files},
@@ -24,4 +24,4 @@ local telescope_mapings = {
   {"n", "<leader>dO", tl_custom.search_dotfiles},
 }
 
-set_keymap(telescope_mapings)
+set_keymap(telescope_mappings)

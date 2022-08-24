@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
 
   --Tools
   use("mbbill/undotree")
+  use({"akinsho/toggleterm.nvim", tag = "v2.*"})
   use("NTBBloodbath/rest.nvim")
   use("norcalli/nvim-colorizer.lua")
   use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install",})
@@ -94,10 +95,7 @@ return require("packer").startup(function(use)
 
   --Lang tools
     --Go
-  use({
-    "ray-x/go.nvim",
-    requires = "ray-x/guihua.lua",
-  })
+  use("ray-x/go.nvim")
     --Rust
   -- use("simrat39/rust-tools.nvim")
 

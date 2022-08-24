@@ -6,7 +6,7 @@ local opt = {buffer = true}
 --GoUpdateBinaries to update the binaries to its lastest version
 
 --Go.nvim keymaps for autocmd
-local go_nvim_mapings = {
+local go_nvim_mappings = {
   --General
   {"n", "<localleader>c", ":GoCmt<CR>", opt},
   {"n", "<localleader>t", ":GoAddTag<CR>", opt},
@@ -26,10 +26,6 @@ local go_nvim_mapings = {
   {"n", "<CR>t", ":GoModTidy<CR>", opt},
   {"n", "<CR>m", ":GoModVendor<CR>", opt},
   {"n", "<CR>a", ":GoAlt<CR>", opt},
-  {"n", "<CR>d", function()
-      vim.api.nvim_cmd({cmd = "GoDoc", args = {vim.fn.expand("<cexpr>")}}, {})
-    end, opt
-  },
 
   --Testing (common and [gotests + testify])
     -- it can be GoTestFunc, GoTestFile or GoTestPkg
@@ -38,7 +34,6 @@ local go_nvim_mapings = {
   {"n", "<CR>s", ":GoCoverage ", opt},
   {"n", "<CR>z", ":GoAdd", opt},
   {"n", "<CR>g", ":GoMockGen<CR>", opt},
-  {"n", "<CR>q", ":GoTermClose<CR>", opt},
 }
 
-set_keymap(go_nvim_mapings)
+set_keymap(go_nvim_mappings)
