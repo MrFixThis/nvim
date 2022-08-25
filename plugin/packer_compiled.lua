@@ -129,11 +129,6 @@ _G.packer_plugins = {
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/go.nvim",
     url = "https://github.com/ray-x/go.nvim"
   },
-  ["guihua.lua"] = {
-    loaded = true,
-    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/guihua.lua",
-    url = "https://github.com/ray-x/guihua.lua"
-  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -153,11 +148,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/nebulous.nvim",
     url = "https://github.com/Yagua/nebulous.nvim"
-  },
-  neogit = {
-    loaded = true,
-    path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/neogit",
-    url = "https://github.com/TimUntersberger/neogit"
   },
   ["nvim-cmp"] = {
     loaded = true,

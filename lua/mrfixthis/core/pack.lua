@@ -54,10 +54,7 @@ return require("packer").startup(function(use)
   use("norcalli/nvim-colorizer.lua")
   use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install",})
   use("lewis6991/gitsigns.nvim")
-  use({
-    "TimUntersberger/neogit",
-    requires = "sindrets/diffview.nvim",
-  })
+  use("sindrets/diffview.nvim")
 
   --Telescope
   use({

@@ -26,13 +26,6 @@ local go_nvim_mappings = {
   {"n", "<CR>t", ":GoModTidy<CR>", opt},
   {"n", "<CR>m", ":GoModVendor<CR>", opt},
   {"n", "<CR>a", ":GoAlt<CR>", opt},
-
-  --Testing (common and [gotests + testify])
-    -- it can be GoTestFunc, GoTestFile or GoTestPkg
-  {"n", "<CR>h", ":GoTest", opt},
-    -- it can be GoAddTest, GoAddExpTest or GoAddAllTest
-  {"n", "<CR>s", ":GoCoverage ", opt},
-  {"n", "<CR>z", ":GoAdd", opt},
   {"n", "<CR>g", ":GoMockGen<CR>", opt},
 }
 
