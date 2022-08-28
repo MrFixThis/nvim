@@ -39,11 +39,10 @@ return require("packer").startup(function(use)
     -- Icons
   use("ryanoasis/vim-devicons")
   use("kyazdani42/nvim-web-devicons")
-  use("tjdevries/cyclist.vim")
   use("onsails/lspkind-nvim")
 
   --Navigation
-  use("kyazdani42/nvim-tree.lua")
+  -- use("kyazdani42/nvim-tree.lua")
   use("szw/vim-maximizer")
   -- use("ThePrimeagen/harpoon")
 
@@ -104,5 +103,5 @@ return require("packer").startup(function(use)
   use("nvim-treesitter/playground")
 
   -- -- Local plugins
-  -- local_use("nvim-tree.lua")
+  local_use("nvim-tree.lua")
 end)

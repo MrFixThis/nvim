@@ -9,10 +9,12 @@ settings({
   showcmd        = true,         -- Show partial commands at the bottom of screen
   hidden         = true,         -- Keep multiple buffers open
   smartindent    = true,         -- Makes indenting smart
+  mouse          = "",           -- Disable all the mouse support
   expandtab      = true,         -- Converts tabs to spaces
   undofile       = true,         -- Reverse change in future sessions
   incsearch      = true,         -- Make the search mode more convenient (like a browser)
   termguicolors  = true,         -- Better color support (most terminal support this)
+  list           = true,         -- Enable listchars
   hlsearch       = false,        -- Disable permant highlight of searches
   wrap           = false,        -- Don't wrap long lines
   swapfile       = false,        -- Don't store changes in a swap file.
@@ -25,12 +27,19 @@ settings({
   scrolloff      = 10,           -- Limit number of the scroll action
   splitbelow     = true,         -- Sets the horizontal split's position to bottom
   splitright     = true,         -- Sets the vertical split's position to right
-  mouse          = "",           -- Disable all the mouse support
   updatetime     = 50,           -- Make updates happen faster
   laststatus     = 3,            -- Set globlal status bar
   colorcolumn    = "80",         -- Set a column for 80 characters
   signcolumn     = "yes",        -- Always show the signcolumn
   clipboard      = "",           -- Copy paste between Vim and everything else
+  listchars = {                  -- Custom listchars list
+    trail = "𝁢",
+    extends = "…",
+    precedes = "…",
+    conceal = "┊",
+    nbsp = "☠",
+    tab = "» ",
+  },
   guicursor      = {"n-v-c:block-Cursor/lCursor", "i-ci-ve:ver25-Cursor2"}, --Cursor settigs
   formatoptions = vim.opt.formatoptions
     - "a" -- Auto formatting text
