@@ -182,7 +182,7 @@ _G.packer_plugins = {
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/mrfixthis/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "/home/mrfixthis/Plugins/nvim-tree.lua"
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
