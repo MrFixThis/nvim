@@ -26,11 +26,15 @@ config.settings = {
         },
         {
           name = "JavaSE-11",
-          path = "/opt/jdks/jdk-11.0.12/",
+          path = "/opt/jdks/jdk-11.0.16/",
         },
         {
           name = "JavaSE-14",
           path = "/opt/jdks/jdk-14.0.2/"
+        },
+        {
+          name = "JavaSE-17",
+          path = "/opt/jdks/jdk-17.0.4.1/"
         },
       }
     }
