@@ -19,8 +19,19 @@ local dap_mappings = {
   {"n", "<leader>.", dap.close},
   {"n", "<Home>", function() dapui.toggle({layout = 1, reset = true}) end},
   {"n", "<End>", function() dapui.toggle({layout = 2, reset = true}) end},
-  {"n", "<leader>sb",
-    function() if dap.session() then dapui.float_element("breakpoints") end end
+  {"n", "<leader>sb", function()
+      if dap.session() then
+        local bp = vim.fn.sign_getplaced(0, {group = "dap_breakpoints"})
+        if #bp[1].signs ~= 0 then dapui.float_element("breakpoints") end
+      end
+    end
+  },
+  {"n", "<leader>sw", function()
+      if dap.session() then
+        local isStoped = string.find(dap.status(), "Stopped")
+        if isStoped then dapui.eval() end
+      end
+    end
   },
 }
 

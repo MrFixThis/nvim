@@ -65,4 +65,19 @@ require("lualine").setup({
       }, "diagnostics"
     },
   },
+  extensions = {
+    "toggleterm",
+    "nvim-dap-ui",
+    { -- Anonymous ext
+      sections = {
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diff", "diagnostics"},
+        lualine_c = {},
+        lualine_x = {"encoding", "fileformat"},
+        lualine_y = {"progress"},
+        lualine_z = {"location"}
+      },
+      filetypes = {""},
+    }
+  },
 })
