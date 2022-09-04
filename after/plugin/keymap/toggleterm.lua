@@ -12,7 +12,8 @@ local spawn_term = function(cmd, dir)
 end
 
 local toggleterm_mappings = {
-  {"n", "<leader>gg", function() spawn_term("lazygit") end},
+  {"n", "<localleader>gg", function() spawn_term("lazygit") end},
+  {"n", "<localleader>gd", function() spawn_term("lazydocker") end},
 }
 
 set_keymap(toggleterm_mappings)
