@@ -29,6 +29,7 @@ local general_mappings = {
   {"n", "<leader>Y", "\"+yg$"},
   {"v", "<leader>Y", "\"+yg$"},
   {"n", "<leader>yg", "gg\"+yG"},
+  {"x", "<leader>p", "\"_dP"},
   {"n", "<leader>ws", ":%s/\\s\\+$//e<CR>"},
 
   --Terminal keymaps

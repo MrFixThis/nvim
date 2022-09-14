@@ -51,7 +51,7 @@ return require("packer").startup(function(use)
   use({"akinsho/toggleterm.nvim", tag = "v2.*"})
   use("NTBBloodbath/rest.nvim")
   use("norcalli/nvim-colorizer.lua")
-  use({"iamcco/markdown-preview.nvim", run = "cd app && yarn install",})
+  use({"iamcco/markdown-preview.nvim", run = "cd app && npm install"})
   use("lewis6991/gitsigns.nvim")
   use("sindrets/diffview.nvim")
 
