@@ -1,3 +1,29 @@
+--format_uri sanitizes the java's package classes' names
+local format_filename = function()
+  local symbols = {modified = " [+]", readonly = " [-]", unnamed = "[No Name]"}
+  local filename = vim.fn.expand("%:p")
+
+  if vim.startswith(filename, "jdt://") then
+    local package = filename:match("contents/[%a%d.-]+/([%a%d.-]+)") or ""
+    local class = filename:match("contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class") or ""
+    filename = string.format("%s::%s", package, class)
+  else
+    filename = vim.fn.expand('%:~:.')
+  end
+
+  if filename == "" then
+    filename = symbols.unnamed
+  end
+  if vim.bo.modified then
+    filename = filename .. symbols.modified
+  end
+  if vim.bo.modifiable == false or vim.bo.readonly == true then
+    filename = filename .. symbols.readonly
+  end
+
+  return filename
+end
+
 --Lualine setup
 require("lualine").setup({
   options = {
@@ -13,10 +39,9 @@ require("lualine").setup({
         "NeogitPopup",
         "DiffviewFiles",
         "DiffviewFileHistory",
-        "",
       },
     },
-    -- ignore_focus = {},
+    ignore_focus = {},
     always_divide_middle = true,
     globalstatus = true,
     refresh = {
@@ -30,8 +55,9 @@ require("lualine").setup({
     lualine_b = {"branch", "diff", "diagnostics"},
     lualine_c = {
       {
-        "filename",
+        format_filename,
         path = 1,
+        shorting_target = 40,
         symbols = {
           modified = " [+]",
           readonly = " [-]",
@@ -56,7 +82,7 @@ require("lualine").setup({
   inactive_winbar = {
     lualine_a = {
       {
-        "filename",
+        format_filename,
         path = 1,
         symbols = {
           modified = " [+]",
@@ -69,15 +95,5 @@ require("lualine").setup({
   extensions = {
     "toggleterm",
     "nvim-dap-ui",
-    { -- Anonymous ext
-      sections = {
-        lualine_a = {"mode"},
-        lualine_b = {"branch", "diff", "diagnostics"},
-        lualine_x = {"encoding", "fileformat"},
-        lualine_y = {"progress"},
-        lualine_z = {"location"}
-      },
-      filetypes = {""},
-    },
   }
 })
