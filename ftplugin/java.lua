@@ -95,7 +95,7 @@ vim.list_extend(
 
 config.init_options = {
   bundles = bundles,
-  extendedClientCapabilities = extendedClientCapabilities;
+  extendedClientCapabilities = extendedClientCapabilities,
 }
 
 --Setup client
