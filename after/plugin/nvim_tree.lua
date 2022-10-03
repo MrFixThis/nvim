@@ -85,6 +85,8 @@ require("nvim-tree").setup({
         {key = "p",       action = "paste"},
         {key = "[c",      action = "prev_git_item"},
         {key = "]c",      action = "next_git_item"},
+        {key = "T",       action = "expand_all"},
+        {key = "H",       action = "collapse_all"},
         {key = "-",       action = "dir_up"},
         {key = "q",       action = "close"},
       },
