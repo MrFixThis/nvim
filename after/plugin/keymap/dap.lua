@@ -14,6 +14,7 @@ local dap_mappings = {
   {"n", "<leader>so", dap.step_out},
   {"n", "<leader>sq", dap.step_over},
   {"n", "<leader>rc", dap.run_to_cursor},
+  {"n", "<leader>rf", dap.restart_frame},
   {"n", "<leader>rl", dap.run_last},
   {"n", "<leader><localleader>", dap.terminate},
   {"n", "<leader>.", dap.close},
