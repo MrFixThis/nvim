@@ -1,4 +1,5 @@
 --Commenter setup
+local ft = require("Comment.ft")
 require("Comment").setup({
   ---Add a space b/w comment and the line
   padding = true,
@@ -36,3 +37,7 @@ require("Comment").setup({
   ---Post-hook, called after commenting is done
   post_hook = nil,
 })
+
+--Custom comment placeholders
+ft.http = "# %s"
+ft.jsp = "<%-- %s --%>"

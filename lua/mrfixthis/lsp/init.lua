@@ -28,7 +28,6 @@ end
 --Language servers setup
 local lang_servers = {
   --Default config language servers
-  html = true,
   cssls = true,
   yamlls = true,
   vimls = true,
@@ -104,6 +103,9 @@ local lang_servers = {
       },
     },
   },
+
+  --Html
+  html = {filetypes = {"html", "jsp"}},
 }
 
 for server, configs in pairs(lang_servers) do
