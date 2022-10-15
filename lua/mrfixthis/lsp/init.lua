@@ -7,7 +7,7 @@ local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_
 --Capabilities
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true --...
-M.capabilities = require("cmp_nvim_lsp").update_capabilities(M.capabilities)
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
 
 --Language server setter
 local setup_server = function(server, config)
