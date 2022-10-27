@@ -46,8 +46,8 @@ require("lualine").setup({
     globalstatus = true,
     refresh = {
       statusline = 100,
-      tabline = 50,
-      winbar = 10,
+      tabline = 100,
+      winbar = 100,
     },
   },
   sections = {
