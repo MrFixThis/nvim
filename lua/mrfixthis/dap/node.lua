@@ -6,7 +6,7 @@ local dap_utils = require("dap.utils")
 dap.adapters.node2 = {
   type = "executable",
   command = "node",
-  args = {home .. ".local/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js"},
+  args = {home .. "/.local/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js"},
 }
 
 dap.configurations.javascript = {

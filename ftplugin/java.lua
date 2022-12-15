@@ -2,18 +2,38 @@
 local home = os.getenv("HOME")
 local capabilities = require("mrfixthis.lsp").capabilities
 local jdtls = require("jdtls")
-local root_markers = {"gradlew", "mvnw", ".git",}
+local root_markers = {".gradlew", ".mvnw", ".git",}
 local root_dir = jdtls.setup.find_root(root_markers)
--- Root dir config
-local workspace_folder = string.format(
-  "%s/.local/share/eclipse/%s", home, vim.fn.fnamemodify(root_dir, ":p:h:t")
-)
+local workspace_folder = string.format("%s/.local/share/eclipse/%s",
+  home, vim.fn.fnamemodify(root_dir, ":p:h:t"))
 local config = {}
 
 --Capabilities
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 config.capabilities = capabilities
+
+--Cmd
+config.cmd = {
+  "/opt/jdks/jdk-17.0.4.1/bin/java",
+  "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+  "-Dosgi.bundles.defaultStartLevel=4",
+  "-Declipse.product=org.eclipse.jdt.ls.core.product",
+  "-Dlog.protocol=true",
+  "-Dlog.level=ALL",
+  "-Xms1g",
+  "--add-modules=ALL-SYSTEM",
+  "--add-opens", "java.base/java.util=ALL-UNNAMED",
+  "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+  "-jar", vim.fn.glob(home .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+  "-configuration", home .. "/.local/servers/jdtls/config_linux",
+  "-data", workspace_folder,
+}
+--Lombok support
+local lombok_path = home .. "/.local/dev/java/bundles/lombok/lombok.jar"
+if vim.fn.filereadable(lombok_path) > 0 then
+  table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
+end
 
 --Settings
 config.settings = {
@@ -40,28 +60,6 @@ config.settings = {
     }
   }
 }
-
---Cmd
-config.cmd = {
-  "/opt/jdks/jdk-14.0.2/bin/java",
-  "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-  "-Dosgi.bundles.defaultStartLevel=4",
-  "-Declipse.product=org.eclipse.jdt.ls.core.product",
-  "-Dlog.protocol=true",
-  "-Dlog.level=ALL",
-  "-Xms1g",
-  "-jar", vim.fn.glob(home .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-  "-configuration", home .. "/.local/servers/jdtls/config_linux",
-  "-data", workspace_folder,
-  "--add-modules=ALL-SYSTEM",
-  "--add-opens", "java.base/java.util=ALL-UNNAMED",
-  "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-}
---Lombok support
-local lombok_path = home .. "/.local/dev/java/bundles/lombok/lombok.jar"
-if vim.fn.filereadable(lombok_path) > 0 then
-  table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
-end
 
 --On-attach setup
 config.on_attach = function()
@@ -90,7 +88,8 @@ local bundles = {
   ),
 }
 vim.list_extend(
-  bundles, vim.split(vim.fn.glob(home .. "/.local/dev/microsoft/vscode-java-test/server/*.jar"), "\n")
+  bundles,
+  vim.split(vim.fn.glob(home .. "/.local/dev/microsoft/vscode-java-test/server/*.jar"), "\n")
 )
 
 config.init_options = {

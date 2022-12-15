@@ -6,6 +6,7 @@ local daptext = require("nvim-dap-virtual-text")
 --Dap ui and dap virtual_text setup
 daptext.setup()
 dapui.setup({
+    icons = {expanded = " ", collapsed = " ", current_frame = " " },
     mappings = {
       --Use a table to apply multiple mappings
       expand = {"<Tab>",},
@@ -51,10 +52,10 @@ end
 --Adapters setup
 local adapters = {
   "lua",
-  "go",
-  "lldb",
   "java",
+  "go",
   "node",
+  "lldb",
 }
 
 for _, v in ipairs(adapters) do
