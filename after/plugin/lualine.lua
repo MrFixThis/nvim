@@ -11,12 +11,8 @@ local format_filename = function()
     filename = vim.fn.expand('%:~:.')
   end
 
-  if filename == "" then
-    filename = symbols.unnamed
-  end
-  if vim.bo.modified then
-    filename = filename .. symbols.modified
-  end
+  if filename == "" then filename = symbols.unnamed end
+  if vim.bo.modified then filename = filename .. symbols.modified end
   if vim.bo.modifiable == false or vim.bo.readonly == true then
     filename = filename .. symbols.readonly
   end
@@ -67,7 +63,7 @@ require("lualine").setup({
     },
     lualine_x = {"encoding", "fileformat", "filetype"},
     lualine_y = {"progress"},
-    lualine_z = {"location"}
+    lualine_z = {"location"},
   },
   tabline = {
     lualine_a = {
