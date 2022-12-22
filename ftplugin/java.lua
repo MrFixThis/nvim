@@ -1,5 +1,6 @@
 --Jdtls setup
 local home = os.getenv("HOME")
+local set_keymap = require("mrfixthis.keymap").set_keymap
 local capabilities = require("mrfixthis.lsp").capabilities
 local jdtls = require("jdtls")
 local root_markers = {".gradlew", ".mvnw", ".git",}
@@ -62,21 +63,31 @@ config.settings = {
 }
 
 --On-attach setup
-config.on_attach = function()
+config.on_attach = function(_, bufnr)
   jdtls.setup_dap({hotcodereplace = "auto"})
   jdtls.setup.add_commands()
   require("jdtls.dap").setup_dap_main_class_configs() --temporary
 
-  local set_keymap = require("mrfixthis.keymap").set_keymap
-  local opt = {buffer = true}
+  local opt = {buffer = bufnr}
   local jdtls_mappings = {
     {"n", "<leader>or", jdtls.organize_imports, opt},
-    {"n", "<leader>av", jdtls.test_class, opt},
-    {"n", "<leader>tm", jdtls.test_nearest_method, opt},
-    {"v", "<leader>am", function() jdtls.extract_variable(true) end, opt},
-    {"n", "<leader>am", jdtls.extract_variable},
-    {"n", "<leader>om", jdtls.extract_constant},
-    {"v", "<leader>dm", function() jdtls.extract_method(true) end, opt},
+    {"n", "<leader>am", jdtls.extract_variable, opt},
+    {"n", "<leader>om", jdtls.extract_constant, opt},
+    {"v", "<leader>am", "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt},
+    {"v", "<leader>om", "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt},
+    {"v", "<leader>dm", "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt},
+
+    --Test
+    {"n", "<leader>tc", function()
+        if vim.bo.modified then vim.cmd("w") end
+        jdtls.test_class()
+      end,
+    opt},
+    {"n", "<leader>tn", function()
+        if vim.bo.modified then vim.cmd("w") end
+        jdtls.test_nearest_method()
+      end,
+    opt},
   }
 
   set_keymap(jdtls_mappings)

@@ -28,7 +28,7 @@ end
 require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = "auto", --To abstract the nebulous colors
+    theme = "auto", --To abstract the nebulous' colors
     component_separators = {left = "", right = ""},
     section_separators = {left = "", right = ""},
     disabled_filetypes = {
