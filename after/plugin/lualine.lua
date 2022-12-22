@@ -28,7 +28,7 @@ end
 require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = "auto", --To abstract the nebulous colors
+    theme = "auto", --To abstract the nebulous' colors
     component_separators = {left = "", right = ""},
     section_separators = {left = "", right = ""},
     disabled_filetypes = {
@@ -45,9 +45,9 @@ require("lualine").setup({
     always_divide_middle = true,
     globalstatus = true,
     refresh = {
-      statusline = 100,
-      tabline = 100,
-      winbar = 100,
+      statusline = 10,
+      tabline = 10,
+      winbar = 10,
     },
   },
   sections = {
