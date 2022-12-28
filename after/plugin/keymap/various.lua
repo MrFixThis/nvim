@@ -15,6 +15,8 @@ local various_mappings = {
   {"n", "<leader>go", ":DiffviewOpen<CR>"},
   {"n", "<leader>gh", ":DiffviewFileHistory<CR>"},
   {"n", "<leader>gq", ":DiffviewClose<CR>"},
+  --Gitsigns
+  {"n", "<leader>gg", ":Gitsigns<CR>"},
   --Sessions
   {"n", "<leader>ss", tools.save_session},
   {"n", "<leader>ls", tools.load_session},
