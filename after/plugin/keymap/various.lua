@@ -12,11 +12,11 @@ local various_mappings = {
   --Maximizer
   {"n", "<leader>ma", ":MaximizerToggle!<CR>"},
   --DiffView
-  {"n", "<leader>go", ":DiffviewOpen<CR>"},
+  {"n", "<leader>gg", ":DiffviewOpen<CR>"},
   {"n", "<leader>gh", ":DiffviewFileHistory<CR>"},
   {"n", "<leader>gq", ":DiffviewClose<CR>"},
   --Gitsigns
-  {"n", "<leader>gg", ":Gitsigns<CR>"},
+  {"n", "<leader>go", ":Gitsigns<CR>"},
   --Sessions
   {"n", "<leader>ss", tools.save_session},
   {"n", "<leader>ls", tools.load_session},
