@@ -10,7 +10,6 @@ local telescope_mappings = {
   {"n", "<leader>th", telescope.help_tags},
   {"n", "<leader>gs", telescope.find_files},
   {"n", "<C-n>", telescope.diagnostics},
-  {"n", "<leader>tn", telescope.lsp_references},
   {"n", "<leader>gr", telescope.live_grep},
   {"n", "<leader>re", telescope.lsp_references},
   {"n", "<leader>pw",

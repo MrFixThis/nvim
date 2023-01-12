@@ -1,10 +1,9 @@
 local execute = vim.api.nvim_command
+local installation_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
 
-local install_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  print("Auto Installing Packer.nvim...")
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+if vim.fn.empty(vim.fn.glob(installation_path)) > 0 then
+  print("Installing Packer.nvim...")
+  execute("!git clone https://github.com/wbthomason/packer.nvim " .. installation_path)
   execute("packadd packer.nvim")
 end
 
@@ -76,11 +75,9 @@ return require("packer").startup(function(use)
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-nvim-lua")
   use("hrsh7th/cmp-vsnip")
-  -- use("saadparwaiz1/cmp_luasnip")
     -- Snippets
   use("rafamadriz/friendly-snippets")
   use("hrsh7th/vim-vsnip")
-  -- use("L3MON4D3/LuaSnip")
 
   --Debugging
   use("mfussenegger/nvim-dap")

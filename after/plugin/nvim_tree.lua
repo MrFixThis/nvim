@@ -1,21 +1,19 @@
 --Nvim-tree settings
+  -- Disabling netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("nvim-tree").setup({
-  auto_reload_on_write = true,
-  disable_netrw       = true,
-  hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  open_on_tab         = false,
-  hijack_cursor       = false,
-  update_cwd          = true,
+  update_cwd = true,
+  renderer = {
+    indent_markers = {
+      enable = true,
+    },
+  },
   actions = {
     file_popup = {
       open_win_config = {
-       col = 1,
-       row = 1,
-       relative = "cursor",
        border = "rounded",
-       style = "minimal",
        zindex = 200,
       },
     },
@@ -23,44 +21,32 @@ require("nvim-tree").setup({
       quit_on_open = true,
     },
   },
-  diagnostics = {
-    enable = false,
-  },
-  update_focused_file = {
-    enable      = false,
-    update_cwd  = false,
-    ignore_list = {}
-  },
-  system_open = {
-    cmd  = nil,
-    args = {}
-  },
-  renderer = {
-    indent_markers = {
-      enable = true,
-      icons = {
-        corner = "└",
-        edge = "│",
-        item = "│",
-        none = " ",
-      },
-    },
-  },
   filters = {
     dotfiles = true,
-    custom = {}
+  },
+  notify = {
+    threshold = 5
   },
   view = {
-    width = 32,
-    -- height = 29,
-    hide_root_folder = false,
-    side = "left",
-    number = true,
     adaptive_size = true,
+    width = 32,
+    hide_root_folder = false,
+    side = "right",
+    number = true,
     relativenumber = true,
     signcolumn = "no",
+    float = {
+      enable = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 32,
+        height = 29,
+        row = 2,
+        col = 0xF423F, -- -1
+      },
+    },
     mappings = {
-      custom_only = false,
       list = {
         {key = "<CR>",    action = "edit"},
         {key = "t",       action = "edit"},
@@ -89,17 +75,6 @@ require("nvim-tree").setup({
         {key = "H",       action = "collapse_all"},
         {key = "-",       action = "dir_up"},
         {key = "q",       action = "close"},
-      },
-    },
-    float = {
-      enable = true,
-      open_win_config = {
-        relative = "editor",
-        border = "rounded",
-        width = 32,
-        height = 29,
-        row = 2,
-        col = 0xF423F, -- -1
       },
     },
   },

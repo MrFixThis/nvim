@@ -1,2 +1,2 @@
 require("mrfixthis.core.setting")
-require("mrfixthis.core.pack")
+require("mrfixthis.core.plugins")

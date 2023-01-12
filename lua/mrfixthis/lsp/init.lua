@@ -1,31 +1,39 @@
 local M = {}
 local home = os.getenv("HOME")
 local lsp = require("lspconfig")
-local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", home)
-local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
---Capabilities
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true --...
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
+--Configs builder
+M.makeConfig = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+  return {
+    flags = {
+      debounce_text_changes = 100,
+    },
+    handlers = {},
+    capabilities = capabilities,
+    init_options = {},
+    settings = {},
+  }
+end
+
+-- Clients' default config
+local default_config = M.makeConfig()
 --Language server setter
 local setup_server = function(server, config)
   if not config then
     return
   end
 
-  if type(config) ~= "table" then
-    config = {}
-  end
-  config = vim.tbl_deep_extend("force", {
-    capabilities = M.capabilities,
-  }, config)
+  if type(config) ~= "table" then config = {} end
+  config = vim.tbl_deep_extend("force", default_config, config)
 
   lsp[server].setup(config)
 end
 
 --Language servers setup
+local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", home)
+local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 local lang_servers = {
   --Default config language servers
   cssls = true,
@@ -54,6 +62,9 @@ local lang_servers = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           },
+        },
+        telemetry = {
+          enable = false
         },
       },
     },

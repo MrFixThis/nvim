@@ -1,18 +1,17 @@
 --Jdtls setup
 local home = os.getenv("HOME")
 local set_keymap = require("mrfixthis.keymap").set_keymap
-local capabilities = require("mrfixthis.lsp").capabilities
 local jdtls = require("jdtls")
+local jdtls_dap = require("jdtls.dap")
 local root_markers = {".gradlew", ".mvnw", ".git",}
 local root_dir = jdtls.setup.find_root(root_markers)
 local workspace_folder = string.format("%s/.local/share/eclipse/%s",
   home, vim.fn.fnamemodify(root_dir, ":p:h:t"))
-local config = {}
+local config = require("mrfixthis.lsp").makeConfig()
 
 --Capabilities
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-config.capabilities = capabilities
 
 --Cmd
 config.cmd = {
@@ -39,6 +38,29 @@ end
 --Settings
 config.settings = {
   java = {
+    signatureHelp = {enabled = true},
+    completion = {
+      favoriteStaticMembers = {
+        "org.assertj.core.api.Assertions.assertThat",
+        "org.assertj.core.api.Assertions.assertThatThrownBy",
+        "org.assertj.core.api.Assertions.assertThatExceptionOfType",
+        "org.assertj.core.api.Assertions.catchThrowable",
+        "org.hamcrest.MatcherAssert.assertThat",
+        "org.hamcrest.Matchers.*",
+        "org.hamcrest.CoreMatchers.*",
+        "org.junit.jupiter.api.Assertions.*",
+        "java.util.Objects.requireNonNull",
+        "java.util.Objects.requireNonNullElse",
+        "org.mockito.Mockito.*"
+      },
+      filteredTypes = {
+        "com.sun.*",
+        "io.micrometer.shaded.*",
+        "java.awt.*",
+        "jdk.*",
+        "sun.*",
+      },
+    },
     configuration = {
       runtimes = {
         {
@@ -57,16 +79,16 @@ config.settings = {
           name = "JavaSE-17",
           path = "/opt/jdks/jdk-17.0.4.1/"
         },
-      }
-    }
-  }
+      },
+    },
+  },
 }
 
---On-attach setup
+--On_attach setup
 config.on_attach = function(_, bufnr)
   jdtls.setup_dap({hotcodereplace = "auto"})
+  jdtls_dap.setup_dap_main_class_configs()
   jdtls.setup.add_commands()
-  require("jdtls.dap").setup_dap_main_class_configs() --temporary
 
   local opt = {buffer = bufnr}
   local jdtls_mappings = {
@@ -107,6 +129,8 @@ config.init_options = {
   bundles = bundles,
   extendedClientCapabilities = extendedClientCapabilities,
 }
+
+config.handlers["language/status"] = function() end
 
 --Setup client
 jdtls.start_or_attach(config)

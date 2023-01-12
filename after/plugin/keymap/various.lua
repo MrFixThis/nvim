@@ -18,8 +18,8 @@ local various_mappings = {
   --Gitsigns
   {"n", "<leader>go", ":Gitsigns<CR>"},
   --Sessions
-  {"n", "<leader>ss", tools.save_session},
-  {"n", "<leader>ls", tools.load_session},
+  {"n", "<leader>ss", tools.Session.save_session},
+  {"n", "<leader>ls", tools.Session.load_session},
 }
 
 set_keymap(various_mappings)
