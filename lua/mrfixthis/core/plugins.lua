@@ -90,7 +90,7 @@ return require("packer").startup(function(use)
     --Go
   use("ray-x/go.nvim")
     --Rust
-  -- use("simrat39/rust-tools.nvim")
+  use("simrat39/rust-tools.nvim")
 
   -- Treesitter
   use({

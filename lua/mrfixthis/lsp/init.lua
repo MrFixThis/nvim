@@ -5,6 +5,11 @@ local lsp = require("lspconfig")
 --Configs builder
 M.makeConfig = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- completion config
+  vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+  capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
+  -- codeLens configs
+  capabilities.textDocument.codeLens = { dynamicRegistration = false }
 
   return {
     flags = {
@@ -29,6 +34,34 @@ local setup_server = function(server, config)
   config = vim.tbl_deep_extend("force", default_config, config)
 
   lsp[server].setup(config)
+end
+
+--Rust lang server config or rt setup
+local rust_analyzer, rust_analyzer_cmd = nil, { "rustup", "run", "stable", "rust-analyzer" }
+local has_rt, rt = pcall(require, "rust-tools")
+if has_rt then
+  rt.setup({
+    server = {
+      capabilities = default_config.capabilities,
+      standalone = true,
+    },
+    dap = {
+      adapter = {
+        type = "executable",
+        command = "lldb-vscode",
+        name = "rt_lldb",
+      },
+    },
+    tools = {
+      inlay_hints = {
+        auto = false,
+      },
+    },
+  })
+else
+  rust_analyzer = {
+    cmd = rust_analyzer_cmd,
+  }
 end
 
 --Language servers setup
@@ -63,6 +96,7 @@ local lang_servers = {
             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           },
         },
+        semantic = {enable = false},
         telemetry = {
           enable = false
         },
@@ -88,9 +122,7 @@ local lang_servers = {
   },
 
   --Rust
-  rust_analyzer = {
-    cmd = {"rustup", "run", "nightly", "rust-analyzer"},
-  },
+  rust_analyzer = rust_analyzer,
 
   --Js/Ts
   tsserver = {
