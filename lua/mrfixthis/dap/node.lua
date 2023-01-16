@@ -1,15 +1,18 @@
-local home = os.getenv("HOME")
-local dap = require("dap")
-local dap_utils = require("dap.utils")
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, mods = secure_require({"dap", "dap.utils"})
+if report then
+  report(); return
+end
 
+local home = os.getenv("HOME")
 --Nodejs debugger adapter settings
-dap.adapters.node2 = {
+mods.dap.adapters.node2 = {
   type = "executable",
   command = "node",
   args = {home .. "/.local/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js"},
 }
 
-dap.configurations.javascript = {
+mods.dap.configurations.javascript = {
   {
     name = "Launch",
     type = "node2",
@@ -26,11 +29,11 @@ dap.configurations.javascript = {
     name = "Attach to process",
     type = "node2",
     request = "attach",
-    processId = dap_utils.pick_process,
+    processId = mods.dap_utils.pick_process,
   },
 }
 
-dap.configurations.typescript = {
+mods.dap.configurations.typescript = {
   {
     name = "ts-node (Node2 with ts-node)",
     type = "node2",

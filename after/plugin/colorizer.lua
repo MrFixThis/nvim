@@ -1,5 +1,11 @@
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, colorizer = secure_require("colorizer")
+if report then
+  report(); return
+end
+
 --Colorizer setup
-require("colorizer").setup(
+colorizer.setup(
   {"*"},
   {
     RGB      = true,     -- #RGB hex codes

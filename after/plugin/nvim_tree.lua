@@ -1,9 +1,16 @@
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, nvim_tree = secure_require("nvim-tree")
+if report then
+  report(); return
+end
+
 --Nvim-tree settings
   -- Disabling netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("nvim-tree").setup({
+-- Nvim-tree setup
+nvim_tree.setup({
   update_cwd = true,
   renderer = {
     indent_markers = {

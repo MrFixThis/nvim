@@ -1,5 +1,15 @@
-local scheme = require("nebulous.functions").get_colors("midnight")
-require("toggleterm").setup({
+local tools = require("mrfixthis.tools").general
+local report, mods = tools.secure_require({
+  "toggleterm",
+  "toggleterm.terminal",
+  "nebulous.functions",
+})
+if report then
+  report(); return
+end
+
+local scheme = mods.nebulous_functions.get_colors("midnight")
+mods.toggleterm.setup({
   -- size can be a number or function which is passed the current terminal
   size = 20,
   open_mapping = [[<A-t>]],
@@ -31,4 +41,20 @@ require("toggleterm").setup({
       return term.name
     end
   },
+})
+
+--Toggle term keymaps
+local spawn_term = function(cmd, dir)
+  mods.toggleterm_terminal.Terminal:new({
+    cmd = cmd,
+    dir = dir or vim.fn.expand("%:p:h"),
+    direction = "float",
+    start_in_insert = true,
+    close_on_exit = true,
+  }):toggle()
+end
+
+tools.set_keymap({
+  {"n", "<localleader>gg", function() spawn_term("lazygit") end},
+  {"n", "<localleader>gd", function() spawn_term("lazydocker") end},
 })

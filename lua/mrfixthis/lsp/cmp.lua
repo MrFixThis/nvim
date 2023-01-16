@@ -1,11 +1,12 @@
-local cmp = require("cmp")
-local lspkind = require("lspkind")
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, mods = secure_require({"cmp", "lspkind"})
+if report then
+  report(); return
+end
 
 --vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
-
---Cmp setup
-cmp.setup({
+mods.cmp.setup({
   snippet = {
     expand = function(args)
       --vsnip
@@ -13,17 +14,17 @@ cmp.setup({
       -- require("luasnip").lsp_expand(args.body)
     end
   },
-  mapping = cmp.mapping.preset.insert({
-      ["<C-f>"] = cmp.mapping.scroll_docs(-2),
-      ["<C-d>"] = cmp.mapping.scroll_docs(2),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
+  mapping = mods.cmp.mapping.preset.insert({
+      ["<C-f>"] = mods.cmp.mapping.scroll_docs(-2),
+      ["<C-d>"] = mods.cmp.mapping.scroll_docs(2),
+      ["<C-Space>"] = mods.cmp.mapping.complete(),
+      ["<C-e>"] = mods.cmp.mapping.close(),
+      ["<CR>"] = mods.cmp.mapping.confirm {
+        behavior = mods.cmp.ConfirmBehavior.Insert,
         select = false
       },
     }),
-    sources = cmp.config.sources({
+    sources = mods.cmp.config.sources({
       {name = "nvim_lsp"},
       {name = "nvim_lua"},
       {name = "buffer", keyword_lenght = 5},
@@ -32,7 +33,7 @@ cmp.setup({
       -- {name = "luasnip"},
     }),
    formatting = {
-     format = lspkind.cmp_format({
+     format = mods.lspkind.cmp_format({
        with_text = true,
        menu = {
          buffer = "[Buff]",
@@ -40,7 +41,6 @@ cmp.setup({
          nvim_lua = "[Api]",
          path = "[Path]",
          vsnip = "[Snip]",
-         -- luasnip = "[Snip]",
        },
      }),
    },

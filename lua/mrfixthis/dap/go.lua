@@ -1,4 +1,8 @@
-local dap = require("dap")
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, dap = secure_require("dap")
+if report then
+  report(); return
+end
 
 --Go debugger adapter settings
 dap.adapters.go = function(callback, _)

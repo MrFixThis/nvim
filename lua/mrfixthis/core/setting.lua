@@ -1,7 +1,11 @@
-local settings = require("mrfixthis.global").opt
+local setting = require("mrfixthis.tools").general.setting
+
+--Leader and local leader keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 --Editor's global settings
-settings({
+setting({
   cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers

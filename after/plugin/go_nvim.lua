@@ -1,5 +1,11 @@
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, go_nvim = secure_require("go")
+if report then
+  report(); return
+end
+
 --Go.nvim setup
-require("go").setup({
+go_nvim.setup({
   disable_defaults = false,
   go = "go",
   goimport = "gopls", --goimports: goimports + gofumpt

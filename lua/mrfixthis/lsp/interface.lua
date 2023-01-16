@@ -11,7 +11,6 @@ end
 local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
-  --opts.border = opts.border or "rounded"
   opts.border = "rounded" -- to force the rounded in everything
   return original_util_open_floating_preview(contents, syntax, opts, ...)
 end

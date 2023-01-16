@@ -1,4 +1,10 @@
-require("rest-nvim").setup({
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, rest_nvim = secure_require("rest-nvim")
+if report then
+  report(); return
+end
+
+rest_nvim.setup({
   result_split_horizontal = false,
   result_split_in_place = "left",
   skip_ssl_verification = false,

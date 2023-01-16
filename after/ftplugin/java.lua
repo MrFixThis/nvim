@@ -1,16 +1,18 @@
---Jdtls setup
+local tools = require("mrfixthis.tools").general
+local report, mods = tools.secure_require({"jdtls", "jdtls.dap"})
+if report then
+  report(); return
+end
+
 local home = os.getenv("HOME")
-local set_keymap = require("mrfixthis.keymap").set_keymap
-local jdtls = require("jdtls")
-local jdtls_dap = require("jdtls.dap")
+local config = require("mrfixthis.lsp").makeConfig()
 local root_markers = {".gradlew", ".mvnw", ".git",}
-local root_dir = jdtls.setup.find_root(root_markers)
+local root_dir = mods.jdtls.setup.find_root(root_markers)
 local workspace_folder = string.format("%s/.local/share/eclipse/%s",
   home, vim.fn.fnamemodify(root_dir, ":p:h:t"))
-local config = require("mrfixthis.lsp").makeConfig()
 
 --Capabilities
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
+local extendedClientCapabilities = mods.jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 --Cmd
@@ -86,15 +88,15 @@ config.settings = {
 
 --On_attach setup
 config.on_attach = function(_, bufnr)
-  jdtls.setup_dap({hotcodereplace = "auto"})
-  jdtls_dap.setup_dap_main_class_configs()
-  jdtls.setup.add_commands()
+  mods.jdtls.setup_dap({hotcodereplace = "auto"})
+  mods.jdtls_dap.setup_dap_main_class_configs()
+  mods.jdtls.setup.add_commands()
 
   local opt = {buffer = bufnr}
-  local jdtls_mappings = {
-    {"n", "<leader>or", jdtls.organize_imports, opt},
-    {"n", "<leader>am", jdtls.extract_variable, opt},
-    {"n", "<leader>om", jdtls.extract_constant, opt},
+  tools.set_keymap({
+    {"n", "<leader>or", mods.jdtls.organize_imports, opt},
+    {"n", "<leader>am", mods.jdtls.extract_variable, opt},
+    {"n", "<leader>om", mods.jdtls.extract_constant, opt},
     {"v", "<leader>am", "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt},
     {"v", "<leader>om", "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt},
     {"v", "<leader>dm", "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt},
@@ -102,17 +104,15 @@ config.on_attach = function(_, bufnr)
     --Test
     {"n", "<leader>tc", function()
         if vim.bo.modified then vim.cmd("w") end
-        jdtls.test_class()
+        mods.jdtls.test_class()
       end,
     opt},
     {"n", "<leader>tn", function()
         if vim.bo.modified then vim.cmd("w") end
-        jdtls.test_nearest_method()
+        mods.jdtls.test_nearest_method()
       end,
     opt},
-  }
-
-  set_keymap(jdtls_mappings)
+  })
 end
 
 local bundles = {
@@ -133,4 +133,4 @@ config.init_options = {
 config.handlers["language/status"] = function() end
 
 --Setup client
-jdtls.start_or_attach(config)
+mods.jdtls.start_or_attach(config)

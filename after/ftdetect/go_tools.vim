@@ -1,2 +1,2 @@
-"format beautifully, baby -> "gofumpt + goimport
+" gofumpt + goimport
 " autocmd BufWritePre *.go :silent! lua require("go.format").goimport()

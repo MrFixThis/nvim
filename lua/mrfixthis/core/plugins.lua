@@ -1,14 +1,13 @@
-local execute = vim.api.nvim_command
 local installation_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
+local command = vim.api.nvim_command
 
 if vim.fn.empty(vim.fn.glob(installation_path)) > 0 then
   print("Installing Packer.nvim...")
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. installation_path)
-  execute("packadd packer.nvim")
+  command("!git clone https://github.com/wbthomason/packer.nvim " .. installation_path)
+  command("packadd packer.nvim")
 end
 
 return require("packer").startup(function(use)
-
   local local_use = function(plug_path)
     if vim.fn.isdirectory(vim.fn.expand("~/Plugins/" .. plug_path)) == 1 then
       use("~/Plugins/" .. plug_path)
@@ -39,6 +38,8 @@ return require("packer").startup(function(use)
   use("ryanoasis/vim-devicons")
   use("kyazdani42/nvim-web-devicons")
   use("onsails/lspkind-nvim")
+  --Cosmetic
+  use("j-hui/fidget.nvim")
 
   --Navigation
   use("kyazdani42/nvim-tree.lua")

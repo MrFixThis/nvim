@@ -1,12 +1,7 @@
-local set_keymap = require("mrfixthis.keymap").set_keymap
+local set_keymap = require("mrfixthis.tools").general.set_keymap
+-- go.nvim mappings
 local opt = {buffer = true}
-
---GoInstallBinaries to install all the necesary dependencies
-  --{list,} to only install the desired ones
---GoUpdateBinaries to update the binaries to its lastest version
-
---Go.nvim keymaps for autocmd
-local go_nvim_mappings = {
+set_keymap({
   --General
   {"n", "<localleader>c", ":GoCmt<CR>", opt},
   {"n", "<localleader>t", ":GoAddTag<CR>", opt},
@@ -27,6 +22,4 @@ local go_nvim_mappings = {
   {"n", "<CR>m", ":GoModVendor<CR>", opt},
   {"n", "<CR>a", ":GoAlt<CR>", opt},
   {"n", "<CR>g", ":GoMockGen<CR>", opt},
-}
-
-set_keymap(go_nvim_mappings)
+})

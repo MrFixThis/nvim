@@ -1,8 +1,15 @@
---Nebulous setup
-local nebulous = require("nebulous")
-local scheme = require("nebulous.functions").get_colors("fullmoon")
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, mods = secure_require({
+  "nebulous",
+  "nebulous.functions",
+})
+if report then
+  report(); return
+end
 
-nebulous.setup({
+--Nebulous setup
+local scheme = mods.nebulous_functions.get_colors("fullmoon")
+mods.nebulous.setup({
   variant = "midnight",
   disable = {
     background = false,

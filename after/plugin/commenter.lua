@@ -1,6 +1,14 @@
+local secure_require = require("mrfixthis.tools").general.secure_require
+local report, mods = secure_require({
+  "Comment",
+  "Comment.ft",
+})
+if report then
+  report(); return
+end
+
 --Commenter setup
-local ft = require("Comment.ft")
-require("Comment").setup({
+mods.comment.setup({
   ---Add a space b/w comment and the line
   padding = true,
   ---Whether the cursor should stay at its position
@@ -39,5 +47,5 @@ require("Comment").setup({
 })
 
 --Custom comment placeholders
-ft.http = "# %s"
-ft.jsp = "<%-- %s --%>"
+mods.comment_ft.http = "# %s"
+mods.comment_ft.jsp =  "<%-- %s --%>"

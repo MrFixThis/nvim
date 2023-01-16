@@ -1,5 +1,8 @@
-local gitsigns = require("gitsigns")
-local set_keymap = require("mrfixthis.keymap").set_keymap
+local tools = require("mrfixthis.tools").general
+local report, gitsigns = tools.secure_require("gitsigns")
+if report then
+  report(); return
+end
 
 --Gitsigns setup
 gitsigns.setup({
@@ -42,7 +45,7 @@ gitsigns.setup({
   },
   on_attach = function(bufnr)
     local opt = {expr = true, buffer = bufnr}
-    local gitsigns_mappings = {
+    tools.set_keymap({
       -- Actions
       {{"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>"},
       {{"n", "v"}, "<leader>hr", ":Gitsigns reset_hunk<CR>"},
@@ -72,7 +75,6 @@ gitsigns.setup({
           return "<Ignore>"
         end, opt
       },
-    }
-    set_keymap(gitsigns_mappings)
+    })
   end
 })

@@ -1,8 +1,6 @@
-local set_keymap = require("mrfixthis.keymap").set_keymap
 local tools = require("mrfixthis.tools")
-
 --Single keymaps
-local various_mappings = {
+tools.general.set_keymap({
   --Nvim tree
   {"n", "<c-p>", ":NvimTreeToggle<CR>"},
   --Formatter
@@ -18,8 +16,6 @@ local various_mappings = {
   --Gitsigns
   {"n", "<leader>go", ":Gitsigns<CR>"},
   --Sessions
-  {"n", "<leader>ss", tools.Session.save_session},
-  {"n", "<leader>ls", tools.Session.load_session},
-}
-
-set_keymap(various_mappings)
+  {"n", "<leader>ss", tools.session.save_session},
+  {"n", "<leader>ls", tools.session.load_session},
+})
