@@ -14,14 +14,21 @@ local is_new_file = function()
     vim.fn.filereadable(filename) == 0
 end
 
--- format_filename sanitizes the java's packages contents names in the status bar
+-- format_filename
 local format_filename = function()
   local fname = scape(vim.fn.expand("%:p"))
 
+  -- Sanitizes and formats the java's packages contents names
   if vim.startswith(fname, "jdt://") then
     local package = fname:match("contents/[%a%d.-]+/([%a%d.-]+)") or ""
     local class = fname:match("contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class") or ""
     fname = string.format("%s::%s", package, class)
+
+  -- Cuts and formats the path to the Rust's builtin files
+  elseif fname:match(".rustup/toolchains") then
+    local package = fname:match("library/(.+)/.+")
+    local file = fname:match(".+/(.+)$")
+    fname = string.format("rust::%s/%s", package, file)
   else
       fname = vim.fn.expand("%:~:.")
   end

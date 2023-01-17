@@ -59,21 +59,20 @@ tools.set_keymap({
   {"n", "<leader>gt", vim.lsp.buf.type_definition},
   {"n", "<leader>gw", vim.lsp.buf.document_symbol},
   {"n", "<leader>gW", vim.lsp.buf.workspace_symbol},
-
   --Actions mappings
   {"n", "<leader>ah", vim.lsp.buf.hover},
   {"n", "<leader>ca", vim.lsp.buf.code_action},
   {"n", "<leader>rn", vim.lsp.buf.rename},
-
   -- Few language severs support these three
   {"n", "<leader>=",  function() vim.lsp.buf.format({async = true}) end},
   {"n", "<leader>ai", vim.lsp.buf.incoming_calls},
   {"n", "<leader>ao", vim.lsp.buf.outgoing_calls},
-
   --Diagnostics mappings
   {"n", "<leader>ee", vim.diagnostic.open_float},
   {"n", "<leader>gp", vim.diagnostic.goto_prev},
   {"n", "<leader>gn", vim.diagnostic.goto_next},
+  --Custom
+  {"n", "<localleader>~", ":LspRestart<CR>"},
 })
 
 --Language servers setup
