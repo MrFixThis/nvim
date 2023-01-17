@@ -55,6 +55,14 @@ local format_tab_label = function(fname)
   return fname
 end
 
+-- nick_or_dap_status shows either my nick name or dap's status
+local nick_or_dap_status = function()
+  if not mods.dap.session() then
+    return "MrFixThis"
+  end
+  return mods.dap.status()
+end
+
 -- lualine setup
 mods.lualine.setup({
   options = {
@@ -99,7 +107,7 @@ mods.lualine.setup({
         fmt = format_tab_label,
       }
     },
-    lualine_z = {mods.dap.status},
+    lualine_z = {nick_or_dap_status},
   },
   inactive_winbar = {
     lualine_a = {format_filename, "diagnostics"},
