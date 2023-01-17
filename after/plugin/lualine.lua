@@ -4,19 +4,15 @@ if report then
   report(); return
 end
 
-local symbols = {
-  modified = " [+]", readonly = " [-]", unnamed = "[No Name]", newfile = "[New File] "
-}
+-- State symbols
+local symbols = {modified = " [+]", readonly = " [-]", unnamed = "[No Name]"}
+-- helper functions
 local scape = function(fname) return fname:gsub("%%", "%%%%") end
-local is_new_file = function()
-  local filename = vim.fn.expand("%")
-  return filename ~= "" and vim.bo.buftype == "" and
-    vim.fn.filereadable(filename) == 0
-end
 
--- format_filename
+-- format_filename formats the files names
 local format_filename = function()
   local fname = scape(vim.fn.expand("%:p"))
+  local filetype = vim.fn.expand("%:e")
 
   -- Sanitizes and formats the java's packages contents names
   if vim.startswith(fname, "jdt://") then
@@ -25,7 +21,7 @@ local format_filename = function()
     fname = string.format("%s::%s", package, class)
 
   -- Cuts and formats the path to the Rust's builtin files
-  elseif fname:match(".rustup/toolchains") then
+  elseif vim.startswith(filetype, "rs") and fname:match("[/%.]?rust[%a]*/.+") then
     local package = fname:match("library/(.+)/.+")
     local file = fname:match(".+/(.+)$")
     fname = string.format("rust::%s/%s", package, file)
@@ -34,7 +30,6 @@ local format_filename = function()
   end
 
   if fname ~= "" then
-    if is_new_file() then fname = symbols.newfile .. fname end
     if vim.bo.modified then fname = fname .. symbols.modified end
     if vim.bo.modifiable == false or vim.bo.readonly == true then
       fname = fname .. symbols.readonly

@@ -72,7 +72,7 @@ tools.set_keymap({
   {"n", "<leader>gp", vim.diagnostic.goto_prev},
   {"n", "<leader>gn", vim.diagnostic.goto_next},
   --Custom
-  {"n", "<localleader>~", ":LspRestart<CR>"},
+  {"n", "<leader>~", ":LspRestart<CR>"},
 })
 
 --Language servers setup

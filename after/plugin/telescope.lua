@@ -45,6 +45,7 @@ local search_nvim_conffiles = function ()
     cwd = "~/.dotfiles/nvim/.config/nvim/",
     hidden = false,
     previewer = false,
+    file_ignore_patterns = {"%.git"},
   })
   mods.telescope_builtin.find_files(set_pick)
 end
@@ -55,7 +56,8 @@ local search_dotfiles = function()
     prompt_title = "< Dotfiles >",
     cwd = "~/.dotfiles/",
     hidden = true,
-    previewer = false
+    previewer = false,
+    file_ignore_patterns = {"nvim", "%.git"},
   })
   mods.telescope_builtin.find_files(set_pick)
 end
