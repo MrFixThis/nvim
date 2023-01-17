@@ -4,14 +4,11 @@ if report then
   report(); return
 end
 
---vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
 mods.cmp.setup({
   snippet = {
     expand = function(args)
-      --vsnip
       vim.fn["vsnip#anonymous"](args.body)
-      -- require("luasnip").lsp_expand(args.body)
     end
   },
   mapping = mods.cmp.mapping.preset.insert({
@@ -30,7 +27,6 @@ mods.cmp.setup({
       {name = "buffer", keyword_lenght = 5},
       {name = "path"},
       {name = "vsnip"},
-      -- {name = "luasnip"},
     }),
    formatting = {
      format = mods.lspkind.cmp_format({

@@ -57,10 +57,8 @@ end
 
 -- nick_or_dap_status shows either my nick name or dap's status
 local nick_or_dap_status = function()
-  if not mods.dap.session() then
-    return "MrFixThis"
-  end
-  return mods.dap.status()
+  if mods.dap.session() then return mods.dap.status() end
+  return "MrFixThis"
 end
 
 -- lualine setup
@@ -102,7 +100,7 @@ mods.lualine.setup({
     lualine_a = {
       {
         "tabs",
-        max_length = vim.o.columns / 2,
+        max_length = vim.o.columns / 1.8,
         mode = 1,
         fmt = format_tab_label,
       }
