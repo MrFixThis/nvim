@@ -3,6 +3,7 @@ local report, mods = tools.secure_require({
   "lspconfig",
   "cmp_nvim_lsp",
   "rust-tools",
+  "rust-tools.executors",
 })
 if report then
   report(); return
@@ -173,6 +174,7 @@ mods.rust_tools.setup({
     },
   },
   tools = {
+    executor = mods.rust_tools_executors.toggleterm,
     inlay_hints = {
       auto = false,
     },

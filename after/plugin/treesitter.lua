@@ -7,8 +7,8 @@ end
 --Treesitter settings
 tree_sitter.setup({
   ensure_installed = {
-    "lua", "vim", "go", "gomod", "java", "python", "rust", "javascript",
-    "typescript", "http", "json", "dockerfile"
+    "lua", "vim", "rust", "toml", "go", "gomod", "java", "python", "bash",
+    "c", "cpp", "javascript", "typescript", "json", "dockerfile", "http",
   },
   highlight = {
     enable = true,
