@@ -1,0 +1,22 @@
+{
+  "doch": {
+    "prefix": "doch",
+    "body": ["//! $0"],
+    "description": "Rust Doc's contained item syntax."
+  },
+  "docb": {
+    "prefix": "docb",
+    "body": ["/// $0"],
+    "description": "Rust Doc's item doc syntax."
+  },
+  "attri": {
+    "prefix": "attri",
+    "body": ["#![$0]"],
+    "description": "Inner attribute."
+  },
+  "attro": {
+    "prefix": "attro",
+    "body": ["#[$0]"],
+    "description": "Outter attribute."
+  }
+}
