@@ -21,8 +21,8 @@ local format_filename = function()
     fname = string.format("%s::%s", package, class)
 
   -- Cuts and formats the path to the Rust's builtin files
-  elseif vim.startswith(filetype, "rs") and fname:match("[/%.]?rust[%a]*/.+") then
-    local package = fname:match("library/(.+)/.+")
+  elseif vim.startswith(filetype, "rs") and fname:match("[/%.]rust[%a]*/.+") then
+    local package = fname:match("library/(.+)/.+") or fname:match(".+/(.+)/.+$")
     local file = fname:match(".+/(.+)$")
     fname = string.format("rust::%s/%s", package, file)
   else
