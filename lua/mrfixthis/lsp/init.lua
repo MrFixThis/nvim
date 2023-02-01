@@ -84,6 +84,7 @@ local lang_servers = {
   cssls = true,
   yamlls = true,
   vimls = true,
+  taplo = true,
 
   --Lua
   sumneko_lua = {
