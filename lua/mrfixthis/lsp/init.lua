@@ -165,7 +165,20 @@ local lang_servers = {
 mods.rust_tools.setup({
   server = {
     capabilities = default_config.capabilities,
-    standalone = true,
+    imports = {
+      granularity = {
+        group = "module",
+      },
+      prefix = "self",
+    },
+    cargo = {
+      buildScripts = {
+        enable = true,
+      },
+    },
+    procMacro = {
+      enable = true
+    },
   },
   dap = {
     adapter = {

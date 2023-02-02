@@ -13,6 +13,8 @@ local scape = function(fname) return fname:gsub("%%", "%%%%") end
 local format_filename = function()
   local fname = scape(vim.fn.expand("%:p"))
   local filetype = vim.fn.expand("%:e")
+  local cargo_home = os.getenv("CARGO_HOME")
+  local rustup_home = os.getenv("RUSTUP_HOME")
 
   -- Sanitizes and formats the java's packages contents names
   if vim.startswith(fname, "jdt://") then
@@ -20,8 +22,12 @@ local format_filename = function()
     local class = fname:match("contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class") or ""
     fname = string.format("%s::%s", package, class)
 
-  -- Cuts and formats the path to the Rust's builtin files
-  elseif vim.startswith(filetype, "rs") and fname:match("[/%.]rust[%a]*/.+") then
+  -- Cuts and formats the path to the Rust's builtin files and Cargo's registry
+  -- files
+  elseif vim.startswith(filetype, "rs")
+    and fname:match(string.format("%s%s", cargo_home, "/.+"))
+    or fname:match(string.format("%s%s", rustup_home, "/.+")) then
+
     local package = fname:match("library/(.+)/.+") or fname:match(".+/(.+)/.+$")
     local file = fname:match(".+/(.+)$")
     fname = string.format("rust::%s/%s", package, file)
