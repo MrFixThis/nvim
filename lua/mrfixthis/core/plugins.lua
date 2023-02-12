@@ -86,6 +86,7 @@ return require("packer").startup(function(use)
   use("theHamsta/nvim-dap-virtual-text")
     --Lua debugger adapter
   use("jbyuki/one-small-step-for-vimkind")
+  use("mfussenegger/nvim-dap-python")
 
   --Lang tools
     --Go

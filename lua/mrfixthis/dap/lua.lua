@@ -1,8 +1,5 @@
 local secure_require = require("mrfixthis.tools").general.secure_require
-local report, dap = secure_require("dap")
-if report then
-  report(); return
-end
+local _, dap = secure_require("dap")
 
 --Lua debugger adapter settings
 dap.adapters.nlua = function(callback, config)

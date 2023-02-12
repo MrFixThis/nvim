@@ -1,8 +1,5 @@
 local secure_require = require("mrfixthis.tools").general.secure_require
-local report, mods = secure_require({"dap", "dap.utils"})
-if report then
-  report(); return
-end
+local _, mods = secure_require({"dap", "dap.utils"})
 
 local home = os.getenv("HOME")
 --Nodejs debugger adapter settings

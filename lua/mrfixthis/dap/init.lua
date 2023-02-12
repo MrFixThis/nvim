@@ -86,6 +86,7 @@ local adapters = {
   "lua",
   "java",
   "go",
+  "python",
   "node",
   "lldb",
 }
