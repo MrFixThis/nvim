@@ -7,10 +7,7 @@ if report then
   report(); return
 end
 
-local vir_env = os.getenv("VIRTUAL_ENV")
-local debugpy = vir_env .. "/debugpy/bin/python"
-
-mods.dap_python.setup(debugpy)
+mods.dap_python.setup("~/.virtualenvs/debugpy/bin/python")
 
 -- mods.dap.adapters.python = {
 --   type = "executable",

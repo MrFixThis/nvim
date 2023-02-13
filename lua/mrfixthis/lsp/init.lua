@@ -77,8 +77,8 @@ tools.set_keymap({
 })
 
 --Language servers setup
-local sumneko_root_path = string.format("%s/.local/servers/lua-language-server", home)
-local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
+local lua_ls_root_path = string.format("%s/.local/servers/lua-language-server", home)
+local lua_ls_binary = string.format("%s/bin/lua-language-server", lua_ls_root_path)
 local lang_servers = {
   --Default config language servers
   cssls = true,
@@ -87,8 +87,8 @@ local lang_servers = {
   taplo = true,
 
   --Lua
-  sumneko_lua = {
-    cmd = {sumneko_binary},
+  lua_ls = {
+    cmd = {lua_ls_binary},
     settings = {
       Lua = {
         runtime = {
