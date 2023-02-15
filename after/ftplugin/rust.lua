@@ -8,7 +8,7 @@ end
 local opt = {buffer = true}
 tools.set_keymap({
   {"n", "<leader>cr", rust_tools.runnables.runnables,  opt},
-  {"n", "<leader>co", rust_tools.debuggables.debuggables,  opt},
+  {"n", "<leader>cd", rust_tools.debuggables.debuggables,  opt},
   {"n", "<leader>ct", rust_tools.open_cargo_toml.open_cargo_toml, opt},
   {"n", "<leader>cs", rust_tools.standalone.start_standalone_client, opt},
   {"n", "<leader>cc", rust_tools.workspace_refresh.reload_workspace, opt},
