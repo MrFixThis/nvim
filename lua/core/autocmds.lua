@@ -1,19 +1,15 @@
-local tools = require("mrfixthis.tools").general
-local report, lualine = tools.secure_require("lualine")
-if report then
-  report(); return
-end
+local create_autocmd = require("utils").create_autocmd
 
 --General autocmds
-local opts = {clear = true}
-tools.create_autocmd({
+local opts = { clear = true }
+create_autocmd({
   --Yanking settings
   highlight_yank = {
     autocmd = {
       {
-        event = {"TextYankPost",},
-        pattern = {"*",},
-        callback = function() vim.highlight.on_yank({timeout = 40}) end,
+        event = { "TextYankPost", },
+        pattern = { "*", },
+        callback = function() vim.highlight.on_yank({ timeout = 40 }) end,
       },
     },
     opts = opts
@@ -28,11 +24,11 @@ tools.create_autocmd({
           "BufWritePost", "CursorMoved", "CursorMovedI",
           "CursorHold", "CursorHoldI",
         },
-        pattern = {"*",},
-        callback = function() lualine.refresh(
+        pattern = { "*", },
+        callback = function() require("lualine").refresh(
           {
             kind = "tabpage",
-            place = {"statusline", "tabline", "winbar"},
+            place = { "statusline", "tabline", "winbar" },
             trigger = "autocmd"
           })
         end,
