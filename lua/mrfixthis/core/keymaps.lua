@@ -1,6 +1,7 @@
-local set_keymap = require("mrfixthis.tools").general.set_keymap
+local tools = require("mrfixthis.tools")
+
 --General keymaps
-set_keymap({
+local general = {
   --Windows and tabs navigation
   {"n", "<C-h>", ":wincmd h<CR>"},
   {"n", "<C-l>", ":wincmd l<CR>"},
@@ -37,4 +38,33 @@ set_keymap({
   {"t", "<A-l>", "<C-\\><C-n><C-w>j"},
   {"t", "<A-j>", "<C-\\><C-n><C-w>k"},
   {"t", "<A-k>", "<C-\\><C-n><C-w>l"},
-})
+}
+
+--Various keymaps
+local various = {
+  --Nvim tree
+  {"n", "<c-p>", ":NvimTreeToggle<CR>"},
+  --Formatter
+  {"n", "<leader>fo", ":Format<CR>"},
+  --Undotree
+  {"n", "<leader>u", ":UndotreeShow<CR>"},
+  --Maximizer
+  {"n", "<leader>ma", ":MaximizerToggle!<CR>"},
+  --DiffView
+  {"n", "<leader>gg", ":DiffviewOpen<CR>"},
+  {"n", "<leader>gh", ":DiffviewFileHistory<CR>"},
+  {"n", "<leader>gq", ":DiffviewClose<CR>"},
+  --Gitsigns
+  {"n", "<leader>go", ":Gitsigns<CR>"},
+  --Sessions
+  {"n", "<leader>ss", tools.session.save_session},
+  {"n", "<leader>ls", tools.session.load_session},
+}
+
+tools.general.set_keymap(
+  vim.tbl_deep_extend(
+    "force",
+    general,
+    various
+  )
+)
