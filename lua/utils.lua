@@ -53,15 +53,15 @@ end
 
 --Keymaps builder
   --Default options
-local default_opt = { noremap = true, silent = true }
+local default_opts = { noremap = true, silent = true }
 M.set_keymap = function(keymap_set)
   for _, keymap in ipairs(keymap_set) do
-    local mode, lhs, rhs, opt = unpack(keymap)
-    opt = opt or {}
+    local mode, lhs, rhs, opts = unpack(keymap)
+    opts = opts or {}
     --Opt merging
-    opt = vim.tbl_extend("force", default_opt, opt)
+    opts = vim.tbl_extend("force", default_opts, opts)
 
-    vim.keymap.set(mode, lhs, rhs, opt)
+    vim.keymap.set(mode, lhs, rhs, opts)
   end
 end
 

@@ -1,6 +1,9 @@
-local set_keymap = require("utils").set_keymaps
+local set_keymap = require("utils").set_keymap
 
 return {
+  -- Plenary
+  "nvim-lua/plenary.nvim",
+
   -- Nvim-tree
   {
     "kyazdani42/nvim-tree.lua",
@@ -193,25 +196,21 @@ return {
   },
 
   -- Markdown preview
-  -- {
-  --   "toppair/peek.nvim",
-  --   build = "deno task --quiet build:fast",
-  --   keys = {
-  --     {
-  --       "<leader>op",
-  --       function()
-  --         local peek = require("peek")
-  --         if peek.is_open() then
-  --           peek.close()
-  --         else
-  --           peek.open()
-  --         end
-  --       end,
-  --       desc = "Peek (Markdown Preview)",
-  --     },
-  --   },
-  --   opts = { theme = "light" },
-  -- },
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = "cd app && npm install",
+    config = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+  },
+
+  -- Crates.nvim
+  {
+    "saecki/crates.nvim",
+    version = 'v0.3.0',
+    config = true,
+  },
 
   -- Trouble.nivm
   {
@@ -228,7 +227,7 @@ return {
   -- Harpoon
   {
     "ThePrimeagen/harpoon",
-    opt = {}, -- TODO: configure
+    opts = {}, -- TODO: configure
   },
 
   -- Undo tree
@@ -254,7 +253,4 @@ return {
     "gbprod/yanky.nvim",
     config = function() end, -- TODO: configure
   },
-
-  -- Plenary
-  "nvim-lua/plenary.nvim",
 }

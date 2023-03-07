@@ -1,7 +1,5 @@
-local setting = require("utils").setting
-
 --Editor's global settings
-setting({
+require("utils").setting({
   cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers

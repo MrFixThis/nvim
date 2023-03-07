@@ -16,36 +16,6 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 return {
-  -- Themes
-  {
-    "Yagua/nebulous.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = function()
-      local scheme = require("nebulous.functions").get_colors("fullmoon")
-      return {
-        variant = "midnight",
-        disable = {
-          background = false,
-          endOfBuffer = false,
-        },
-        italic = {
-          comments   = true,
-          keywords   = true,
-          functions  = false,
-          variables  = false,
-        },
-        custom_colors = {
-          LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
-          CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
-        },
-      }
-    end,
-  },
-  "tokyonight.nvim",
-  "eddyekofo94/gruvbox-flat.nvim",
-  "gruvbox-community/gruvbox",
-
   -- Icons
   "ryanoasis/vim-devicons",
   "kyazdani42/nvim-web-devicons",
@@ -53,7 +23,6 @@ return {
   -- Cosmetic
   {
     "j-hui/fidget.nvim",
-    lazy = false,
     opts = {
       text = {
         done = "✔ ",

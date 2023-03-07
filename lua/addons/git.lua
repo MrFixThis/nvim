@@ -47,11 +47,11 @@ return {
       },
       on_attach = function(bufnr)
         local gitsigns = package.loaded.gitsigns
-        local opt = { expr = true, buffer = bufnr }
+        local opts = { expr = true, buffer = bufnr }
         set_keymap({
           -- Actions
-          { {"n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>" },
-          { {"n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>" },
+          { {"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>" },
+          { {"n", "v"}, "<leader>hr", ":Gitsigns reset_hunk<CR>" },
           { "n", "<leader>hS", gitsigns.stage_buffer },
           { "n", "<leader>hu", gitsigns.undo_stage_hunk },
           { "n", "<leader>hR", gitsigns.reset_buffer },
@@ -62,21 +62,21 @@ return {
           { "n", "<leader>hD", function() gitsigns.diffthis("~") end },
           { "n", "<leader>fd", gitsigns.toggle_deleted },
           -- Text object
-          { {"o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>" },
+          { {"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>" },
          -- Navigation
           {
             "n", "]c", function()
               if vim.wo.diff then return "]c" end
               vim.schedule(gitsigns.next_hunk)
               return "<Ignore>"
-            end, opt
+            end, opts
           },
           {
             "n", "[c", function()
               if vim.wo.diff then return "[c" end
               vim.schedule(gitsigns.prev_hunk)
               return "<Ignore>"
-            end, opt
+            end, opts
           },
         })
       end
@@ -88,9 +88,9 @@ return {
     "sindrets/diffview.nvim",
     config = true,
     keys = {
-      {"<leader>gg", ":DiffviewOpen<CR>"},
-      {"<leader>gh", ":DiffviewFileHistory<CR>"},
-      {"<leader>gq", ":DiffviewClose<CR>"},
+      { "<leader>gg", ":DiffviewOpen<CR>" },
+      { "<leader>gh", ":DiffviewFileHistory<CR>" },
+      { "<leader>gq", ":DiffviewClose<CR>" },
     }
   },
 
