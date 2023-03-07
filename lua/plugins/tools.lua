@@ -154,30 +154,42 @@ return {
   -- Rest-nvim
   {
     "NTBBloodbath/rest.nvim",
-    opts = {
-      result_split_horizontal = false,
-      result_split_in_place = "left",
-      skip_ssl_verification = false,
-      highlight = {
-        enabled = true,
-        timeout = 150,
-      },
-      result = {
-        show_url = true,
-        show_http_info = true,
-        show_headers = true,
-        formatters = {
-          json = "jq",
-          html = function(body)
-            return vim.fn.system({ "tidy", "-i", "-q", "-" }, body)
-          end
+    ft = "http",
+    config = function()
+      local rest_nvim = require("rest_nvim")
+
+      rest_nvim.setup({
+        result_split_horizontal = false,
+        result_split_in_place = "left",
+        skip_ssl_verification = false,
+        highlight = {
+          enabled = true,
+          timeout = 150,
         },
-      },
-      jump_to_request = false,
-      env_file = ".env",
-      custom_dynamic_variables = {},
-      yank_dry_run = true,
-    }
+        result = {
+          show_url = true,
+          show_http_info = true,
+          show_headers = true,
+          formatters = {
+            json = "jq",
+            html = function(body)
+              return vim.fn.system({ "tidy", "-i", "-q", "-" }, body)
+            end
+          },
+        },
+        jump_to_request = false,
+        env_file = ".env",
+        custom_dynamic_variables = {},
+        yank_dry_run = true,
+      })
+
+      local opts = { buffer = true }
+      set_keymap({
+        { "n", "<leader>rr", rest_nvim.run, opts },
+        { "n", "<leader>rR", function() rest_nvim.run(true) end, opts },
+        { "n", "<leader>rf", rest_nvim.last, opts },
+      })
+    end,
   },
 
   -- Markdown preview
@@ -242,4 +254,7 @@ return {
     "gbprod/yanky.nvim",
     config = function() end, -- TODO: configure
   },
+
+  -- Plenary
+  "nvim-lua/plenary.nvim",
 }
