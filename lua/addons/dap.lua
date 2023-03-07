@@ -197,6 +197,7 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
       {
         "rcarriga/nvim-dap-ui",
         opts = {
@@ -232,7 +233,6 @@ return {
           },
         }
       },
-      "theHamsta/nvim-dap-virtual-text",
     },
     config = function()
       local dap = require("dap")

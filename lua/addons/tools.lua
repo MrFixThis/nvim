@@ -8,7 +8,7 @@ return {
   {
     "kyazdani42/nvim-tree.lua",
     keys = {
-      {"<c-p>", ":NvimTreeToggle<CR>"},
+      { "<c-p>", ":NvimTreeToggle<CR>" },
     },
     config = function()
       vim.g.loaded_netrw = 1
@@ -97,6 +97,9 @@ return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
+    keys = {
+      { "<A-t>" },
+    },
     config = function()
       local T = require("toggleterm.terminal")
       --Term spawner
@@ -205,16 +208,9 @@ return {
     end,
   },
 
-  -- Crates.nvim
+  -- Harpoon
   {
-    "saecki/crates.nvim",
-    version = 'v0.3.0',
-    config = true,
-  },
-
-  -- Trouble.nivm
-  {
-    "folke/trouble.nvim",
+    "ThePrimeagen/harpoon",
     opts = {}, -- TODO: configure
   },
 
@@ -224,10 +220,16 @@ return {
     opts = {} -- TODO: configure
   },
 
-  -- Harpoon
+  -- Trouble.nivm
   {
-    "ThePrimeagen/harpoon",
+    "folke/trouble.nvim",
     opts = {}, -- TODO: configure
+  },
+
+  -- Yanky.nvim
+  {
+    "gbprod/yanky.nvim",
+    config = function() end, -- TODO: configure
   },
 
   -- Undo tree
@@ -235,7 +237,7 @@ return {
     "mbbill/undotree",
     config = true,
     keys = {
-      {"<leader>u", ":UndotreeShow<CR>"},
+      { "<leader>u", ":UndotreeShow<CR>" },
     }
   },
 
@@ -244,13 +246,7 @@ return {
     "szw/vim-maximizer",
     config = true,
     keys = {
-      {"<leader>ma", ":MaximizerToggle!<CR>"},
+      { "<leader>ma", ":MaximizerToggle!<CR>" },
     },
-  },
-
-  -- Yanky.nvim
-  {
-    "gbprod/yanky.nvim",
-    config = function() end, -- TODO: configure
   },
 }

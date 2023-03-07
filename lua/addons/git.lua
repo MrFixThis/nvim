@@ -5,7 +5,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     keys = {
-      {"<leader>go", ":Gitsigns<CR>"},
+      { "<leader>go", ":Gitsigns<CR>" },
     },
     opts = {
       signs = {

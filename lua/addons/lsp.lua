@@ -10,7 +10,21 @@ return {
         width = 0.9,
         height = 0.9,
       },
-    }
+    },
+    dependencies = {
+      {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+          ensure_installed = {},
+        },
+      },
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        opts = {
+          ensure_installed = {},
+        },
+      }
+    },
   },
 
   --Lsp
@@ -43,10 +57,6 @@ return {
       })
     end,
     config = function()
-      local on_attach = function()
-
-      end
-
       local items = {
         servers = {
           tsserver = {},
@@ -178,6 +188,13 @@ return {
         },
       })
     end,
+    dependencies = {
+      {
+        "saecki/crates.nvim",
+        version = 'v0.3.0',
+        config = true,
+      },
+    },
   },
 
   -- Null-ls
@@ -201,9 +218,6 @@ return {
   {
     "hrsh7th/vim-vsnip",
     load = "InsertEnter",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
     config = function()
       vim.g.vsnip_snippet_dir = vim.fn.expand("~/.config/nvim/snippet/vsnip")
       local opts = { expr = true, silent = false }
@@ -216,20 +230,15 @@ return {
         { "s", "<C-j>", "vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'", opts },
       })
     end,
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
   }, -- TODO: Change to LuaSnip
 
   -- Cmp
   {
     "hrsh7th/nvim-cmp",
     load = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-vsnip",
-      "onsails/lspkind-nvim",
-    },
     config = function()
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
       local cmp = require("cmp")
@@ -280,5 +289,13 @@ return {
        },
      })
    end,
-  },
+   dependencies = {
+     "hrsh7th/cmp-buffer",
+     "hrsh7th/cmp-path",
+     "hrsh7th/cmp-nvim-lsp",
+     "hrsh7th/cmp-nvim-lua",
+     "hrsh7th/cmp-vsnip",
+     "onsails/lspkind-nvim",
+   },
+ },
 }

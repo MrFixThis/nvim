@@ -43,7 +43,8 @@ require("lazy").setup("addons", {
       enabled = true,
     },
   },
-  -- defaults = { lazy = true },
+  defaults = { lazy = true },
   checker = { enabled = true },
+  change_detection = { notify = false },
   diff = { cmd = "diffview.nvim", },
 })
