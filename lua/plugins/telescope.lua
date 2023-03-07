@@ -1,6 +1,3 @@
-local set_keymap = require("util").set_keymap
-
--- Telescope setup
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -8,9 +5,8 @@ return {
       "nvim-telescope/telescope-fzy-native.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },
-    opts = function()
+    config = function()
       local telescope = require("telescope")
-      local actions = require("telescope.actions")
       local builtin = require("telescope.builtin")
       local themes = require("telescope.themes")
 
@@ -40,7 +36,7 @@ return {
       end
 
       --Telescope keymaps
-      set_keymap({
+      require("utils").set_keymap({
         { "n", "<leader>tt", ":Telescope<CR>"  },
         { "n", "<leader>mw", builtin.buffers  },
         { "n", "<leader>mk", builtin.git_files },
@@ -62,7 +58,9 @@ return {
 
       --Extensions loading
       telescope.load_extension("ui-select")
-
+    end,
+    opts = function()
+      local actions = require("telescope.actions")
       return {
         defaults = {
           layout_strategy = "horizontal",

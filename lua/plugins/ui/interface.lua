@@ -49,7 +49,6 @@ return {
   -- Icons
   "ryanoasis/vim-devicons",
   "kyazdani42/nvim-web-devicons",
-  "onsails/lspkind-nvim",
 
   -- Cosmetic
   {
@@ -62,6 +61,4 @@ return {
       },
     },
   },
-
-  -- TODO: setup noice.nivm
 }

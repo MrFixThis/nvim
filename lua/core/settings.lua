@@ -1,8 +1,4 @@
-local setting = require("mrfixthis.tools").general.setting
-
---Leader and local leader keys
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+local setting = require("utils").setting
 
 --Editor's global settings
 setting({
