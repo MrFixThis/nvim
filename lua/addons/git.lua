@@ -1,11 +1,10 @@
 local set_keymap = require("utils").set_keymap
-
 return {
   -- Gitsigns
   {
     "lewis6991/gitsigns.nvim",
     keys = {
-      { "<leader>go", ":Gitsigns<CR>" },
+      { "<leader>go", "<CMD>Gitsigns<CR>" },
     },
     opts = {
       signs = {
@@ -50,8 +49,8 @@ return {
         local opts = { expr = true, buffer = bufnr }
         set_keymap({
           -- Actions
-          { {"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>" },
-          { {"n", "v"}, "<leader>hr", ":Gitsigns reset_hunk<CR>" },
+          { {"n", "v"}, "<leader>hs", "<CMD>Gitsigns stage_hunk<CR>" },
+          { {"n", "v"}, "<leader>hr", "<CMD>Gitsigns reset_hunk<CR>" },
           { "n", "<leader>hS", gitsigns.stage_buffer },
           { "n", "<leader>hu", gitsigns.undo_stage_hunk },
           { "n", "<leader>hR", gitsigns.reset_buffer },
@@ -88,15 +87,25 @@ return {
     "sindrets/diffview.nvim",
     config = true,
     keys = {
-      { "<leader>gg", ":DiffviewOpen<CR>" },
-      { "<leader>gh", ":DiffviewFileHistory<CR>" },
-      { "<leader>gq", ":DiffviewClose<CR>" },
+      {
+        "<leader>gg", "<CMD>DiffviewOpen<CR>",
+        desc = "Diffview: Open"
+      },
+      {
+        "<leader>gh", "<CMD>DiffviewFileHistory<CR>",
+        desc = "Diffview: Open history"
+      },
+      {
+        "<leader>gq", "<CMD>DiffviewClose<CR>",
+        desc = "Diffview: Close"
+      },
     }
   },
 
   -- Git-worktree
   {
-    "ThePrimeagen/git-worktree.nvim", -- TODO: Configure
+    "ThePrimeagen/git-worktree.nvim", -- TODO: Configure Git-worktree
+    enabled = false,
     opts = {}
   },
 }

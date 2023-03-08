@@ -90,7 +90,7 @@ return {
     return {
       options = {
         icons_enabled = true,
-        theme = "auto", --To abstract the nebulous' colors
+        theme = "auto",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {

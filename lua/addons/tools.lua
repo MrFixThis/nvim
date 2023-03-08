@@ -1,5 +1,4 @@
 local set_keymap = require("utils").set_keymap
-
 return {
   -- Plenary
   "nvim-lua/plenary.nvim",
@@ -8,100 +7,78 @@ return {
   {
     "kyazdani42/nvim-tree.lua",
     keys = {
-      { "<c-p>", ":NvimTreeToggle<CR>" },
+      { "<c-p>", "<CMD>NvimTreeToggle<CR>" },
     },
-    config = function()
+    opts = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
-    end,
-    opts = {
-      update_cwd = true,
-      renderer = {
-        indent_markers = {
-          enable = true,
-        },
-      },
-      actions = {
-        file_popup = {
-          open_win_config = {
-           border = "rounded",
-           zindex = 200,
+
+      local on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, nowait = true }
+        end
+
+        api.config.mappings.default_on_attach(bufnr)
+
+        -- Custom maps
+        set_keymap({
+          { "n", "t", api.node.open.edit, opts("Open") },
+        })
+      end
+
+      return {
+        on_attach = on_attach,
+        update_cwd = true,
+        renderer = {
+          indent_markers = {
+            enable = true,
           },
         },
-        open_file = {
-          quit_on_open = true,
-        },
-      },
-      filters = {
-        dotfiles = true,
-      },
-      notify = {
-        threshold = 5
-      },
-      view = {
-        adaptive_size = true,
-        width = 32,
-        hide_root_folder = false,
-        side = "right",
-        number = true,
-        relativenumber = true,
-        signcolumn = "no",
-        float = {
-          enable = true,
-          open_win_config = {
-            relative = "editor",
-            border = "rounded",
-            width = 32,
-            height = 29,
-            row = 2,
-            col = 0xF423F, -- -1
+        actions = {
+          file_popup = {
+            open_win_config = {
+             border = "rounded",
+             zindex = 200,
+            },
+          },
+          open_file = {
+            quit_on_open = true,
           },
         },
-        mappings = {
-          custom_only = false,
-          list = {
-            { key = "<CR>",    action = "edit" },
-            { key = "t",       action = "edit" },
-            { key = "<C-]>",   action = "cd" },
-            { key = "<C-v>",   action = "vsplit" },
-            { key = "<C-s>",   action = "split" },
-            { key = "<C-t>",   action = "tabnew" },
-            { key = "<",       action = "prev_sibling" },
-            { key = ">",       action = "next_sibling" },
-            { key = "<BS>",    action = "close_node" },
-            { key = "h",       action = "close_node" },
-            { key = "<Tab>",   action = "preview" },
-            { key = "I",       action = "toggle_ignored" },
-            { key = ".",       action = "toggle_dotfiles" },
-            { key = "R",       action = "refresh" },
-            { key = "a",       action = "create" },
-            { key = "<S-D>",   action = "remove" },
-            { key = "r",       action = "rename" },
-            { key = "<C-r>",   action = "full_rename" },
-            { key = "x",       action = "cut" },
-            { key = "c",       action = "copy" },
-            { key = "p",       action = "paste" },
-            { key = "[c",      action = "prev_git_item" },
-            { key = "]c",      action = "next_git_item" },
-            { key = "T",       action = "expand_all" },
-            { key = "H",       action = "collapse_all" },
-            { key = "-",       action = "dir_up" },
-            { key = "q",       action = "close" },
+        filters = { dotfiles = true, },
+        notify = { threshold = 5 },
+        view = {
+          adaptive_size = true,
+          width = 32,
+          side = "right",
+          relativenumber = true,
+          signcolumn = "no",
+          float = {
+            enable = true,
+            open_win_config = {
+              relative = "editor",
+              border = "rounded",
+              width = 32,
+              height = 29,
+              row = 2,
+              col = 0xF423F, -- -1
+            },
           },
         },
-      },
-    }
+      }
+    end
   },
 
   -- Toggleterm
   {
     "akinsho/toggleterm.nvim",
+    lazy = false,
     version = "*",
-    keys = {
-      { "<A-t>" },
-    },
-    config = function()
+    opts = function()
+      local scheme = require("nebulous.functions").get_colors("midnight")
       local T = require("toggleterm.terminal")
+
       --Term spawner
       local spawn_term = function(cmd, dir)
         T.Terminal:new({
@@ -115,29 +92,23 @@ return {
 
       -- Toggleterm keymaps
       set_keymap({
-        {"n", "<localleader>gg", function() spawn_term("lazygit") end},
-        {"n", "<localleader>gd", function() spawn_term("lazydocker") end},
+        {
+          "n", "<localleader>gg",
+          function() spawn_term("lazygit") end,
+          { desc = "Toggle Lazygit" }
+        },
+        {
+          "n", "<localleader>gd",
+          function() spawn_term("lazydocker") end,
+          { desc = "Toggle Lazydocker" }
+        },
       })
-    end,
-    opts = function()
-      local scheme = require("nebulous.functions").get_colors("midnight")
+
       return {
-        -- size can be a number or function which is passed the current terminal
-        size = 20,
         open_mapping = [[<A-t>]],
-        hide_numbers = true,
         shade_filetypes = {},
-        shade_terminals = true,
-        shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-        start_in_insert = true,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
-        terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-        persist_size = true,
-        persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
+        shading_factor = 1,
         direction = "float",
-        close_on_exit = true, -- close the terminal window when the process exits
-        shell = vim.o.shell, -- change the default shell
-        auto_scroll = true, -- automatically scroll to the bottom on terminal output
         highlights = {
           FloatBorder = {
             guifg = scheme.DarkOrange
@@ -146,12 +117,6 @@ return {
         float_opts = {
           border = "curved",
           winblend = 0,
-        },
-        winbar = {
-          enabled = false,
-          name_formatter = function(term) --  term: Terminal
-            return term.name
-          end
         },
       }
     end,
@@ -162,7 +127,7 @@ return {
     "NTBBloodbath/rest.nvim",
     ft = "http",
     config = function()
-      local rest_nvim = require("rest_nvim")
+      local rest_nvim = require("rest-nvim")
 
       rest_nvim.setup({
         result_split_horizontal = false,
@@ -189,11 +154,22 @@ return {
         yank_dry_run = true,
       })
 
-      local opts = { buffer = true }
       set_keymap({
-        { "n", "<leader>rr", rest_nvim.run, opts },
-        { "n", "<leader>rR", function() rest_nvim.run(true) end, opts },
-        { "n", "<leader>rf", rest_nvim.last, opts },
+        {
+          "n", "<leader>rr",
+          rest_nvim.run,
+          { buffer = true, desc = "Rest.nvim run" }
+        },
+        {
+          "n", "<leader>rR",
+          function() rest_nvim.run(true) end,
+          { buffer = true, desc = "Rest.nvim re-run" }
+        },
+        {
+          "n", "<leader>rf",
+          rest_nvim.last,
+          { buffer = true, desc = "Rest.nvim run last" }
+        },
       })
     end,
   },
@@ -211,25 +187,74 @@ return {
   -- Harpoon
   {
     "ThePrimeagen/harpoon",
-    opts = {}, -- TODO: configure
+    lazy = false,
+    config = function()
+      local hpm = require("harpoon.mark")
+      local hpui = require("harpoon.ui")
+
+      set_keymap({
+        { "n", "<leader>hm", hpui.toggle_quick_menu, { desc = "Telescope: Harpoon marks" } },
+        { "n", "<leader>ha", hpm.add_file, { desc = "Harpoon: Add file" } },
+        { "n", "<leader>hn", hpui.nav_prev, { desc = "Harpoon: Previous file" } },
+        { "n", "<leader>hp", hpui.nav_next, { desc = "Harpoon: Next file" } },
+      })
+    end,
   },
 
   -- Persistence.nvim
   {
     "folke/persistence.nvim",
-    opts = {} -- TODO: configure
+    lazy = false,
+    config = function()
+      local persistence = require("persistence")
+
+      set_keymap({
+        -- restore the session for the current directory
+        {
+          "n", "<localleader>ls",
+          persistence.load,
+          { desc = "Persistence: Restore current dir session" },
+        },
+        {
+          "n", "<localleader>ll",
+          function() persistence.load({ last = true }) end,
+          { desc = "Persistence: Restore last session" },
+        },
+        {
+          "n", "<localleader>ld",
+          persistence.stop,
+          { desc = "Persistence: Stop persistence" },
+        },
+      })
+
+      persistence.setup()
+    end,
   },
 
   -- Trouble.nivm
   {
     "folke/trouble.nvim",
-    opts = {}, -- TODO: configure
+    keys = {
+        { "<localleader>tt", "<CMD>TroubleToggle<CR>", desc = "Trouble: Toggle" },
+    },
+    opts = {
+      position = "top",
+      signs = {
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = "﫠"
+      },
+    },
   },
 
   -- Yanky.nvim
   {
     "gbprod/yanky.nvim",
-    config = function() end, -- TODO: configure
+    enabled = false,
+    event = "BufReadPost",
+    config = function() end, -- TODO: Config Yanky
   },
 
   -- Undo tree
@@ -237,7 +262,7 @@ return {
     "mbbill/undotree",
     config = true,
     keys = {
-      { "<leader>u", ":UndotreeShow<CR>" },
+      { "<leader>u", "<CMD>UndotreeShow<CR>", desc = "Undotree toggle" },
     }
   },
 
@@ -246,7 +271,7 @@ return {
     "szw/vim-maximizer",
     config = true,
     keys = {
-      { "<leader>ma", ":MaximizerToggle!<CR>" },
+      { "<leader>ma", "<CMD>MaximizerToggle!<CR>", desc = "Maximizer toggle" },
     },
   },
 }

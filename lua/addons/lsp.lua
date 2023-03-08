@@ -1,9 +1,9 @@
 local set_keymap = require("utils").set_keymap
-
 return {
   --Mason
   {
     "williamboman/mason.nvim",
+    cmd = "Mason",
     opts = {
       ui = {
         border = "rounded",

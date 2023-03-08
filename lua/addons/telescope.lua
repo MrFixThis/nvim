@@ -61,23 +61,27 @@ return {
 
     --Telescope keymaps
     require("utils").set_keymap({
-      { "n", "<leader>tt", ":Telescope<CR>"  },
-      { "n", "<leader>mw", builtin.buffers  },
-      { "n", "<leader>mk", builtin.git_files },
-      { "n", "<leader>th", builtin.help_tags },
-      { "n", "<leader>gs", builtin.find_files },
-      { "n", "<C-n>", builtin.diagnostics },
-      { "n", "<leader>gr", builtin.live_grep },
-      { "n", "<leader>re", builtin.lsp_references },
-      { "n", "<leader>pw",
-        function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end
+      { "n", "<leader>tt", "<CMD>Telescope<CR>", { desc = "Telescope: Builtin" }, },
+      { "n", "<leader>mw", builtin.buffers, { desc = "Telescope: Buffers" }, },
+      { "n", "<leader>mk", builtin.git_files, { desc = "Telescope: Git files" }, },
+      { "n", "<leader>th", builtin.help_tags, { desc = "Telescope: Help tags" }, },
+      { "n", "<leader>gs", builtin.find_files, { desc = "Telescope: Find files" }, },
+      { "n", "<C-n>", builtin.diagnostics, { desc = "Telescope: Diagnostics" }, },
+      { "n", "<leader>gr", builtin.live_grep, { desc = "Telescope: Live grep" }, },
+      { "n", "<leader>re", builtin.lsp_references, { desc = "Telescope: Lsp references" }, },
+      {
+        "n", "<leader>pw",
+        function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
+        { desc = "Telescope: Grep for word under cursor" },
       },
-      {"n", "<leader>ps",
-        function() builtin.grep_string({ search = vim.fn.input("Grep For > ") }) end
+      {
+        "n", "<leader>ps",
+        function() builtin.grep_string({ search = vim.fn.input("Grep For > ") }) end,
+        { desc = "Telescope: Grep for word" },
       },
-      --Custom telescope functions
-      { "n", "<leader>do", search_nvim_conffiles },
-      { "n", "<leader>dO", search_dotfiles },
+      -- Custom telescope functions
+      { "n", "<leader>do", search_nvim_conffiles, { desc = "Telescope: Search Nvim config files" }, },
+      { "n", "<leader>dO", search_dotfiles, { desc = "Telescope: Search dotfiles" }, },
     })
 
     --Extensions loading

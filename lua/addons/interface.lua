@@ -1,5 +1,5 @@
 -- Lsp UI configurations
-  -- Diagnostics icons
+  --diagnostics icons
 local signs = { Error = " ", Warn = " ", Info = " ", Hint = " " }
 
 for type, icon in pairs(signs) do
@@ -20,9 +20,27 @@ return {
   "ryanoasis/vim-devicons",
   "kyazdani42/nvim-web-devicons",
 
+  --Todo-comments
+  {
+    "folke/todo-comments.nvim",
+    keys = {
+        { "<localleader>tc", "<CMD>TodoTelescope<CR>", desc = "TODO Comments: All" },
+    },
+    opts = {
+      gui_style = {
+        fg = "NONE",
+        bg = "NONE",
+      },
+      highlight = {
+        keyword = "fg",
+      },
+    },
+  },
+
   -- Cosmetic
   {
     "j-hui/fidget.nvim",
+    event = "BufReadPre",
     opts = {
       text = {
         done = "✔ ",

@@ -20,6 +20,7 @@ require("utils").set_keymap({
   { "n", "<localleader>W", ":w!<CR>" },
   { "n", "<localleader>V", ":q!<CR>" },
   { "n", "<localleader>=", "<C-W>=" },
+
     -- Format
   { "n", "<leader>y", "\"+y" },
   { "v", "<leader>y" ,"\"+y" },
