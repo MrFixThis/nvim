@@ -61,10 +61,5 @@ local various = {
   {"n", "<leader>ls", tools.session.load_session},
 }
 
-tools.general.set_keymap(
-  vim.tbl_deep_extend(
-    "force",
-    general,
-    various
-  )
-)
+tools.general.set_keymap(general)
+tools.general.set_keymap(various)

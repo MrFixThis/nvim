@@ -105,11 +105,7 @@ local plugins = {
     "simrat39/rust-tools.nvim",
 
     -- Treesitter
-    {
-      "nvim-treesitter/nvim-treesitter",
-      cmd = "TSUpdate",
-      event = "VeryLazy"
-    },
+    { "nvim-treesitter/nvim-treesitter" },
     "nvim-treesitter/playground",
 
     -- -- Local plugins
