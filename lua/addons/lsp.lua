@@ -46,20 +46,25 @@ return {
         severity_sort = true,
       },
       servers = {
+        cssls = {},
+        yamlls = {},
+        vimls = {},
+        taplo = {},
+        jsonls = {},
+
         -- Lua
         lua_ls = {
           single_file_support = true,
           settings = {
             Lua = {
-              -- workspace = {
-               --  library = {
-               --    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-               --    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-               --   },
-               -- },
+              workspace = { checkThirdParty = false, },
               diagnostics = {
                 globals = { "vim" },
                 unusedLocalExclude = { "_*" },
+                groupSeverity = {
+                  strong = "Warning",
+                  strict = "Warning",
+                },
               },
               format = {
                 enable = false,
@@ -74,7 +79,6 @@ return {
                 callSnippet = "Both",
               },
               semantic = { enable = false },
-              telemetry = { enable = false },
             },
           },
         },
@@ -89,16 +93,14 @@ return {
               gofumpt = true,
               analyses = {
                 unusedparams = true,
-               },
+              },
               staticcheck = true,
-             },
-           },
-         },
+            },
+          },
+        },
 
         -- Html
         html = { filetypes = { "html", "jsp" } },
-        -- Json
-        jsonls = {},
       },
     },
     config = function(_, opts)
@@ -171,11 +173,18 @@ return {
       -- Setup servers
       local setup_server = function(server)
         local server_opts = vim.tbl_deep_extend("force",
-          { capabilities = vim.deepcopy(capabilities) }, servers[server] or {})
+          {
+            capabilities = vim.deepcopy(capabilities),
+            flags = {
+              debounce_text_changes = 100,
+            },
+          }, servers[server] or {})
+
           require("lspconfig")[server].setup(server_opts)
       end
 
-      require("mason-lspconfig").setup_handlers({ setup_server })
+      require("mason-lspconfig").setup()
+      for server, _ in pairs(servers) do setup_server(server) end
       require("neodev").setup()
     end,
   },
@@ -240,14 +249,20 @@ return {
   -- Null-ls
   {
     "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nls = require("null-ls")
-
       nls.setup({
         border = "rounded",
         debounce = 150,
         save_after_format = false,
         sources = {
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.rustfmt,
+          nls.builtins.formatting.shfmt,
+          nls.builtins.diagnostics.flake8,
           --- ...
         },
       })

@@ -29,7 +29,6 @@ return {
     local actions = require("telescope.actions")
 
     opts = vim.tbl_deep_extend("force",
-      opts,
       {
         mappings = {
           i = {
@@ -43,7 +42,7 @@ return {
             end,
           },
         }
-      })
+      }, opts)
 
     -- Extensions
     telescope.load_extension("notify")

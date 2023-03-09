@@ -19,13 +19,12 @@ return {
     config = function(_, opts)
       local scheme = require("nebulous.functions").get_colors("fullmoon")
       opts = vim.tbl_deep_extend("force",
-        opts,
         {
           custom_colors = {
             LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
             CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
           }
-        })
+        }, opts)
       require("nebulous").setup(opts)
     end,
   },

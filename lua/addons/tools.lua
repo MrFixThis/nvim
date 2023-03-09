@@ -66,7 +66,7 @@ return {
         })
       end
 
-      opts = vim.tbl_deep_extend("force", opts, { on_attach = on_attach })
+      opts = vim.tbl_deep_extend("force", { on_attach = on_attach }, opts)
       require("nvim-tree").setup(opts)
     end
   },
@@ -88,14 +88,14 @@ return {
     },
     config = function(_, opts)
       local scheme = require("nebulous.functions").get_colors("midnight")
-      opts = vim.tbl_deep_extend("force", opts,
+      opts = vim.tbl_deep_extend("force",
         {
           opts,highlights = {
             FloatBorder = {
               guifg = scheme.DarkOrange
             },
           }
-        })
+        }, opts)
       require("toggleterm").setup(opts)
 
       --Term spawner

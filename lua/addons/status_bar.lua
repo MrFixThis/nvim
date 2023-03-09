@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
   commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47",
-  config = function(_, opts)
+  config = function(_, _)
     -- State symbols
     local symbols = { modified = " [+]", readonly = " [-]", unnamed = "[No Name]" }
     -- Helper functions

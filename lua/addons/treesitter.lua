@@ -13,9 +13,7 @@ return {
         "teal", "toml", "tsx", "typescript", "vhs", "vim", "vue", "wgsl",
         "yaml", "json",
       },
-      matchup = {
-        enable = true,
-      },
+      matchup = { enable = true, },
       indent = { enable = true, disable = { "python" } },
       highlight = { enable = true },
       context_commentstring = { enable = true, enable_autocmd = false },

@@ -46,5 +46,5 @@ require("lazy").setup("addons", {
   defaults = { lazy = true },
   checker = { enabled = true },
   change_detection = { notify = false },
-  diff = { cmd = "diffview.nvim", },
+  diff = { cmd = "terminal_git", },
 })
