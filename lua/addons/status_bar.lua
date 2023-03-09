@@ -1,68 +1,68 @@
--- State symbols
-local symbols = { modified = " [+]", readonly = " [-]", unnamed = "[No Name]" }
--- Helper functions
-local scape = function(fname) return fname:gsub("%%", "%%%%") end
-
--- Format_filename formats the files names
-local format_filename = function()
-  local fname = scape(vim.fn.expand("%:p"))
-  local filetype = vim.fn.expand("%:e")
-  local cargo_home = os.getenv("CARGO_HOME")
-  local rustup_home = os.getenv("RUSTUP_HOME")
-
-  -- Sanitizes and formats the java's packages contents names
-  if vim.startswith(fname, "jdt://") then
-    local package = fname:match("contents/[%a%d.-]+/([%a%d.-]+)") or ""
-    local class = fname:match("contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class") or ""
-    fname = string.format("%s::%s", package, class)
-
-  -- Cuts and formats the path to the Rust's builtin files and Cargo's registry
-  -- files
-  elseif vim.startswith(filetype, "rs")
-    and fname:match(string.format("%s%s", cargo_home, "/.+"))
-    or fname:match(string.format("%s%s", rustup_home, "/.+")) then
-
-    local package = fname:match("library/(.+)/.+") or fname:match(".+/(.+)/.+$")
-    local file = fname:match(".+/(.+)$")
-    fname = string.format("rust::%s/%s", package, file)
-  else
-      fname = vim.fn.expand("%:~:.")
-  end
-
-  if fname ~= "" then
-    if vim.bo.modified then fname = fname .. symbols.modified end
-    if vim.bo.modifiable == false or vim.bo.readonly == true then
-      fname = fname .. symbols.readonly
-    end
-  else
-   fname = symbols.unnamed
-  end
-  return fname
-end
-
--- Format_tab_label sanitizes the java's packages contents names in the tabs
-local format_tab_label = function(fname)
-  if vim.startswith(fname, "%") then
-    local package = fname:match("[%l.?]+") or ""
-    local class = fname:match("([%a.-*$]+).class") or ""
-    fname = string.format("%s::%s", package, class)
-  end
-  return fname
-end
-
--- Nick_or_dap_status shows either my nick name or dap's status
-local nick_or_dap_status = function()
-  local dap = require("dap")
-  if dap.session() then return dap.status() end
-  return "MrFixThis"
-end
-
--- Lualine setup
 return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
   commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47",
-  opts = function()
+  config = function(_, opts)
+    -- State symbols
+    local symbols = { modified = " [+]", readonly = " [-]", unnamed = "[No Name]" }
+    -- Helper functions
+    local scape = function(fname) return fname:gsub("%%", "%%%%") end
+
+    -- Format_filename formats the files names
+    local format_filename = function()
+      local fname = scape(vim.fn.expand("%:p"))
+      local filetype = vim.fn.expand("%:e")
+      local cargo_home = os.getenv("CARGO_HOME")
+      local rustup_home = os.getenv("RUSTUP_HOME")
+
+      -- Sanitizes and formats the java's packages contents names
+      if vim.startswith(fname, "jdt://") then
+        local package = fname:match("contents/[%a%d.-]+/([%a%d.-]+)") or ""
+        local class = fname:match("contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class") or ""
+        fname = string.format("%s::%s", package, class)
+
+      -- Cuts and formats the path to the Rust's builtin files and Cargo's registry
+      -- files
+      elseif vim.startswith(filetype, "rs")
+        and fname:match(string.format("%s%s", cargo_home, "/.+"))
+        or fname:match(string.format("%s%s", rustup_home, "/.+")) then
+
+        local package = fname:match("library/(.+)/.+") or fname:match(".+/(.+)/.+$")
+        local file = fname:match(".+/(.+)$")
+        fname = string.format("rust::%s/%s", package, file)
+      else
+          fname = vim.fn.expand("%:~:.")
+      end
+
+      if fname ~= "" then
+        if vim.bo.modified then fname = fname .. symbols.modified end
+        if vim.bo.modifiable == false or vim.bo.readonly == true then
+          fname = fname .. symbols.readonly
+        end
+      else
+       fname = symbols.unnamed
+      end
+      return fname
+    end
+
+    -- Format_tab_label sanitizes the java's packages contents names in the tabs
+    local format_tab_label = function(fname)
+      if vim.startswith(fname, "%") then
+        local package = fname:match("[%l.?]+") or ""
+        local class = fname:match("([%a.-*$]+).class") or ""
+        fname = string.format("%s::%s", package, class)
+      end
+      return fname
+    end
+
+    -- Nick_or_dap_status shows either my nick name or dap's status
+    local nick_or_dap_status = function()
+      local dap = require("dap")
+      if dap.session() then return dap.status() end
+      return "MrFixThis"
+    end
+
+    local lualine = require("lualine")
     require("utils").create_autocmd({
       -- Custom refresh for lualine's components
         -- this aucmd is created to complement the 'default_refresh_events'
@@ -75,7 +75,7 @@ return {
             },
             pattern = { "*", },
             callback = function()
-              require("lualine").refresh({
+              lualine.refresh({
                 kind = "tabpage",
                 place = { "statusline", "tabline", "winbar" },
                 trigger = "autocmd"
@@ -87,7 +87,7 @@ return {
       },
     })
 
-    return {
+    lualine.setup({
       options = {
         icons_enabled = true,
         theme = "auto",
@@ -139,6 +139,6 @@ return {
         "toggleterm",
         "nvim-dap-ui",
       }
-    }
+    })
   end,
 }

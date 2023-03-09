@@ -38,7 +38,7 @@ require("utils").setting({
     nbsp = "☠",
     tab = "» ",
   },
-  guicursor      = {"n-v-c:block-Cursor/lCursor", "i-ci-ve:ver25-Cursor2"}, --Cursor settigs
+  guicursor      = { "n-v-c:block-Cursor/lCursor", "i-ci-ve:ver25-Cursor2" }, --Cursor settigs
   formatoptions = vim.opt.formatoptions
     - "a" -- Auto formatting text
     - "t" -- Auto-wrap text using textwidth

@@ -10,134 +10,174 @@ return {
         width = 0.9,
         height = 0.9,
       },
-    },
-    dependencies = {
-      {
-        "williamboman/mason-lspconfig.nvim",
-        opts = {
-          ensure_installed = {},
-        },
+      ensure_installed = {
+        "rustfmt",
+        "stylua",
+        "flake8",
       },
-      {
-        "jay-babu/mason-nvim-dap.nvim",
-        opts = {
-          ensure_installed = {},
-        },
-      }
     },
+    config = function(_, opts)
+      -- Helper to install tools via `ensure_installed` key
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      for _, tool in ipairs(opts.ensure_installed) do
+        local pack = mr.get_package(tool)
+        if not pack:is_installed() then
+          pack:install()
+        end
+      end
+    end,
   },
 
   --Lsp
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      set_keymap({
-        { "n", "gD", vim.lsp.buf.declaration, },
-        { "n", "<leader>du", vim.lsp.buf.definition, },
-        { "n", "<leader>re", vim.lsp.buf.references, },
-        { "n", "<leader>vi", vim.lsp.buf.implementation, },
-        { "n", "<leader>sh", vim.lsp.buf.signature_help, },
-        { "n", "<leader>gt", vim.lsp.buf.type_definition, },
-        { "n", "<leader>gw", vim.lsp.buf.document_symbol, },
-        { "n", "<leader>gW", vim.lsp.buf.workspace_symbol, },
-        --Actions mappings
-        { "n", "<leader>ah", vim.lsp.buf.hover, },
-        { "n", "<leader>ca", vim.lsp.buf.code_action, },
-        { "n", "<leader>rn", vim.lsp.buf.rename, },
-        -- Few language severs support these three
-        { "n", "<leader>=", function() vim.lsp.buf.format({ async = true }) end, },
-        { "n", "<leader>ai", vim.lsp.buf.incoming_calls, },
-        { "n", "<leader>ao", vim.lsp.buf.outgoing_calls, },
-        --Diagnostics mappings
-        { "n", "<leader>ee", vim.diagnostic.open_float, },
-        { "n", "<leader>gp", vim.diagnostic.goto_prev, },
-        { "n", "<leader>gn", vim.diagnostic.goto_next, },
-        --Custom
-        { "n", "<leader>~", ":LspRestart<CR>", },
-      })
-    end,
-    config = function()
-      local items = {
-        servers = {
-          tsserver = {},
-          taplo = {},
-          yamlls = {},
-          vimls = {},
-          cssls = {},
-          pylsp = {},
-
-          --Lua
-          lua_ls = {
-            -- cmd = { lua_ls_binary },
-            single_file_support = true,
-            settings = {
-              Lua = {
-                workspace = {
-                -- Make the server aware of Neovim runtime files
-                  library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                   },
-                 },
-                diagnostics = {
-                  globals = { "vim" },
-                  unusedLocalExclude = { "_*" },
-                },
-                format = {
-                  enable = false,
-                  defaultConfig = {
-                    indent_style = "space",
-                    indent_size = "2",
-                    continuation_indent_size = "2",
-                  },
-                },
-                completion = {
-                  workspaceWord = true,
-                  callSnippet = "Both",
-                },
-                semantic = { enable = false },
-                telemetry = { enable = false },
-               },
-             },
-           },
-
-          --Go
-          gopls = {
-            cmd = { "gopls", "serve" },
-            filetypes = { "go", "gomod", "gowork", "gotmpl" },
-            single_file_support = true,
-            settings = {
-              gopls = {
-                gofumpt = true,
-                analyses = {
-                  unusedparams = true,
-                 },
-                staticcheck = true,
-               },
-             },
-           },
-
-          --Html
-          html = { filetypes = { "html", "jsp" } },
-        },
-      }
-
-
-    end
-  },
-
-  {
-    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+    },
     opts = {
-      capabilities = {
-        textDocument = {
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
+      autoformat = true,
+      diagnostics = {
+        underline = true,
+        severity_sort = true,
+      },
+      servers = {
+        -- Lua
+        lua_ls = {
+          single_file_support = true,
+          settings = {
+            Lua = {
+              -- workspace = {
+               --  library = {
+               --    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+               --    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+               --   },
+               -- },
+              diagnostics = {
+                globals = { "vim" },
+                unusedLocalExclude = { "_*" },
+              },
+              format = {
+                enable = false,
+                defaultConfig = {
+                  indent_style = "space",
+                  indent_size = "2",
+                  continuation_indent_size = "2",
+                },
+              },
+              completion = {
+                workspaceWord = true,
+                callSnippet = "Both",
+              },
+              semantic = { enable = false },
+              telemetry = { enable = false },
+            },
           },
         },
+
+        -- Go
+        gopls = {
+          cmd = { "gopls", "serve" },
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+          single_file_support = true,
+          settings = {
+            gopls = {
+              gofumpt = true,
+              analyses = {
+                unusedparams = true,
+               },
+              staticcheck = true,
+             },
+           },
+         },
+
+        -- Html
+        html = { filetypes = { "html", "jsp" } },
+        -- Json
+        jsonls = {},
       },
     },
+    config = function(_, opts)
+      require("utils").create_autocmd({
+        lsp_attach = {
+          autocmd = {
+            {
+              event = { "BufReadPre", "BufNewFile" },
+              pattern = { "*", },
+              callback = function(args)
+                local bufnr = args.buf
+                local buf = { buffer = bufnr }
+                set_keymap({
+                  { "n", "gD", vim.lsp.buf.declaration, buf },
+                  { "n", "<leader>du", vim.lsp.buf.definition, buf },
+                  { "n", "<leader>re", vim.lsp.buf.references, buf },
+                  { "n", "<leader>vi", vim.lsp.buf.implementation, buf },
+                  { "n", "<leader>sh", vim.lsp.buf.signature_help, buf },
+                  { "n", "<leader>gt", vim.lsp.buf.type_definition, buf},
+                  { "n", "<leader>gw", vim.lsp.buf.document_symbol, buf},
+                  { "n", "<leader>gW", vim.lsp.buf.workspace_symbol, buf},
+                  --Actions mappings
+                  { "n", "<leader>ah", vim.lsp.buf.hover, buf },
+                  { "n", "<leader>ca", vim.lsp.buf.code_action, buf },
+                  { "n", "<leader>rn", vim.lsp.buf.rename, buf },
+                  -- Few language severs support these three
+                  { "n", "<leader>=", function() vim.lsp.buf.format({ async = true }) end, buf },
+                  { "n", "<leader>ai", vim.lsp.buf.incoming_calls, buf },
+                  { "n", "<leader>ao", vim.lsp.buf.outgoing_calls, buf },
+                  --Diagnostics mappings
+                  { "n", "<leader>ee", vim.diagnostic.open_float, buf },
+                  { "n", "<leader>gp", vim.diagnostic.goto_prev, buf },
+                  { "n", "<leader>gn", vim.diagnostic.goto_next, buf },
+                  --Custom
+                  { "n", "<leader>~", ":LspRestart<CR>", buf },
+                })
+              end,
+            },
+          },
+          opts = { clear = true },
+        }
+      })
+
+      -- Diagnostics
+      local signs = { Error = " ", Warn = " ", Info = " ", Hint = " " }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      end
+      vim.diagnostic.config(opts.diagnostics)
+
+      -- Floating preview window's borders
+      local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = "rounded" -- to force the rounded in everything
+        return original_util_open_floating_preview(contents, syntax, opts, ...)
+      end
+
+      -- Build of clients' capabilities
+      local servers = opts.servers
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(
+        vim.lsp.protocol.make_client_capabilities())
+
+      capabilities.textDocument.foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+      }
+
+      -- Setup servers
+      local setup_server = function(server)
+        local server_opts = vim.tbl_deep_extend("force",
+          { capabilities = vim.deepcopy(capabilities) }, servers[server] or {})
+          require("lspconfig")[server].setup(server_opts)
+      end
+
+      require("mason-lspconfig").setup_handlers({ setup_server })
+      require("neodev").setup()
+    end,
   },
 
   -- Rust tools
@@ -162,8 +202,8 @@ return {
           },
           cargo = { allFeatures = true },
           procMacro = { enable = true },
-          on_attach = function(_, bfnr)
-            local opts = { buffer = bfnr }
+          on_attach = function(_, bufnr)
+            local opts = { buffer = bufnr }
             set_keymap({
               { "n", "<leader>cr", rt.runnables.runnables,  opts },
               { "n", "<leader>cd", rt.debuggables.debuggables,  opts },
@@ -188,13 +228,13 @@ return {
         },
       })
     end,
-    dependencies = {
-      {
-        "saecki/crates.nvim",
-        version = 'v0.3.0',
-        config = true,
-      },
-    },
+  },
+
+  -- Crate versioning
+  {
+    "saecki/crates.nvim",
+    version = "v0.3.0",
+    config = true,
   },
 
   -- Null-ls
@@ -213,89 +253,4 @@ return {
       })
     end,
   },
-
-  -- Snippets
-  {
-    "hrsh7th/vim-vsnip",
-    load = "InsertEnter",
-    config = function()
-      vim.g.vsnip_snippet_dir = vim.fn.expand("~/.config/nvim/snippet/vsnip")
-      local opts = { expr = true, silent = false }
-      set_keymap({
-        { "i", "<C-q>", "vsnip#expandable() ? \'<Plug>(vsnip-expand)\'    : \'<C-k>\'", opts },
-        { "i", "<C-k>", "vsnip#jumpable(1)  ? \'<Plug>(vsnip-jump-next)\' : \'<Tab>\'", opts },
-        { "i", "<C-j>", "vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'", opts },
-        { "s", "<C-q>", "vsnip#expandable() ? \'<Plug>(vsnip-expand)\'    : \'<C-k>\'", opts },
-        { "s", "<C-k>", "vsnip#jumpable(1)  ? \'<Plug>(vsnip-jump-next)\' : \'<Tab>\'", opts },
-        { "s", "<C-j>", "vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'", opts },
-      })
-    end,
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-  }, -- TODO: Change to LuaSnip
-
-  -- Cmp
-  {
-    "hrsh7th/nvim-cmp",
-    load = "InsertEnter",
-    config = function()
-      vim.opt.completeopt = { "menu", "menuone", "noselect" }
-      local cmp = require("cmp")
-      local lk = require("lspkind")
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-          end
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-f>"] = cmp.mapping.scroll_docs(-2),
-          ["<C-d>"] = cmp.mapping.scroll_docs(2),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = false
-          },
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "buffer", keyword_lenght = 5 },
-          { name = "path" },
-          { name = "vsnip" },
-        }),
-        formatting = {
-          format = lk.cmp_format({
-            with_text = true,
-            menu = {
-              buffer = "[Buff]",
-              nvim_lsp = "[LSP]",
-              nvim_lua = "[Api]",
-              path = "[Path]",
-              vsnip = "[Snip]",
-            },
-         }),
-       },
-       window = {
-         completion = {
-           border = "rounded",
-         },
-         documentation = {
-           border = "rounded",
-         },
-       },
-     })
-   end,
-   dependencies = {
-     "hrsh7th/cmp-buffer",
-     "hrsh7th/cmp-path",
-     "hrsh7th/cmp-nvim-lsp",
-     "hrsh7th/cmp-nvim-lua",
-     "hrsh7th/cmp-vsnip",
-     "onsails/lspkind-nvim",
-   },
- },
 }

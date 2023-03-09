@@ -1,44 +1,60 @@
 return {
   "nvim-telescope/telescope.nvim",
-  lazy = false,
-  config = function()
+  event = "VeryLazy",
+  dependencies = {
+    "nvim-lua/popup.nvim",
+    "nvim-telescope/telescope-fzy-native.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
+  opts = {
+    defaults = {
+      layout_strategy = "horizontal",
+      layout_config = {
+        width = 0.95,
+        height = 0.85,
+        prompt_position = "top",
+      },
+      sorting_strategy = "ascending",
+      pickers = {
+        find_files = {
+          theme = "ivy"
+        },
+      },
+    },
+  },
+  config = function(_, opts)
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
     local actions = require("telescope.actions")
 
-    telescope.setup({
-      defaults = {
-        layout_strategy = "horizontal",
-        layout_config = {
-          width = 0.95,
-          height = 0.85,
-          prompt_position = "top",
-        },
-        sorting_strategy = "ascending",
-        pickers = {
-          find_files = {
-            theme = "ivy"
-          },
-        },
+    opts = vim.tbl_deep_extend("force",
+      opts,
+      {
         mappings = {
           i = {
             ["<C-z>"] = function(prompt_bufnr)
               actions.delete_buffer(prompt_bufnr)
             end,
           },
-        },
-      },
-      extensions = {
-        ["ui-select"] = themes.get_dropdown({ hidden = true, }),
-      },
-    })
+          n = {
+            ["<C-z>"] = function(prompt_bufnr)
+              actions.delete_buffer(prompt_bufnr)
+            end,
+          },
+        }
+      })
+
+    -- Extensions
+    telescope.load_extension("notify")
+
+    telescope.setup(opts)
 
     -- Custom pickers
       --Nvim config files
     local search_nvim_conffiles = function ()
       local set_pick = themes.get_dropdown({
-        prompt_title = "< Nvim config-files >",
+        prompt_title = "Nvim config-files",
         cwd = "~/.dotfiles/nvim/.config/nvim/",
         hidden = false,
         previewer = false,
@@ -50,7 +66,7 @@ return {
       --.dotfiles
     local search_dotfiles = function()
       local set_pick = themes.get_dropdown({
-        prompt_title = "< Dotfiles >",
+        prompt_title = "Dotfiles",
         cwd = "~/.dotfiles/",
         hidden = true,
         previewer = false,
@@ -79,17 +95,9 @@ return {
         function() builtin.grep_string({ search = vim.fn.input("Grep For > ") }) end,
         { desc = "Telescope: Grep for word" },
       },
-      -- Custom telescope functions
+      -- Custom pickers' keymaps
       { "n", "<leader>do", search_nvim_conffiles, { desc = "Telescope: Search Nvim config files" }, },
       { "n", "<leader>dO", search_dotfiles, { desc = "Telescope: Search dotfiles" }, },
     })
-
-    --Extensions loading
-    telescope.load_extension("ui-select")
   end,
-  dependencies = {
-    "nvim-lua/popup.nvim",
-    "nvim-telescope/telescope-fzy-native.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
-  },
 }

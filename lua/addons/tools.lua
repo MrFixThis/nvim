@@ -7,9 +7,49 @@ return {
   {
     "kyazdani42/nvim-tree.lua",
     keys = {
-      { "<c-p>", "<CMD>NvimTreeToggle<CR>" },
+      { "<c-p>", "<CMD>NvimTreeToggle<CR>", silent = true },
     },
-    opts = function()
+    opts = {
+      update_cwd = true,
+      renderer = {
+        indent_markers = {
+          enable = true,
+        },
+      },
+      actions = {
+        file_popup = {
+          open_win_config = {
+           border = "rounded",
+           zindex = 200,
+          },
+        },
+        open_file = {
+          quit_on_open = true,
+        },
+      },
+      filters = { dotfiles = true, },
+      notify = { threshold = 5 },
+      view = {
+        adaptive_size = true,
+        width = 32,
+        side = "right",
+        relativenumber = true,
+        signcolumn = "no",
+        float = {
+          enable = true,
+          quit_on_focus_loss = false,
+          open_win_config = {
+            relative = "editor",
+            border = "rounded",
+            width = 32,
+            height = 29,
+            row = 2,
+            col = 0xF423F, -- -1
+          },
+        },
+      },
+    },
+    config = function(_, opts)
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
 
@@ -20,68 +60,47 @@ return {
         end
 
         api.config.mappings.default_on_attach(bufnr)
-
         -- Custom maps
         set_keymap({
           { "n", "t", api.node.open.edit, opts("Open") },
         })
       end
 
-      return {
-        on_attach = on_attach,
-        update_cwd = true,
-        renderer = {
-          indent_markers = {
-            enable = true,
-          },
-        },
-        actions = {
-          file_popup = {
-            open_win_config = {
-             border = "rounded",
-             zindex = 200,
-            },
-          },
-          open_file = {
-            quit_on_open = true,
-          },
-        },
-        filters = { dotfiles = true, },
-        notify = { threshold = 5 },
-        view = {
-          adaptive_size = true,
-          width = 32,
-          side = "right",
-          relativenumber = true,
-          signcolumn = "no",
-          float = {
-            enable = true,
-            open_win_config = {
-              relative = "editor",
-              border = "rounded",
-              width = 32,
-              height = 29,
-              row = 2,
-              col = 0xF423F, -- -1
-            },
-          },
-        },
-      }
+      opts = vim.tbl_deep_extend("force", opts, { on_attach = on_attach })
+      require("nvim-tree").setup(opts)
     end
   },
 
   -- Toggleterm
   {
     "akinsho/toggleterm.nvim",
-    lazy = false,
+    event = "VeryLazy",
     version = "*",
-    opts = function()
+    opts = {
+      open_mapping = [[<A-t>]],
+      shade_filetypes = {},
+      shading_factor = 1,
+      direction = "float",
+      float_opts = {
+        border = "curved",
+        winblend = 0,
+      },
+    },
+    config = function(_, opts)
       local scheme = require("nebulous.functions").get_colors("midnight")
-      local T = require("toggleterm.terminal")
+      opts = vim.tbl_deep_extend("force", opts,
+        {
+          opts,highlights = {
+            FloatBorder = {
+              guifg = scheme.DarkOrange
+            },
+          }
+        })
+      require("toggleterm").setup(opts)
 
       --Term spawner
       local spawn_term = function(cmd, dir)
-        T.Terminal:new({
+        require("toggleterm.terminal").Terminal:new({
           cmd = cmd,
           dir = dir or vim.fn.expand("%:p:h"),
           direction = "float",
@@ -103,22 +122,6 @@ return {
           { desc = "Toggle Lazydocker" }
         },
       })
-
-      return {
-        open_mapping = [[<A-t>]],
-        shade_filetypes = {},
-        shading_factor = 1,
-        direction = "float",
-        highlights = {
-          FloatBorder = {
-            guifg = scheme.DarkOrange
-          },
-        },
-        float_opts = {
-          border = "curved",
-          winblend = 0,
-        },
-      }
     end,
   },
 
@@ -126,34 +129,33 @@ return {
   {
     "NTBBloodbath/rest.nvim",
     ft = "http",
-    config = function()
+    opts = {
+      result_split_horizontal = false,
+      result_split_in_place = "left",
+      skip_ssl_verification = false,
+      highlight = {
+        enabled = true,
+        timeout = 150,
+      },
+      result = {
+        show_url = true,
+        show_http_info = true,
+        show_headers = true,
+        formatters = {
+          json = "jq",
+          html = function(body)
+            return vim.fn.system({ "tidy", "-i", "-q", "-" }, body)
+          end
+        },
+      },
+      jump_to_request = false,
+      env_file = ".env",
+      custom_dynamic_variables = {},
+      yank_dry_run = true,
+    },
+    config = function(_, opts)
       local rest_nvim = require("rest-nvim")
-
-      rest_nvim.setup({
-        result_split_horizontal = false,
-        result_split_in_place = "left",
-        skip_ssl_verification = false,
-        highlight = {
-          enabled = true,
-          timeout = 150,
-        },
-        result = {
-          show_url = true,
-          show_http_info = true,
-          show_headers = true,
-          formatters = {
-            json = "jq",
-            html = function(body)
-              return vim.fn.system({ "tidy", "-i", "-q", "-" }, body)
-            end
-          },
-        },
-        jump_to_request = false,
-        env_file = ".env",
-        custom_dynamic_variables = {},
-        yank_dry_run = true,
-      })
-
+      rest_nvim.setup(opts)
       set_keymap({
         {
           "n", "<leader>rr",
@@ -171,7 +173,7 @@ return {
           { buffer = true, desc = "Rest.nvim run last" }
         },
       })
-    end,
+   end,
   },
 
   -- Markdown preview
@@ -184,10 +186,35 @@ return {
     end,
   },
 
+  -- Colorizer
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {
+      filetypes = { "*", "!lazy" },
+      buftype = { "*", "!prompt", "!nofile" },
+      user_default_options = {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        names = false, -- "Name" codes like Blue
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        AARRGGBB = false, -- 0xAARRGGBB hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        -- Available modes: foreground, background
+        -- Available modes for `mode`: foreground, background,  virtualtext
+        mode = "background", -- Set the display mode.
+        virtualtext = "■",
+      },
+    },
+  },
+
   -- Harpoon
   {
     "ThePrimeagen/harpoon",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       local hpm = require("harpoon.mark")
       local hpui = require("harpoon.ui")
@@ -204,10 +231,10 @@ return {
   -- Persistence.nvim
   {
     "folke/persistence.nvim",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       local persistence = require("persistence")
-
+      persistence.setup()
       set_keymap({
         -- restore the session for the current directory
         {
@@ -226,26 +253,40 @@ return {
           { desc = "Persistence: Stop persistence" },
         },
       })
-
-      persistence.setup()
     end,
+  },
+
+  --Todo-comments
+  {
+    "folke/todo-comments.nvim",
+    keys = {
+      {
+        "<localleader>tc", "<CMD>TodoTelescope<CR>",
+        desc = "TODO Comments: All", silent = true
+      },
+    },
+    opts = {
+      gui_style = {
+        fg = "NONE",
+        bg = "NONE",
+      },
+      highlight = {
+        keyword = "fg",
+      },
+    },
   },
 
   -- Trouble.nivm
   {
     "folke/trouble.nvim",
     keys = {
-        { "<localleader>tt", "<CMD>TroubleToggle<CR>", desc = "Trouble: Toggle" },
+      {
+        "<localleader>tt", "<CMD>TroubleToggle<CR>",
+        desc = "Trouble: Toggle", silent = true
+      },
     },
     opts = {
       position = "top",
-      signs = {
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
-      },
     },
   },
 
@@ -262,16 +303,21 @@ return {
     "mbbill/undotree",
     config = true,
     keys = {
-      { "<leader>u", "<CMD>UndotreeShow<CR>", desc = "Undotree toggle" },
+      {
+        "<leader>u", "<CMD>UndotreeShow<CR>",
+        desc = "Undotree toggle", silent = true
+      },
     }
   },
 
   -- Maximizer
   {
     "szw/vim-maximizer",
-    config = true,
     keys = {
-      { "<leader>ma", "<CMD>MaximizerToggle!<CR>", desc = "Maximizer toggle" },
+      {
+        "<leader>ma", "<CMD>MaximizerToggle!<CR>",
+        desc = "Maximizer toggle", silent = true
+      },
     },
   },
 }

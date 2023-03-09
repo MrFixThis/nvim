@@ -1,43 +1,54 @@
--- Lsp UI configurations
-  --diagnostics icons
-local signs = { Error = " ", Warn = " ", Info = " ", Hint = " " }
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
-  -- Floating preview window's borders
-local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = "rounded" -- to force the rounded in everything
-  return original_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
 return {
   -- Icons
-  "ryanoasis/vim-devicons",
   "kyazdani42/nvim-web-devicons",
 
-  --Todo-comments
+  -- Notifications
   {
-    "folke/todo-comments.nvim",
+    "rcarriga/nvim-notify",
+    event = "VeryLazy",
     keys = {
-        { "<localleader>tc", "<CMD>TodoTelescope<CR>", desc = "TODO Comments: All" },
+      {
+        "<localleader>ns", "<CMD>Telescope notify<CR>",
+        desc = "Notify: Show notifications", silent = true
+      },
+      {
+        "<localleader>na",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Notify: Delete all notifications", silent = true
+      },
     },
     opts = {
-      gui_style = {
-        fg = "NONE",
-        bg = "NONE",
-      },
-      highlight = {
-        keyword = "fg",
+      timeout = 3000,
+      stages = "fade",
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+    },
+    config = function(_, opts)
+      local notify = require("notify")
+      vim.notify = notify
+      notify.setup(opts)
+    end,
+  },
+
+  -- Enhanced vim.ui
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    opts = {
+      input = {
+        prompt_align = "center",
+        relative = "editor",
       },
     },
   },
 
-  -- Cosmetic
+  -- Lsp servers' status spiner
   {
     "j-hui/fidget.nvim",
     event = "BufReadPre",

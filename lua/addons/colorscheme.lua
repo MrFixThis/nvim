@@ -3,32 +3,34 @@ return {
     "Yagua/nebulous.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-      local nebulous = require("nebulous")
+    opts = {
+      variant = "midnight",
+      disable = {
+        background = false,
+        endOfBuffer = false,
+      },
+      italic = {
+        comments   = true,
+        keywords   = true,
+        functions  = false,
+        variables  = false,
+      },
+    },
+    config = function(_, opts)
       local scheme = require("nebulous.functions").get_colors("fullmoon")
-
-      nebulous.setup({
-        variant = "midnight",
-        disable = {
-          background = false,
-          endOfBuffer = false,
-        },
-        italic = {
-          comments   = true,
-          keywords   = true,
-          functions  = false,
-          variables  = false,
-        },
-        custom_colors = {
-          LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
-          CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
-        },
-      })
+      opts = vim.tbl_deep_extend("force",
+        opts,
+        {
+          custom_colors = {
+            LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
+            CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
+          }
+        })
+      require("nebulous").setup(opts)
     end,
   },
   {
     "folke/tokyonight.nvim",
-    -- lazy = false,
     priority = 1000,
     opts = {
       style = "moon",

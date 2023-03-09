@@ -36,4 +36,4 @@ require("utils").set_keymap({
   { "t", "<A-l>", "<C-\\><C-n><C-w>j" },
   { "t", "<A-j>", "<C-\\><C-n><C-w>k" },
   { "t", "<A-k>", "<C-\\><C-n><C-w>l" },
- })
+})

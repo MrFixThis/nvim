@@ -3,8 +3,9 @@ return {
   -- Gitsigns
   {
     "lewis6991/gitsigns.nvim",
+    event = "BufReadPre",
     keys = {
-      { "<leader>go", "<CMD>Gitsigns<CR>" },
+      { "<leader>go", "<CMD>Gitsigns<CR>", silent = true },
     },
     opts = {
       signs = {
@@ -89,15 +90,15 @@ return {
     keys = {
       {
         "<leader>gg", "<CMD>DiffviewOpen<CR>",
-        desc = "Diffview: Open"
+        desc = "Diffview: Open", silent = true
       },
       {
         "<leader>gh", "<CMD>DiffviewFileHistory<CR>",
-        desc = "Diffview: Open history"
+        desc = "Diffview: Open history", silent = true
       },
       {
         "<leader>gq", "<CMD>DiffviewClose<CR>",
-        desc = "Diffview: Close"
+        desc = "Diffview: Close", silent = true
       },
     }
   },
