@@ -81,6 +81,7 @@ return {
         severity_sort = true,
       },
       servers = {
+        -- Default
         cssls = {},
         yamlls = {},
         vimls = {},
@@ -88,6 +89,7 @@ return {
         jsonls = {},
         tsserver = {},
         pylsp = {},
+
         -- Lua
         lua_ls = {
           single_file_support = true,
@@ -122,6 +124,7 @@ return {
             },
           },
         },
+
         -- Go
         gopls = {
           cmd = { "gopls", "serve" },
@@ -137,6 +140,7 @@ return {
             },
           },
         },
+
         -- Html
         html = { filetypes = { "html", "jsp" } },
       },
@@ -168,7 +172,7 @@ return {
               { "n", "<leader>gp", vim.diagnostic.goto_prev, buf },
               { "n", "<leader>gn", vim.diagnostic.goto_next, buf },
               --Custom
-              { "n", "<leader>~", ":LspRestart<CR>", buf },
+              { "n", "<leader>~", "<CMD>LspRestart<CR>", buf },
             })
           end,
       })
@@ -256,14 +260,6 @@ return {
         },
       })
     end,
-  },
-
-  -- Crate versioning
-  {
-    "saecki/crates.nvim",
-    ft = "toml",
-    version = "v0.3.0",
-    config = true,
   },
 
   -- Nvim-jdtls

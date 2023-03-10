@@ -125,6 +125,55 @@ return {
     end,
   },
 
+  -- Crate versioning
+  {
+    "saecki/crates.nvim",
+    ft = "toml",
+    version = "v0.3.0",
+    opts = {
+      popup = {
+        autofocus = true,
+        show_version_date = true,
+        max_height = 20,
+        border = "rounded",
+      },
+    },
+    keys = {
+      {
+        "<localleader>ct", function() require("crates").toggle() end,
+        desc = "Crates: Toggle", silent = true,
+      },
+      {
+        "<localleader>cf", function() require("crates").show_features_popup() end,
+        desc = "Crates: Show features", silent = true,
+      },
+      {
+        "<localleader>cv", function() require("crates").show_versions_popup() end,
+        desc = "Crates: Show versions", silent = true,
+      },
+      {
+        "<localleader>cd", function() require("crates").show_dependencies_popup() end,
+        desc = "Crates: Show dependencies", silent = true,
+      },
+      {
+        "<localleader>cH", function() require("crates").open_homepage() end,
+        desc = "Crates: Go to homepage", silent = true,
+      },
+      {
+        "<localleader>cR", function() require("crates").open_repository() end,
+        desc = "Crates: Go to repository", silent = true,
+      },
+      {
+        "<localleader>cD", function() require("crates").open_documentation() end,
+        desc = "Crates: Go to documentation", silent = true,
+      },
+      {
+        "<localleader>cC", function() require("crates").open_crates_io() end,
+        desc = "Crates: Go to crates.io", silent = true,
+      },
+    },
+  },
+
   -- Rest-nvim
   {
     "NTBBloodbath/rest.nvim",
