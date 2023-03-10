@@ -88,7 +88,6 @@ return {
         jsonls = {},
         tsserver = {},
         pylsp = {},
-
         -- Lua
         lua_ls = {
           single_file_support = true,
@@ -123,7 +122,6 @@ return {
             },
           },
         },
-
         -- Go
         gopls = {
           cmd = { "gopls", "serve" },
@@ -139,13 +137,12 @@ return {
             },
           },
         },
-
         -- Html
         html = { filetypes = { "html", "jsp" } },
       },
     },
     config = function(_, opts)
-      vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+      vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
           callback = function(args)
             local bufnr = args.buf
             local buf = { buffer = bufnr }
