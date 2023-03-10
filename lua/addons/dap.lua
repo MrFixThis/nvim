@@ -79,61 +79,6 @@ local setup_adapters = function(dap)
     },
   }
 
-  -- Go
-  dap.adapters.go = function(callback, _)
-    local stdout = vim.loop.new_pipe(false)
-    local handle
-    local pid_or_err
-    local port = 38697
-    local opts = {
-      stdio = { nil, stdout },
-      args = { "dap", "-l", "127.0.0.1:" .. port },
-      detached = true,
-    }
-
-    handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
-      stdout:close()
-      handle:close()
-      if code ~= 0 then
-        print("dlv exited with code", code)
-      end
-    end)
-
-    assert(handle, "Error running dlv: " .. tostring(pid_or_err))
-    stdout:read_start(function(err, chunk)
-      assert(not err, err)
-      if chunk then
-        vim.schedule(function()
-          dap.repl.append(chunk)
-        end)
-      end
-    end)
-
-    --Wait for delve to start
-    vim.defer_fn(
-      function()
-        callback({ type = "server", host = "127.0.0.1", port = port })
-      end,
-    100)
-  end
-
-  dap.configurations.go = {
-    {
-      name = "Debug",
-      type = "go",
-      request = "launch",
-      program = "${file}",
-    },
-    --Debug test files
-    {
-      name = "Debug test",
-      type = "go",
-      request = "launch",
-      mode = "test",
-      program = "${file}",
-    },
-  }
-
   -- Node
   local home = os.getenv("HOME")
   dap.adapters.node2 = {
@@ -189,56 +134,54 @@ local setup_adapters = function(dap)
     },
   }
 
+  -- Go
+  require("dap-go").setup({
+    dap_configuartions = {
+      -- Common
+      {
+        type = "go",
+        name = "Debug",
+        request = "launch",
+        program = "${file}",
+      },
+      -- Test files
+      {
+        type = "go",
+        name = "Debug test",
+        request = "launch",
+        mode = "test",
+        program = "${file}",
+      },
+      -- Remote
+      {
+        type = "go",
+        name = "Attach remote",
+        mode = "remote",
+        request = "attach",
+      },
+    }
+  })
+
   -- Python
   require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 end
 
 return {
+  -- Debug adapters
+  "leoluz/nvim-dap-go",
+  "mfussenegger/nvim-dap-python",
+  "jbyuki/one-small-step-for-vimkind",
+
+  -- Dap
   {
     "mfussenegger/nvim-dap",
     dependencies = {
+      "nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
-      {
-        "rcarriga/nvim-dap-ui",
-        opts = {
-          icons = { expanded = " ", collapsed = " ", current_frame = " "  },
-          mappings = {
-            --Use a table to apply multiple mappings
-            expand = { "<Tab>", },
-            open = "o",
-            remove = "d",
-            edit = "e",
-            repl = "r",
-            toggle = "t",
-          },
-          layouts = {
-            {
-              elements = {
-                --Elements can be strings or table with id and size keys.
-                "watches",
-                { id = "scopes", size = 0.34 },
-                { id = "stacks", size = 0.34 },
-              },
-              size = 38,
-              position = "left",
-            },
-            {
-              elements = {
-                "repl",
-                "console",
-              },
-              size = 10,
-              position = "bottom",
-            },
-          },
-        }
-      },
     },
-    config = function()
+    config = function(_, _)
       local dap = require("dap")
       local dapui = require("dapui")
-
-      setup_adapters(dap)
 
       local ui_opts = { reset = true }
       dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -250,9 +193,11 @@ return {
       dap.listeners.before.event_exited["dapui_config"] = function()
           dapui.close(ui_opts)
       end
+      setup_adapters(dap)
 
       require("utils").set_keymap({
-        { "n", "<leader>B",
+        {
+          "n", "<leader>B",
           function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end
         },
         { "n", "<leader>b", dap.toggle_breakpoint },
@@ -268,7 +213,8 @@ return {
         { "n", "<leader>.", dap.close },
         { "n", "<Home>", function() dapui.toggle({ layout = 1, reset = true }) end },
         { "n", "<End>", function() dapui.toggle({ layout = 2, reset = true }) end },
-        { "n", "<leader>sw", function()
+        {
+          "n", "<leader>sw", function()
             if dap.session() then
               vim.api.nvim_command("DapUiFloat")
             end
@@ -278,8 +224,32 @@ return {
     end,
   },
 
-  -- Debug adapters
-  "leoluz/nvim-dap-go",
-  "mfussenegger/nvim-dap-python",
-  "jbyuki/one-small-step-for-vimkind",
+  -- Dap ui
+  {
+    "rcarriga/nvim-dap-ui",
+    opts = {
+      icons = { expanded = " ", collapsed = " ", current_frame = " "  },
+      mappings = { expand = { "<Tab>", }, },
+      layouts = {
+        {
+          elements = {
+            --Elements can be strings or table with id and size keys.
+            "watches",
+            { id = "scopes", size = 0.34 },
+            { id = "stacks", size = 0.34 },
+          },
+          size = 38,
+          position = "left",
+        },
+        {
+          elements = {
+            "repl",
+            "console",
+          },
+          size = 10,
+          position = "bottom",
+        },
+      },
+    }
+  },
 }

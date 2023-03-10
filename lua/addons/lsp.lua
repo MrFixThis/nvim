@@ -1,4 +1,14 @@
 local set_keymap = require("utils").set_keymap
+
+-- Global build of clients' capabilities
+local capabilities = require("cmp_nvim_lsp").default_capabilities(
+  vim.lsp.protocol.make_client_capabilities())
+
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
 return {
   --Mason
   {
@@ -29,6 +39,29 @@ return {
     end,
   },
 
+  -- Null-ls
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local nls = require("null-ls")
+      nls.setup({
+        border = "rounded",
+        debounce = 150,
+        save_after_format = false,
+        sources = {
+          nls.builtins.formatting.rustfmt,
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.shfmt,
+          nls.builtins.diagnostics.flake8,
+          --- ...
+        },
+      })
+    end,
+  },
+
   --Lsp
   {
     "neovim/nvim-lspconfig",
@@ -51,12 +84,18 @@ return {
         vimls = {},
         taplo = {},
         jsonls = {},
+        tsserver = {},
+        pylsp = {},
 
         -- Lua
         lua_ls = {
           single_file_support = true,
           settings = {
             Lua = {
+              runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";")
+              },
               workspace = { checkThirdParty = false, },
               diagnostics = {
                 globals = { "vim" },
@@ -160,17 +199,8 @@ return {
         return original_util_open_floating_preview(contents, syntax, opts, ...)
       end
 
-      -- Build of clients' capabilities
-      local servers = opts.servers
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(
-        vim.lsp.protocol.make_client_capabilities())
-
-      capabilities.textDocument.foldingRange = {
-          dynamicRegistration = false,
-          lineFoldingOnly = true,
-      }
-
       -- Setup servers
+      local servers = opts.servers
       local setup_server = function(server)
         local server_opts = vim.tbl_deep_extend("force",
           {
@@ -193,12 +223,13 @@ return {
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
-    config = function()
+    config = function(_, _)
       local rt = require("rust-tools")
       local exec = require("rust-tools.executors")
 
       rt.setup({
         server = {
+          capabilities = vim.deepcopy(capabilities),
           imports = {
             granularity = {
               group = "module",
@@ -214,8 +245,8 @@ return {
           on_attach = function(_, bufnr)
             local opts = { buffer = bufnr }
             set_keymap({
-              { "n", "<leader>cr", rt.runnables.runnables,  opts },
-              { "n", "<leader>cd", rt.debuggables.debuggables,  opts },
+              { "n", "<leader>cr", rt.runnables.runnables, opts },
+              { "n", "<leader>cd", rt.debuggables.debuggables, opts },
               { "n", "<leader>ct", rt.open_cargo_toml.open_cargo_toml, opts },
               { "n", "<leader>cs", rt.standalone.start_standalone_client, opts },
               { "n", "<leader>cc", rt.workspace_refresh.reload_workspace, opts },
@@ -231,9 +262,7 @@ return {
         },
         tools = {
           executor = exec.toggleterm,
-          inlay_hints = {
-            auto = false,
-          },
+          inlay_hints = { auto = false, },
         },
       })
     end,
@@ -242,30 +271,143 @@ return {
   -- Crate versioning
   {
     "saecki/crates.nvim",
+    ft = "toml",
     version = "v0.3.0",
     config = true,
   },
 
-  -- Null-ls
+  -- Nvim-jdtls
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local nls = require("null-ls")
-      nls.setup({
-        border = "rounded",
-        debounce = 150,
-        save_after_format = false,
-        sources = {
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.diagnostics.fish,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.rustfmt,
-          nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.flake8,
-          --- ...
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+    config = function(_, _)
+      local home = os.getenv("HOME")
+      local jdtls = require("jdtls")
+      local jdtls_dap = require("jdtls.dap")
+      local root_markers = { ".gradlew", ".mvnw", ".git", }
+      local root_dir = jdtls.setup.find_root(root_markers)
+      local workspace_folder = string.format("%s/.local/share/eclipse/%s",
+        home, vim.fn.fnamemodify(root_dir, ":p:h:t"))
+
+      -- Extended capabilities
+      local extendedClientCapabilities = jdtls.extendedClientCapabilities
+      extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
+      local bundles = {
+        vim.fn.glob(
+          home .. "/.local/dev/microsoft/java-debug/com.microsoft.java.debug" ..
+          ".plugin/target/com.microsoft.java.debug.plugin-*.jar"
+        )
+      }
+      vim.list_extend(
+        bundles,
+        vim.split(vim.fn.glob(home .. "/.local/dev/microsoft/vscode-java-test/server/*.jar"), "\n"))
+
+      local config = {
+        init_options = {
+          bundles = bundles,
+          extendedClientCapabilities = extendedClientCapabilities
         },
-      })
-    end,
+        capabilities = vim.deepcopy(capabilities),
+        flags = { debounce_text_changes = 100, },
+        handlers = { ["language/status"] = function() end, },
+        cmd = {
+          "/opt/jdks/jdk-17.0.4.1/bin/java",
+          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+          "-Dosgi.bundles.defaultStartLevel=4",
+          "-Declipse.product=org.eclipse.jdt.ls.core.product",
+          "-Dlog.protocol=true",
+          "-Dlog.level=ALL",
+          "-Xms1g",
+          "--add-modules=ALL-SYSTEM",
+          "--add-opens", "java.base/java.util=ALL-UNNAMED",
+          "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+          "-jar", vim.fn.glob(home .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+          "-configuration", home .. "/.local/servers/jdtls/config_linux",
+          "-data", workspace_folder,
+        },
+        settings = {
+          java = {
+            signatureHelp = { enabled = true },
+            completion = {
+              favoriteStaticMembers = {
+                "org.assertj.core.api.Assertions.assertThat",
+                "org.assertj.core.api.Assertions.assertThatThrownBy",
+                "org.assertj.core.api.Assertions.assertThatExceptionOfType",
+                "org.assertj.core.api.Assertions.catchThrowable",
+                "org.hamcrest.MatcherAssert.assertThat",
+                "org.hamcrest.Matchers.*",
+                "org.hamcrest.CoreMatchers.*",
+                "org.junit.jupiter.api.Assertions.*",
+                "java.util.Objects.requireNonNull",
+                "java.util.Objects.requireNonNullElse",
+                "org.mockito.Mockito.*"
+              },
+              filteredTypes = {
+                "com.sun.*",
+                "io.micrometer.shaded.*",
+                "java.awt.*",
+                "jdk.*",
+                "sun.*",
+              },
+            },
+            configuration = {
+              runtimes = {
+                {
+                  name = "JavaSE-1.8",
+                  path = "/opt/jdks/jdk1.8.0_202/",
+                },
+                {
+                  name = "JavaSE-11",
+                  path = "/opt/jdks/jdk-11.0.16/",
+                },
+                {
+                  name = "JavaSE-14",
+                  path = "/opt/jdks/jdk-14.0.2/"
+                },
+                {
+                  name = "JavaSE-17",
+                  path = "/opt/jdks/jdk-17.0.4.1/"
+                },
+              },
+            },
+          },
+        },
+        on_attach = function(_, bufnr)
+          jdtls.setup_dap({hotcodereplace = "auto"})
+          jdtls_dap.setup_dap_main_class_configs()
+          jdtls.setup.add_commands()
+
+          local opt = {buffer = bufnr}
+          set_keymap({
+            {"n", "<leader>or", jdtls.organize_imports, opt},
+            {"n", "<leader>am", jdtls.extract_variable, opt},
+            {"n", "<leader>om", jdtls.extract_constant, opt},
+            {"v", "<leader>am", "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt},
+            {"v", "<leader>om", "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt},
+            {"v", "<leader>dm", "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt},
+            -- Testing
+            {"n", "<leader>tc", function()
+                if vim.bo.modified then vim.cmd("w") end
+                jdtls.test_class()
+              end,
+            opt},
+            {"n", "<leader>tn", function()
+                if vim.bo.modified then vim.cmd("w") end
+                jdtls.test_nearest_method()
+              end,
+            opt},
+          })
+        end,
+      }
+
+      -- Lombok support
+      local lombok_path = home .. "/.local/dev/java/bundles/lombok/lombok.jar"
+      if vim.fn.filereadable(lombok_path) > 0 then
+        table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
+      end
+
+      jdtls.start_or_attach(config)
+    end
   },
 }
