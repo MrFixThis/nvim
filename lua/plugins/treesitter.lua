@@ -2,7 +2,7 @@ return {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = "TSUpdate",
+    build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       ensure_installed = {

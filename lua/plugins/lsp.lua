@@ -21,9 +21,10 @@ return {
         height = 0.9,
       },
       ensure_installed = {
-        "rustfmt",
-        "stylua",
-        "flake8",
+        "debugpy", "node-debug2-adapter", "java-test", "java-debug-adapter",
+        "jdtls", "css-lsp", "flake8", "gopls", "html-lsp", "json-lsp",
+        "lua-language-server", "rustfmt", "shfmt", "stylua", "taplo",
+        "typescript-language-server", "vim-language-server", "yaml-language-server",
       },
     },
     config = function(_, opts)
@@ -284,7 +285,6 @@ return {
     config = function(_, _)
       local home = os.getenv("HOME")
       local jdtls = require("jdtls")
-      local jdtls_dap = require("jdtls.dap")
       local root_markers = { ".gradlew", ".mvnw", ".git", }
       local root_dir = jdtls.setup.find_root(root_markers)
       local workspace_folder = string.format("%s/.local/share/eclipse/%s",
@@ -294,15 +294,15 @@ return {
       local extendedClientCapabilities = jdtls.extendedClientCapabilities
       extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+      local msn_path = vim.fn.stdpath("data") .. "/mason/packages/"
       local bundles = {
         vim.fn.glob(
-          home .. "/.local/dev/microsoft/java-debug/com.microsoft.java.debug" ..
-          ".plugin/target/com.microsoft.java.debug.plugin-*.jar"
+          msn_path .. "java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
         )
       }
       vim.list_extend(
         bundles,
-        vim.split(vim.fn.glob(home .. "/.local/dev/microsoft/vscode-java-test/server/*.jar"), "\n"))
+        vim.split(vim.fn.glob(msn_path .. "java-test/extension/server/*.jar"), "\n"))
 
       local config = {
         init_options = {
@@ -314,6 +314,7 @@ return {
         handlers = { ["language/status"] = function() end, },
         cmd = {
           "/opt/jdks/jdk-17.0.4.1/bin/java",
+          "-javaagent:" .. msn_path .. "jdtls/lombok.jar",
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -323,8 +324,8 @@ return {
           "--add-modules=ALL-SYSTEM",
           "--add-opens", "java.base/java.util=ALL-UNNAMED",
           "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-          "-jar", vim.fn.glob(home .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-          "-configuration", home .. "/.local/servers/jdtls/config_linux",
+          "-jar", vim.fn.glob(msn_path .. "jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+          "-configuration", msn_path .. "jdtls/config_linux",
           "-data", workspace_folder,
         },
         settings = {
@@ -375,39 +376,33 @@ return {
           },
         },
         on_attach = function(_, bufnr)
-          jdtls.setup_dap({hotcodereplace = "auto"})
-          jdtls_dap.setup_dap_main_class_configs()
+          jdtls.setup_dap({ hotcodereplace = "auto" })
           jdtls.setup.add_commands()
 
-          local opt = {buffer = bufnr}
+          local opt = { buffer = bufnr }
           set_keymap({
-            {"n", "<leader>or", jdtls.organize_imports, opt},
-            {"n", "<leader>am", jdtls.extract_variable, opt},
-            {"n", "<leader>om", jdtls.extract_constant, opt},
-            {"v", "<leader>am", "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt},
-            {"v", "<leader>om", "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt},
-            {"v", "<leader>dm", "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt},
+            { "n", "<leader>or", jdtls.organize_imports, opt },
+            { "n", "<leader>am", jdtls.extract_variable, opt },
+            { "n", "<leader>om", jdtls.extract_constant, opt },
+            { "v", "<leader>am", "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt },
+            { "v", "<leader>om", "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt },
+            { "v", "<leader>dm", "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt },
             -- Testing
-            {"n", "<leader>tc", function()
+            {
+              "n", "<leader>tc", function()
                 if vim.bo.modified then vim.cmd("w") end
                 jdtls.test_class()
-              end,
-            opt},
-            {"n", "<leader>tn", function()
+              end, opt
+            },
+            {
+              "n", "<leader>tn", function()
                 if vim.bo.modified then vim.cmd("w") end
                 jdtls.test_nearest_method()
-              end,
-            opt},
+              end, opt
+            },
           })
         end,
       }
-
-      -- Lombok support
-      local lombok_path = home .. "/.local/dev/java/bundles/lombok/lombok.jar"
-      if vim.fn.filereadable(lombok_path) > 0 then
-        table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
-      end
-
       jdtls.start_or_attach(config)
     end
   },

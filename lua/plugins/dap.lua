@@ -1,4 +1,6 @@
 local setup_adapters = function(dap)
+  local msn_path = vim.fn.stdpath("data") .. "/mason/packages/"
+
   -- Lua
   dap.adapters.nlua = function(callback, config)
     local port = config.port
@@ -39,7 +41,7 @@ local setup_adapters = function(dap)
   -- lldb
   dap.adapters.lldb = {
     type = "executable",
-    command = "/usr/bin/lldb-vscode",  --Adjust as needed, must be absolute path
+    command = "/usr/bin/lldb-vscode",
     name = "lldb",
   }
 
@@ -62,8 +64,14 @@ local setup_adapters = function(dap)
   dap.configurations.c = configuration
   dap.configurations.cpp = configuration
 
-  -- Java
+  -- -- Java
   dap.configurations.java = {
+    {
+      name = "Debug (Attach)",
+      type = "java",
+      request = "launch",
+      program = "${file}",
+    },
     {
       name = "Debug (Attach) - Remote",
       type = "java",
@@ -71,20 +79,13 @@ local setup_adapters = function(dap)
       hostName = "127.0.0.1",
       port = 5005,
     },
-    {
-      name = "Debug Non-Project class",
-      type = "java",
-      request = "launch",
-      program = "${file}",
-    },
   }
 
   -- Node
-  local home = os.getenv("HOME")
   dap.adapters.node2 = {
     type = "executable",
     command = "node",
-    args = { home .. "/.local/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js" },
+    args = { msn_path .. "node-debug2-adapter/out/src/nodeDebug.js" },
   }
 
   dap.configurations.javascript = {
@@ -99,8 +100,6 @@ local setup_adapters = function(dap)
       console = "integratedTerminal",
     },
     {
-      -- For this to work you need to make sure the node process is
-      -- started with the `--inspect` flag.
       name = "Attach to process",
       type = "node2",
       request = "attach",
@@ -163,7 +162,7 @@ local setup_adapters = function(dap)
   })
 
   -- Python
-  require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+  require("dap-python").setup(msn_path .. "debugpy/bin/python")
 end
 
 return {
