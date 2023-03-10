@@ -133,7 +133,7 @@ return {
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
-    config = function(_, _)
+    config = function()
       require("mini.pairs").setup()
     end,
   }

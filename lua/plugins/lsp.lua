@@ -145,44 +145,35 @@ return {
       },
     },
     config = function(_, opts)
-      require("utils").create_autocmd({
-        lsp_attach = {
-          autocmd = {
-            {
-              event = { "BufReadPre", "BufNewFile" },
-              pattern = { "*", },
-              callback = function(args)
-                local bufnr = args.buf
-                local buf = { buffer = bufnr }
-                set_keymap({
-                  { "n", "gD", vim.lsp.buf.declaration, buf },
-                  { "n", "<leader>du", vim.lsp.buf.definition, buf },
-                  { "n", "<leader>re", vim.lsp.buf.references, buf },
-                  { "n", "<leader>vi", vim.lsp.buf.implementation, buf },
-                  { "n", "<leader>sh", vim.lsp.buf.signature_help, buf },
-                  { "n", "<leader>gt", vim.lsp.buf.type_definition, buf},
-                  { "n", "<leader>gw", vim.lsp.buf.document_symbol, buf},
-                  { "n", "<leader>gW", vim.lsp.buf.workspace_symbol, buf},
-                  --Actions mappings
-                  { "n", "<leader>ah", vim.lsp.buf.hover, buf },
-                  { "n", "<leader>ca", vim.lsp.buf.code_action, buf },
-                  { "n", "<leader>rn", vim.lsp.buf.rename, buf },
-                  -- Few language severs support these three
-                  { "n", "<leader>=", function() vim.lsp.buf.format({ async = true }) end, buf },
-                  { "n", "<leader>ai", vim.lsp.buf.incoming_calls, buf },
-                  { "n", "<leader>ao", vim.lsp.buf.outgoing_calls, buf },
-                  --Diagnostics mappings
-                  { "n", "<leader>ee", vim.diagnostic.open_float, buf },
-                  { "n", "<leader>gp", vim.diagnostic.goto_prev, buf },
-                  { "n", "<leader>gn", vim.diagnostic.goto_next, buf },
-                  --Custom
-                  { "n", "<leader>~", ":LspRestart<CR>", buf },
-                })
-              end,
-            },
-          },
-          opts = { clear = true },
-        }
+      vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+          callback = function(args)
+            local bufnr = args.buf
+            local buf = { buffer = bufnr }
+            set_keymap({
+              { "n", "gD", vim.lsp.buf.declaration, buf },
+              { "n", "<leader>du", vim.lsp.buf.definition, buf },
+              { "n", "<leader>re", vim.lsp.buf.references, buf },
+              { "n", "<leader>vi", vim.lsp.buf.implementation, buf },
+              { "n", "<leader>sh", vim.lsp.buf.signature_help, buf },
+              { "n", "<leader>gt", vim.lsp.buf.type_definition, buf},
+              { "n", "<leader>gw", vim.lsp.buf.document_symbol, buf},
+              { "n", "<leader>gW", vim.lsp.buf.workspace_symbol, buf},
+              --Actions mappings
+              { "n", "<leader>ah", vim.lsp.buf.hover, buf },
+              { "n", "<leader>ca", vim.lsp.buf.code_action, buf },
+              { "n", "<leader>rn", vim.lsp.buf.rename, buf },
+              -- Few language severs support these three
+              { "n", "<leader>=", function() vim.lsp.buf.format({ async = true }) end, buf },
+              { "n", "<leader>ai", vim.lsp.buf.incoming_calls, buf },
+              { "n", "<leader>ao", vim.lsp.buf.outgoing_calls, buf },
+              --Diagnostics mappings
+              { "n", "<leader>ee", vim.diagnostic.open_float, buf },
+              { "n", "<leader>gp", vim.diagnostic.goto_prev, buf },
+              { "n", "<leader>gn", vim.diagnostic.goto_next, buf },
+              --Custom
+              { "n", "<leader>~", ":LspRestart<CR>", buf },
+            })
+          end,
       })
 
       -- Diagnostics
@@ -225,7 +216,7 @@ return {
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
-    config = function(_, _)
+    config = function()
       local rt = require("rust-tools")
       local exec = require("rust-tools.executors")
 

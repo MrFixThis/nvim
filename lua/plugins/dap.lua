@@ -162,7 +162,7 @@ local setup_adapters = function(dap)
   })
 
   -- Python
-  require("dap-python").setup(msn_path .. "debugpy/bin/python")
+  require("dap-python").setup(msn_path .. "debugpy/venv/bin/python")
 end
 
 return {
@@ -178,7 +178,7 @@ return {
       "nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
     },
-    config = function(_, _)
+    config = function()
       local dap = require("dap")
       local dapui = require("dapui")
 

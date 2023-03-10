@@ -313,13 +313,12 @@ return {
   -- Undo tree
   {
     "mbbill/undotree",
-    config = true,
-    keys = {
-      {
-        "<leader>u", "<CMD>UndotreeShow<CR>",
-        desc = "Undotree toggle", silent = true
-      },
-    }
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      set_keymap({
+        { "n", "<leader>u", "<CMD>UndotreeShow<CR>", { desc = "Undotree toggle" } }
+      })
+    end,
   },
 
   -- Maximizer

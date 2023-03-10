@@ -62,49 +62,36 @@ return {
       return "MrFixThis"
     end
 
-    require("utils").create_autocmd({
-      -- Custom refresh for lualine's components
-        -- this aucmd is created to complement the 'default_refresh_events'
-        -- defined by lualine in the commit 5f68f070e4f7158517afc55f125a6f5ed1f7db47
-      lualine_custom_refresh = {
-        autocmd = {
-          {
-            event = {
-              "BufWritePost", "CursorMoved", "CursorMovedI", "CursorHold", "CursorHoldI",
-            },
-            pattern = { "*", },
-            callback = function()
-              require("lualine").refresh({
-                kind = "tabpage",
-                place = { "statusline", "tabline", "winbar" },
-                trigger = "autocmd"
-              })
-            end,
-          },
-        },
-        opts = { clear = true }
+    -- Custom refresh for lualine's components
+      -- this aucmd is created to complement the 'default_refresh_events'
+      -- defined by lualine in the commit 5f68f070e4f7158517afc55f125a6f5ed1f7db47
+    vim.api.nvim_create_autocmd({
+        "BufWritePost", "CursorMoved", "CursorMovedI", "CursorHold", "CursorHoldI",
       },
-    })
+      {
+        callback = function()
+          require("lualine").refresh({
+            kind = "tabpage",
+            place = { "statusline", "tabline", "winbar" },
+            trigger = "autocmd"
+          })
+        end,
+      })
 
     return {
       options = {
-        icons_enabled = true,
         theme = "auto",
-        component_separators = { left = "", right = "" },
-        section_separators = { left = "", right = "" },
         disabled_filetypes = {
-          statusline = { "lazy", "mason" },
+          statusline = { "lazy", "mason", "alpha", },
           winbar = {
             "NvimTree",
-            "NeogitStatus",
-            "NeogitPopup",
             "DiffviewFiles",
             "DiffviewFileHistory",
             "notify",
+            "alpha"
           },
         },
         ignore_focus = {},
-        always_divide_middle = true,
         globalstatus = true,
         refresh = {
           statusline = 10,
@@ -137,6 +124,7 @@ return {
       extensions = {
         "toggleterm",
         "nvim-dap-ui",
+        "nvim-tree",
       }
     }
   end,
