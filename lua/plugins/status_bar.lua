@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
   commit = "5f68f070e4f7158517afc55f125a6f5ed1f7db47",
-  config = function(_, _)
+  opts = function()
     -- State symbols
     local symbols = { modified = " [+]", readonly = " [-]", unnamed = "[No Name]" }
     -- Helper functions
@@ -62,7 +62,6 @@ return {
       return "MrFixThis"
     end
 
-    local lualine = require("lualine")
     require("utils").create_autocmd({
       -- Custom refresh for lualine's components
         -- this aucmd is created to complement the 'default_refresh_events'
@@ -75,7 +74,7 @@ return {
             },
             pattern = { "*", },
             callback = function()
-              lualine.refresh({
+              require("lualine").refresh({
                 kind = "tabpage",
                 place = { "statusline", "tabline", "winbar" },
                 trigger = "autocmd"
@@ -87,14 +86,14 @@ return {
       },
     })
 
-    lualine.setup({
+    return {
       options = {
         icons_enabled = true,
         theme = "auto",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
-          statusline = {},
+          statusline = { "lazy", "mason" },
           winbar = {
             "NvimTree",
             "NeogitStatus",
@@ -125,7 +124,7 @@ return {
         lualine_a = {
           {
             "tabs",
-            max_length = vim.o.columns / 1.8,
+            max_length = math.floor(vim.o.columns / 1.8),
             mode = 1,
             fmt = format_tab_label,
           }
@@ -139,6 +138,6 @@ return {
         "toggleterm",
         "nvim-dap-ui",
       }
-    })
+    }
   end,
 }

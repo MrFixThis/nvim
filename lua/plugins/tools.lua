@@ -87,12 +87,12 @@ return {
       },
     },
     config = function(_, opts)
-      local scheme = require("nebulous.functions").get_colors("midnight")
+      local dark_orange = vim.api.nvim_get_color_by_name("DarkOrange")
       opts = vim.tbl_deep_extend("force",
         {
           opts,highlights = {
             FloatBorder = {
-              guifg = scheme.DarkOrange
+              guifg = dark_orange,
             },
           }
         }, opts)
@@ -288,6 +288,18 @@ return {
     opts = {
       position = "top",
     },
+  },
+
+  -- Ssr.nvim
+  {
+    "cshuaimin/ssr.nvim",
+    keys = {
+      { "<localleader>s",
+        function() require("ssr").open() end,
+        desc = "Structural replace",
+        mode = { "n", "x" },
+      },
+    }
   },
 
   -- Yanky.nvim

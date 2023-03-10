@@ -43,9 +43,10 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
+    dependencies = { "mason.nvim" },
+    opts = function()
       local nls = require("null-ls")
-      nls.setup({
+      return {
         border = "rounded",
         debounce = 150,
         save_after_format = false,
@@ -58,7 +59,7 @@ return {
           nls.builtins.diagnostics.flake8,
           --- ...
         },
-      })
+      }
     end,
   },
 

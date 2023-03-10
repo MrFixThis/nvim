@@ -29,22 +29,21 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("addons", {
-  dev = {
-    path = "~/Plugins",
-  },
+require("lazy").setup("plugins", {
+  dev = { path = "~/Plugins", },
+  install = { colorscheme = { "nebulous", "tokyonight" } },
+  defaults = { lazy = true },
+  checker = { enabled = true },
+  change_detection = { notify = false },
+  diff = { cmd = "terminal_git", },
+  debug = false,
   ui = {
     size = { width = 0.9, height = 0.9 },
     border = "rounded",
   },
-  install = { colorscheme = { "nebulous", "tokyonight" } },
   performance = {
     cache = {
       enabled = true,
     },
   },
-  defaults = { lazy = true },
-  checker = { enabled = true },
-  change_detection = { notify = false },
-  diff = { cmd = "terminal_git", },
 })
