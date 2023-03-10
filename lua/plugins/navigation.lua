@@ -82,13 +82,15 @@ return {
       options = {
         theme = "auto",
         disabled_filetypes = {
-          statusline = { "lazy", "mason", "alpha", },
+          statusline = { "lazy", "mason", "alpha", "notify" },
           winbar = {
             "NvimTree",
             "DiffviewFiles",
             "DiffviewFileHistory",
             "notify",
-            "alpha"
+            "alpha",
+            "lazy",
+            "mason",
           },
         },
         ignore_focus = {},

@@ -111,10 +111,87 @@ return {
     },
   },
 
+  -- Vim-Illuminate
+  {
+    "RRethy/vim-illuminate",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      delay = 100,
+      filetypes_denylist = {
+        "NvimTree",
+        "DiffviewFiles",
+        "DiffviewFileHistory",
+        "notify",
+        "alpha",
+        "lazy",
+        "mason",
+        "toggleterm",
+      },
+    },
+    config = function(_, opts)
+      local illuminate = require("illuminate")
+
+      illuminate.configure(opts)
+      local function map(key, dir, buffer)
+        require("utils").set_keymap({
+          { "n", key, function() illuminate["goto_" .. dir .. "_reference"](false) end,
+            { desc = "Iluminate: " .. dir .. " reference", buffer = buffer }
+          },
+        })
+      end
+
+      -- to avoid override
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          map("]]", "next", buffer)
+          map("[[", "prev", buffer)
+        end,
+      })
+    end,
+  },
+
+  -- Ident guides
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    init = function() vim.opt.listchars:append "trail:𝁢" end,
+    opts = {
+      char = "│",
+      filetype_exclude = {
+        "help", "alpha", "neo-tree", "Trouble", "lazy", "mason"
+      },
+      show_trailing_blankline_indent = false,
+      end_of_line = false,
+      show_current_context = false,
+    },
+  },
+
+  {
+    "echasnovski/mini.indentscope",
+    event = { "BufReadPre", "BufNewFile" },
+    init = function()
+      -- To exclude indentscope where i dont want it to be
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+    opts = {
+      symbol = "│",
+      options = { try_as_border = true },
+    },
+    config = function(_, opts)
+      require("mini.indentscope").setup(opts)
+    end,
+  },
+
   -- Lsp servers' status spiner
   {
     "j-hui/fidget.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       text = {
         done = "✔ ",

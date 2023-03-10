@@ -1,4 +1,7 @@
 return {
+  -- TS playground
+  "nvim-treesitter/playground",
+
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -25,8 +28,8 @@ return {
       playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
+        updatetime = 25,
+        persist_queries = false,
         keybindings = {
           toggle_query_editor = "o",
           toggle_hl_groups = "i",
@@ -41,7 +44,8 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
-
-  "nvim-treesitter/playground",
 }

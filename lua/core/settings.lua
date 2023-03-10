@@ -30,14 +30,6 @@ require("utils").setting({
   colorcolumn    = "80",         -- Set a column for 80 characters
   signcolumn     = "yes",        -- Always show the signcolumn
   clipboard      = "",           -- Copy paste between Vim and everything else
-  listchars = {                  -- Custom listchars list
-    trail = "𝁢",
-    extends = "…",
-    precedes = "…",
-    conceal = "┊",
-    nbsp = "☠",
-    tab = "» ",
-  },
   guicursor      = { "n-v-c:block-Cursor/lCursor", "i-ci-ve:ver25-Cursor2" }, --Cursor settigs
   formatoptions = vim.opt.formatoptions
     - "a" -- Auto formatting text

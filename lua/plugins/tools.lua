@@ -259,6 +259,7 @@ return {
   --Todo-comments
   {
     "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     keys = {
       {
         "<localleader>tc", "<CMD>TodoTelescope<CR>",
