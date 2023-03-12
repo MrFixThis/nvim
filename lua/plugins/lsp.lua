@@ -22,9 +22,10 @@ return {
       },
       ensure_installed = {
         "debugpy", "node-debug2-adapter", "java-test", "java-debug-adapter",
-        "jdtls", "css-lsp", "flake8", "gopls", "html-lsp", "json-lsp",
-        "lua-language-server", "rustfmt", "shfmt", "stylua", "taplo",
-        "typescript-language-server", "vim-language-server", "yaml-language-server",
+        "jdtls", "css-lsp", "html-lsp",  "gopls", "json-lsp", "lua-language-server",
+        "shfmt", "stylua", "taplo", "typescript-language-server", "vim-language-server",
+        "yaml-language-server", "sqlfluff", "dockerfile-language-server",
+        "docker-compose-language-service"
       },
     },
     config = function(_, opts)
@@ -52,13 +53,12 @@ return {
         debounce = 150,
         save_after_format = false,
         sources = {
-          nls.builtins.formatting.rustfmt,
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.diagnostics.fish,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.flake8,
-          --- ...
+          nls.builtins.diagnostics.zsh,
+          nls.builtins.diagnostics.sqlfluff.with({
+            extra_args = { "--dialect", "mysql" },
+          })
         },
       }
     end,
@@ -82,13 +82,15 @@ return {
       },
       servers = {
         -- Default
+        pylsp = {},
+        tsserver = {},
         cssls = {},
         yamlls = {},
         vimls = {},
         taplo = {},
         jsonls = {},
-        tsserver = {},
-        pylsp = {},
+        dockerls = {},
+        docker_compose_language_service = {},
 
         -- Lua
         lua_ls = {
