@@ -232,10 +232,6 @@ return {
             },
             prefix = "self",
           },
-          checkOnSave = {
-            command = "clippy",
-            extraArgs = { "--no-deps" },
-          },
           cargo = { allFeatures = true },
           procMacro = { enable = true },
           on_attach = function(_, bufnr)
