@@ -202,7 +202,7 @@ return {
           {
             capabilities = vim.deepcopy(capabilities),
             flags = {
-              debounce_text_changes = 100,
+              debounce_text_changes = nil,
             },
           }, servers[server] or {})
 
