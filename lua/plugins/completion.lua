@@ -82,11 +82,11 @@ return {
             },
          }),
        },
-        window = {
-          completion = {
+       window = {
+         completion = {
            border = "rounded",
-          },
-          documentation = {
+         },
+         documentation = {
            border = "rounded",
          },
        },
@@ -97,8 +97,16 @@ return {
   -- Mini.comment
   {
     "echasnovski/mini.comment",
+    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     event = "VeryLazy",
-    config = function() require("mini.comment").setup() end
+    opts = {
+      hooks = {
+        pre = function()
+            require("ts_context_commentstring.internal").update_commentstring({})
+        end,
+      }
+    },
+    config = function(_, opts) require("mini.comment").setup(opts) end
   },
 
   -- Mini.surround
