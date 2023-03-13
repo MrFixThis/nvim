@@ -14,7 +14,7 @@ return {
         "jsonc", "latex", "lua", "markdown", "markdown_inline", "meson",
         "ninja", "python", "query", "regex", "rust", "scss", "sql", "svelte",
         "teal", "toml", "tsx", "typescript", "vhs", "vim", "vue", "wgsl",
-        "yaml", "json",
+        "yaml", "json", "kdl",
       },
       matchup = { enable = true, },
       indent = { enable = true, disable = { "python" } },
