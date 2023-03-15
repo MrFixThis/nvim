@@ -129,13 +129,4 @@ return {
     },
     config = function(_, opts) require("mini.surround").setup(opts) end
   },
-
-  -- Mini.pairs
-  {
-    "echasnovski/mini.pairs",
-    event = "VeryLazy",
-    config = function()
-      require("mini.pairs").setup()
-    end,
-  }
 }
