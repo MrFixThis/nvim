@@ -25,7 +25,6 @@
   "mason.nvim": { "branch": "main", "commit": "87c9453cd91da3bba1076fa578a72439fbc4d311" },
   "mini.comment": { "branch": "main", "commit": "f045998636c6fd746297220b8c692bf1e91568cb" },
   "mini.indentscope": { "branch": "main", "commit": "43f6761c9a3e397b7c12b3c72f678bcf61efcfcf" },
-  "mini.pairs": { "branch": "main", "commit": "771c08bd313614c7e9a1904d277ac76eb226f674" },
   "mini.surround": { "branch": "main", "commit": "b450a3aff91b4108c0e9ba9e82633d65deb5802b" },
   "nebulous.nvim": { "branch": "main", "commit": "9599c2da4d234b78506ce30c6544595fac25e9ca" },
   "neodev.nvim": { "branch": "main", "commit": "abdc346ff59c414698de551f876bcf3f223ed224" },
