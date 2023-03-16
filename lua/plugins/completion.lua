@@ -94,19 +94,16 @@ return {
    end,
  },
 
-  -- Mini.comment
+  -- Comment.nvim
   {
-    "echasnovski/mini.comment",
+    "numToStr/Comment.nvim",
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
     event = "VeryLazy",
     opts = {
-      hooks = {
-        pre = function()
-            require("ts_context_commentstring.internal").update_commentstring({})
-        end,
-      }
+      pre_hook = function()
+          require("ts_context_commentstring.internal").update_commentstring({})
+      end,
     },
-    config = function(_, opts) require("mini.comment").setup(opts) end
   },
 
   -- Mini.surround
