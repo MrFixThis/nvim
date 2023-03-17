@@ -71,6 +71,41 @@ return {
     end
   },
 
+  -- ChatGPT.nvim
+  {
+    "jackMort/ChatGPT.nvim",
+    cmd = {
+      "ChatGPT",
+      "ChatGPTActAs",
+      "ChatGPTEditWithInstructions",
+      "ChatGPTCompleteCode",
+      "ChatGPTRunCustomCodeAction",
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      chat_layout = {
+        size = { width = "90%", },
+      },
+      keymaps = {
+         close = { "<C-c>", "<ESC>" },
+         submit = "<A-CR>",
+         yank_last = "<A-y>",
+         yank_last_code = "<A-k>",
+         scroll_up = "<A-f>",
+         scroll_down = "<A-d>",
+         toggle_settings = "<A-o>",
+         new_session = "<A-n>",
+         cycle_windows = "<A-Tab>",
+         -- in the Sessions pane
+         select_session = "<A-s>",
+         rename_session = "<A-r>",
+         delete_session = "<A-d>",
+       },
+    },
+  },
+
   -- Toggleterm
   {
     "akinsho/toggleterm.nvim",
