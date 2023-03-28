@@ -89,7 +89,7 @@ return {
         size = { width = "90%", },
       },
       keymaps = {
-         close = { "<C-c>", "<ESC>" },
+         close = { "<C-c>" },
          submit = "<A-CR>",
          yank_last = "<A-y>",
          yank_last_code = "<A-k>",
