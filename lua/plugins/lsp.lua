@@ -205,7 +205,6 @@ return {
               debounce_text_changes = nil,
             },
           }, servers[server] or {})
-
           require("lspconfig")[server].setup(server_opts)
       end
 

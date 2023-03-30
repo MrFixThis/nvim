@@ -4,21 +4,29 @@ return {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
     build = "make install_jsregexp",
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
     opts = {
       history = true,
-      delete_check_events = "TextChanged",
+      region_check_events = "InsertEnter",
+      delete_check_events = "TextChanged,InsertLeave",
     },
     keys = {
       {
-        "<TAB>",
+        "<A-TAB>",
         function()
-          return require("luasnip").jumpable(1) and "<PLUG>luasnip-jump-next" or "<TAB>"
+          return require("luasnip").jumpable(1) and
+            "<PLUG>luasnip-jump-next" or "<TAB>"
         end,
         expr = true, silent = true, mode = "i",
       },
       {
-        "<TAB>", function() require("luasnip").jump(1) end, silent = true, mode = "s"
+        "<A-TAB>", function() require("luasnip").jump(1) end,
+        silent = true, mode = "s"
       },
       {
         "<S-TAB>", function() require("luasnip").jump(-1) end,
@@ -36,6 +44,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind-nvim",
@@ -43,29 +52,40 @@ return {
     opts = function()
       local cmp = require("cmp")
       local lk = require("lspkind")
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" }
+        }, {
+          { name = "cmdline" }
+        })
+      })
+
       return {
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
+        },
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-f>"] = cmp.mapping.scroll_docs(-2),
           ["<C-d>"] = cmp.mapping.scroll_docs(2),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = false
-          },
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "nvim_lua" },
           { name = "luasnip" },
+          { name = "nvim_lua" },
           { name = "buffer" },
           { name = "path" },
           { name = "crates" },
@@ -74,21 +94,13 @@ return {
           format = lk.cmp_format({
             with_text = true,
             menu = {
-              buffer = "[Buff]",
               nvim_lsp = "[LSP]",
+              luasnip = "[Snip]",
               nvim_lua = "[Api]",
+              buffer = "[Buff]",
               path = "[Path]",
-              vsnip = "[Snip]",
             },
          }),
-       },
-       window = {
-          completion = {
-            border = "rounded",
-          },
-          documentation = {
-           border = "rounded",
-         },
        },
      }
    end,

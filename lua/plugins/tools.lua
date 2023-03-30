@@ -88,6 +88,7 @@ return {
       chat_layout = {
         size = { width = "90%", },
       },
+       openai_params = { max_tokens = 555, },
       keymaps = {
          close = { "<C-c>" },
          submit = "<A-CR>",
