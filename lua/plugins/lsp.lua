@@ -263,7 +263,7 @@ return {
   {
     "mfussenegger/nvim-jdtls",
     ft = "java",
-    config = function(_, _)
+    config = function()
       local home = os.getenv("HOME")
       local jdtls = require("jdtls")
       local root_markers = { ".gradlew", ".mvnw", ".git", }
@@ -295,7 +295,6 @@ return {
         handlers = { ["language/status"] = function() end, },
         cmd = {
           "/opt/jdks/jdk-17.0.4.1/bin/java",
-          "-javaagent:" .. msn_path .. "jdtls/lombok.jar",
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -308,6 +307,7 @@ return {
           "-jar", vim.fn.glob(msn_path .. "jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
           "-configuration", msn_path .. "jdtls/config_linux",
           "-data", workspace_folder,
+          "-javaagent:" .. msn_path .. "jdtls/lombok.jar",
         },
         settings = {
           java = {
