@@ -304,6 +304,7 @@ return {
           "--add-modules=ALL-SYSTEM",
           "--add-opens", "java.base/java.util=ALL-UNNAMED",
           "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+
           "-jar", vim.fn.glob(msn_path .. "jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
           "-configuration", msn_path .. "jdtls/config_linux",
           "-data", workspace_folder,

@@ -28,6 +28,7 @@ return {
       require("nebulous").setup(opts)
     end,
   },
+
   {
     "folke/tokyonight.nvim",
     -- lazy = false,
@@ -37,9 +38,9 @@ return {
       lualine_bold = true,
       on_highlights = function(hl, c)
         hl.CursorLineNr = { fg = c.orange }
-        hl.LineNr = { fg = c.orange  }
-        hl.LineNrAbove = { fg = c.fg_dark }
-        hl.LineNrBelow = { fg = c.fg_dark }
+        hl.LineNr       = { fg = c.orange  }
+        hl.LineNrAbove  = { fg = c.fg_dark }
+        hl.LineNrBelow  = { fg = c.fg_dark }
       end,
     },
     config = function(_, opts)
@@ -47,6 +48,23 @@ return {
     end
   },
 
-  "eddyekofo94/gruvbox-flat.nvim",
-  "gruvbox-community/gruvbox",
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    -- lazy = false,
+    priority = 1000,
+    opts = function()
+      vim.cmd.colorscheme "catppuccin"
+
+      return {
+        flavour = "macchiato",
+        term_colors = true,
+        integrations = {
+          notify = true,
+        },
+      }
+    end,
+  }
+
+  --TODO: see "rktjmp/lush.nvim"
 }
