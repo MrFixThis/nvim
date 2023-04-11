@@ -385,6 +385,12 @@ return {
           })
         end,
       }
+
+      vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+        pattern = "*.java",
+        callback = function() jdtls.start_or_attach(config) end,
+      })
+
       jdtls.start_or_attach(config)
     end
   },
