@@ -50,7 +50,7 @@ return {
       local nls = require("null-ls")
       return {
         border = "rounded",
-        debounce = 150,
+        debounce = 100,
         save_after_format = false,
         sources = {
           nls.builtins.formatting.stylua,
