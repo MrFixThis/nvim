@@ -85,25 +85,27 @@ return {
       "MunifTanjim/nui.nvim",
     },
     opts = {
-      chat_layout = {
+      {
+        keymaps = {
+           close = { "<C-c>" },
+           submit = "<A-CR>",
+           yank_last = "<A-y>",
+           yank_last_code = "<A-k>",
+           scroll_up = "<A-f>",
+           scroll_down = "<A-d>",
+           toggle_settings = "<A-o>",
+           new_session = "<A-n>",
+           cycle_windows = "<A-Tab>",
+           -- in the Sessions pane
+           select_session = "<A-s>",
+           rename_session = "<A-r>",
+           delete_session = "<A-d>",
+         },
+      },
+      popup_layout = {
         size = { width = "90%", },
       },
-       openai_params = { max_tokens = 555, },
-      keymaps = {
-         close = { "<C-c>" },
-         submit = "<A-CR>",
-         yank_last = "<A-y>",
-         yank_last_code = "<A-k>",
-         scroll_up = "<A-f>",
-         scroll_down = "<A-d>",
-         toggle_settings = "<A-o>",
-         new_session = "<A-n>",
-         cycle_windows = "<A-Tab>",
-         -- in the Sessions pane
-         select_session = "<A-s>",
-         rename_session = "<A-r>",
-         delete_session = "<A-d>",
-       },
+      openai_params = { max_tokens = 555, },
     },
   },
 
