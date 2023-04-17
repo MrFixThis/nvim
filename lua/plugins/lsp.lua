@@ -231,7 +231,12 @@ return {
             },
             prefix = "self",
           },
-          cargo = { allFeatures = true },
+          cargo = {
+            allFeatures = true,
+            buildScripts = {
+              enable = true,
+            },
+          },
           procMacro = { enable = true },
           on_attach = function(_, bufnr)
             local opts = { buffer = bufnr }

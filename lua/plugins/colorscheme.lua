@@ -1,9 +1,9 @@
 return {
   {
     "Yagua/nebulous.nvim",
-    -- dev = true,
     lazy = false,
     priority = 1000,
+    -- dev = true,
     opts = {
       variant = "midnight",
       disable = {
@@ -35,7 +35,7 @@ return {
     -- lazy = false,
     priority = 1000,
     opts = {
-      style = "moon",
+      style = "storm",
       lualine_bold = true,
       on_highlights = function(hl, c)
         hl.CursorLineNr = { fg = c.orange }
