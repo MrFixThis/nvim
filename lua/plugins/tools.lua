@@ -85,10 +85,9 @@ return {
       "MunifTanjim/nui.nvim",
     },
     opts = {
-      {
+      chat = {
         keymaps = {
            close = { "<C-c>" },
-           submit = "<A-CR>",
            yank_last = "<A-y>",
            yank_last_code = "<A-k>",
            scroll_up = "<A-f>",
@@ -101,6 +100,9 @@ return {
            rename_session = "<A-r>",
            delete_session = "<A-d>",
          },
+      },
+      popup_input = {
+        submit = "<A-CR>",
       },
       popup_layout = {
         size = { width = "90%", },
