@@ -237,6 +237,7 @@ return {
               enable = true,
             },
           },
+          standalone = true,
           procMacro = { enable = true },
           on_attach = function(_, bufnr)
             local opts = { buffer = bufnr }
