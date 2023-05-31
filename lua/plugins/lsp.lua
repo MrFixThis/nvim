@@ -223,8 +223,25 @@ return {
       local exec = require("rust-tools.executors")
 
       rt.setup({
+        tools = {
+          executor = exec.toggleterm,
+          inlay_hints = { auto = false, },
+        },
+        dap = {
+          adapter = {
+            type = "executable",
+            command = "lldb-vscode",
+            name = "rt_lldb",
+          },
+        },
         server = {
           capabilities = vim.deepcopy(capabilities),
+          diagnostics = {
+            disabled = { "inactive-code", },
+          },
+          checkOnSave = {
+            command = "clippy"
+          },
           imports = {
             granularity = {
               group = "module",
@@ -237,7 +254,6 @@ return {
               enable = true,
             },
           },
-          standalone = true,
           procMacro = { enable = true },
           on_attach = function(_, bufnr)
             local opts = { buffer = bufnr }
@@ -249,17 +265,6 @@ return {
               { "n", "<leader>cc", rt.workspace_refresh.reload_workspace, opts },
             })
           end,
-        },
-        dap = {
-          adapter = {
-            type = "executable",
-            command = "lldb-vscode",
-            name = "rt_lldb",
-          },
-        },
-        tools = {
-          executor = exec.toggleterm,
-          inlay_hints = { auto = false, },
         },
       })
     end,
