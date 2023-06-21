@@ -54,7 +54,7 @@ return {
     local search_nvim_conffiles = function ()
       local set_pick = themes.get_dropdown({
         prompt_title = "Nvim config-files",
-        cwd = "~/.dotfiles/nvim/.config/nvim/",
+        cwd = "~/.config/nvim/",
         hidden = false,
         previewer = false,
         file_ignore_patterns = { "%.git" },
