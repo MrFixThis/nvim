@@ -25,7 +25,7 @@ return {
         "jdtls", "css-lsp", "html-lsp",  "gopls", "json-lsp", "lua-language-server",
         "shfmt", "stylua", "taplo", "typescript-language-server", "vim-language-server",
         "yaml-language-server", "sqlfluff", "dockerfile-language-server",
-        "docker-compose-language-service"
+        "docker-compose-language-service", "zls"
       },
     },
     config = function(_, opts)
@@ -88,6 +88,7 @@ return {
         yamlls = {},
         vimls = {},
         taplo = {},
+        zls = {},
         jsonls = {},
         dockerls = {},
         docker_compose_language_service = {},
