@@ -144,6 +144,20 @@ return {
           },
         },
 
+        -- C/C++
+        clangd = {
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--suggest-missing-includes",
+            "--clang-tidy",
+            "--header-insertion=iwyu",
+          },
+          init_options = {
+            clangdFileStatus = true,
+          },
+        },
+
         -- Html
         html = { filetypes = { "html", "jsp" } },
       },
