@@ -67,7 +67,7 @@ local setup_adapters = function(dap)
   -- -- Java
   dap.configurations.java = {
     {
-      name = "Debug (Attach)",
+      name = "Debug",
       type = "java",
       request = "launch",
       program = "${file}",
