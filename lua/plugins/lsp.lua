@@ -235,11 +235,9 @@ return {
     ft = "rust",
     config = function()
       local rt = require("rust-tools")
-      local exec = require("rust-tools.executors")
-
       rt.setup({
         tools = {
-          executor = exec.toggleterm,
+          executor = require("rust-tools.executors").toggleterm,
           inlay_hints = { auto = false, },
         },
         dap = {
@@ -384,7 +382,6 @@ return {
         },
         on_attach = function(_, bufnr)
           jdtls.setup_dap({ hotcodereplace = "auto" })
-          jdtls.setup.add_commands()
 
           local opt = { buffer = bufnr }
           set_keymap({
