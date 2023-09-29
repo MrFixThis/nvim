@@ -154,16 +154,35 @@ return {
   -- Ident guides
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
-    init = function() vim.opt.listchars:append "trail:𝁢" end,
+    init = function()
+      vim.opt.listchars:append({ tab = "│ ", trail = "𝁢" })
+    end,
     opts = {
-      char = "│",
-      filetype_exclude = {
-        "help", "alpha", "neo-tree", "Trouble", "lazy", "mason"
+      ident = {
+        char = "│",
+        smart_ident_cap = true,
       },
-      show_trailing_blankline_indent = false,
-      end_of_line = false,
-      show_current_context = false,
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm"
+        },
+      },
+      scope = {
+        enabled = false,
+        show_end = false,
+      },
+      whitespace = {
+        remove_blankline_trail = true,
+      },
     },
   },
 
@@ -173,7 +192,17 @@ return {
     init = function()
       -- To exclude indentscope where i dont want it to be
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm"
+        },
         callback = function()
           vim.b.miniindentscope_disable = true
         end,
@@ -191,8 +220,8 @@ return {
   -- Lsp servers' status spiner
   {
     "j-hui/fidget.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     tag = "legacy",
+    event = "LspAttach",
     opts = {
       text = {
         done = "✔ ",
