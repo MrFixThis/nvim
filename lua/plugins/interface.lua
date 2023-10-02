@@ -160,9 +160,9 @@ return {
       vim.opt.listchars:append({ tab = "│ ", trail = "𝁢" })
     end,
     opts = {
-      ident = {
+      indent = {
         char = "│",
-        smart_ident_cap = true,
+        smart_indent_cap = true,
       },
       exclude = {
         filetypes = {
