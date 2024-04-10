@@ -32,7 +32,9 @@ return {
         'lua-language-server',
         'shfmt',
         'stylua',
+        'snyk-ls',
         'codelldb',
+        'rust-analyzer',
         'taplo',
         'typescript-language-server',
         'vim-language-server',
@@ -363,7 +365,7 @@ return {
         flags = { debounce_text_changes = 100 },
         handlers = { ['language/status'] = function() end },
         cmd = {
-          '/opt/jdks/jdk-17.0.10/bin/java',
+          '/opt/jdks/jdk-17.0.10-corretto/bin/java',
           '-javaagent:' .. msn_path .. 'jdtls/lombok.jar',
           '-Declipse.application=org.eclipse.jdt.ls.core.id1',
           '-Dosgi.bundles.defaultStartLevel=4',
@@ -401,30 +403,32 @@ return {
                 'org.mockito.Mockito.*',
               },
               filteredTypes = {
-                'com.sun.*',
-                'io.micrometer.shaded.*',
+                'org.springframework.*',
+                'reactor.*',
                 'java.awt.*',
+                'com.sun.*',
                 'jdk.*',
+                'io.micrometer.shaded.*',
                 'sun.*',
               },
             },
             configuration = {
               runtimes = {
+                -- {
+                --   name = 'JavaSE-1.8',
+                --   path = '/opt/jdks/jdk1.8.0_202/',
+                -- },
+                -- {
+                --   name = 'JavaSE-17',
+                --   path = '/opt/jdks/jdk-17.0.10/',
+                -- },
                 {
-                  name = 'JavaSE-1.8',
-                  path = '/opt/jdks/jdk1.8.0_202/',
-                },
-                {
-                  name = 'JavaSE-11',
-                  path = '/opt/jdks/jdk-11.0.16/',
-                },
-                {
-                  name = 'JavaSE-14',
-                  path = '/opt/jdks/jdk-14.0.2/',
+                  name = 'JavaSE-17',
+                  path = '/opt/jdks/jdk-17.0.10-corretto/',
                 },
                 {
                   name = 'JavaSE-17',
-                  path = '/opt/jdks/jdk-17.0.10/',
+                  path = '/opt/jdks/jdk-17.0.10-temurin/',
                 },
               },
             },
@@ -459,6 +463,17 @@ return {
                   vim.cmd('w')
                 end
                 jdtls.test_nearest_method()
+              end,
+              opt,
+            },
+            {
+              'n',
+              '<leader>tp',
+              function()
+                if vim.bo.modified then
+                  vim.cmd('w')
+                end
+                jdtls.pick_test()
               end,
               opt,
             },

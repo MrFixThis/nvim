@@ -25,8 +25,28 @@ return {
         local opts = { expr = true, buffer = bufnr }
         set_keymap({
           -- Actions
-          { { 'n', 'v' }, '<leader>hs', '<CMD>Gitsigns stage_hunk<CR>' },
-          { { 'n', 'v' }, '<leader>hr', '<CMD>Gitsigns reset_hunk<CR>' },
+          { 'n', '<leader>fs', gitsigns.stage_hunk },
+          { 'n', '<leader>fr', gitsigns.reset_hunk },
+          {
+            'v',
+            '<leader>fs',
+            function()
+              gitsigns.stage_hunk({
+                vim.fn.line('.'),
+                vim.fn.line('v'),
+              })
+            end,
+          },
+          {
+            'v',
+            '<leader>fr',
+            function()
+              gitsigns.reset_hunk({
+                vim.fn.line('.'),
+                vim.fn.line('v'),
+              })
+            end,
+          },
           { 'n', '<leader>hS', gitsigns.stage_buffer },
           { 'n', '<leader>hu', gitsigns.undo_stage_hunk },
           { 'n', '<leader>hR', gitsigns.reset_buffer },

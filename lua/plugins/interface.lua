@@ -105,7 +105,6 @@ return {
   {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
-    commit = '1f2d120',
     opts = {
       input = {
         prompt_align = 'center',

@@ -75,6 +75,15 @@ local setup_adapters = function(dap)
       program = '${file}',
     },
     {
+      name = 'Debug with Args',
+      type = 'java',
+      request = 'launch',
+      program = '${file}',
+      args = function()
+          return vim.fn.trim(vim.fn.input("VM args: "))
+      end,
+    },
+    {
       name = 'Debug (Attach) - Remote',
       type = 'java',
       request = 'attach',
@@ -251,6 +260,7 @@ return {
   -- Dap ui
   {
     'rcarriga/nvim-dap-ui',
+    dependencies = { 'nvim-neotest/nvim-nio' },
     opts = {
       icons = { expanded = ' ', collapsed = ' ', current_frame = ' ' },
       mappings = { expand = { '<Tab>' } },

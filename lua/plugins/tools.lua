@@ -43,6 +43,35 @@ return {
     },
   },
 
+  -- Github Copilot
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    opts = {
+      panel = {
+        enabled = true,
+        auto_refresh = false,
+        keymap = {
+          jump_prev = '[[',
+          jump_next = ']]',
+          accept = '<CR>',
+          refresh = 'gr',
+          open = '<M-CR>',
+        },
+        layout = {
+          position = 'right',
+          ratio = 0.4,
+        },
+      },
+      suggestion = {
+        enabled = false,
+      },
+      copilot_node_command = 'node',
+      server_opts_overrides = {},
+    },
+  },
+
   -- Toggleterm
   {
     'akinsho/toggleterm.nvim',
