@@ -58,29 +58,6 @@ return {
     end,
   },
 
-  -- Null-ls
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
-    opts = function()
-      local nls = require('null-ls')
-      return {
-        border = 'rounded',
-        debounce = 100,
-        save_after_format = false,
-        sources = {
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.zsh,
-          nls.builtins.diagnostics.sqlfluff.with({
-            extra_args = { '--dialect', 'mysql' },
-          }),
-        },
-      }
-    end,
-  },
-
   --Lsp
   {
     'neovim/nvim-lspconfig',
